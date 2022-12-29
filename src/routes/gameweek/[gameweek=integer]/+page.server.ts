@@ -10,20 +10,22 @@ export const actions: Actions = {
 		const selection = url.searchParams.get('selection');
 		const fixture = url.searchParams.get('fixture');
 
-		const {
-			data: { user }
-		} = await supabaseClient.auth.getUser();
+		const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
 
-		console.log(user);
+		console.log(sessionData);
 
-		if (!user) {
+		if (sessionError) {
+			console.log(sessionError);
+		}
+
+		if (!sessionData) {
 			return fail(401, {
 				message: 'You must be logged in to make a selection.'
 			});
 		}
 		const { data, error } = await supabaseClient
 			.from('Selections')
-			.insert({ selection: selection, selector: user?.id, fixture: fixture });
+			.insert({ selection: selection, selector: sessionData?.session?.user?.id, fixture: fixture });
 
 		if (error) {
 			console.log(error);
