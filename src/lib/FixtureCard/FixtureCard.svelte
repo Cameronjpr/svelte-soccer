@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Fixture } from '@lib/types';
+	import { fade } from 'svelte/transition';
 
 	export let fixture: Fixture;
 
@@ -8,7 +9,7 @@
 	}
 </script>
 
-<article>
+<article transition:fade={{ delay: 0, duration: 300 }}>
 	<form method="POST">
 		<button formaction="?/select&selection={fixture.team_h.id}&fixture={fixture.code}"
 			>{fixture.team_h.name}</button

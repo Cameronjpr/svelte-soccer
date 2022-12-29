@@ -9,14 +9,18 @@ export const actions: Actions = {
 	select: async ({ request, url }) => {
 		const selection = url.searchParams.get('selection');
 		const fixture = url.searchParams.get('fixture');
+
+		const {
+			data: { user }
+		} = await supabaseClient.auth.getUser();
 		const { data, error } = await supabaseClient
 			.from('Selections')
-			.insert({ selection: 13, user: 2, fixture: 2292819 });
+			.insert({ selection: selection, user: user?.id, fixture: fixture });
 
 		if (error) {
 			console.log(error);
 			return fail(400, {
-				message: 'We were unable to log you in. Please try again.'
+				message: 'We were unable to process your selection.'
 			});
 		}
 	}
