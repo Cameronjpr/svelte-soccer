@@ -1,31 +1,24 @@
 import type { Actions, PageServerLoad } from './$types';
+import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import type { Fixture } from '@lib/types';
 import { teams } from '@lib/teams';
 import { supabaseClient } from '@lib/db';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { USER } from '$env/static/private';
 
 export const actions: Actions = {
-	select: async ({ request, url }) => {
-		const selection = url.searchParams.get('selection');
-		const fixture = url.searchParams.get('fixture');
+	select: async (event) => {
+		const selection = event.url.searchParams.get('selection');
+		const fixture = event.url.searchParams.get('fixture');
 
-		const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
-
-		console.log(sessionData);
-
-		if (sessionError) {
-			console.log(sessionError);
+		const { session, supabaseClient } = await getSupabase(event);
+		if (!session) {
+			throw redirect(303, '/login');
 		}
 
-		if (!sessionData) {
-			return fail(401, {
-				message: 'You must be logged in to make a selection.'
-			});
-		}
 		const { data, error } = await supabaseClient
 			.from('Selections')
-			.insert({ selection: selection, selector: sessionData?.session?.user?.id, fixture: fixture });
+			.insert({ selection: selection, selector: session?.user?.id, fixture: fixture });
 
 		if (error) {
 			console.log(error);
