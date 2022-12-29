@@ -13,6 +13,12 @@ export const actions: Actions = {
 		const {
 			data: { user }
 		} = await supabaseClient.auth.getUser();
+
+		if (!user) {
+			return fail(401, {
+				message: 'You must be logged in to make a selection.'
+			});
+		}
 		const { data, error } = await supabaseClient
 			.from('Selections')
 			.insert({ selection: selection, user: user?.id, fixture: fixture });
