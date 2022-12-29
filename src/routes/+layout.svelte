@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import { supabaseClient } from '$lib/db';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import type { LayoutData } from './$types';
 
 	onMount(() => {
 		const {
@@ -15,14 +16,14 @@
 		};
 	});
 
-	export let session;
-	console.log(session);
+	export let data: LayoutData;
+	console.log(data);
 </script>
 
 <nav>
 	<a href="/">Home</a>
-	{#if $session}
-		<a href="/signin?/signout">Sign out</a>
+	{#if !data?.session}
+		<a href="/signout">Sign out</a>
 	{:else}
 		<a href="/signin">Sign in</a>
 	{/if}

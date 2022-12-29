@@ -12,6 +12,8 @@ export const actions: Actions = {
 
 		console.log(email, password);
 
+		console.log(isProd ? 'https://svelte-soccer.vercel.app/' : 'http://localhost:5173/');
+
 		const { data, error } = await supabaseClient.auth.signInWithOtp({
 			email: email as string,
 			options: {
