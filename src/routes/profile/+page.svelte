@@ -12,9 +12,9 @@
 	<h2>Your selections</h2>
 	{#each data?.selections as selection}
 		<div class="selection">
-			<span>{teams[selection.selection].shortName}</span>
-			<span>{selection.fixture}</span>
-			<span>by: {selection.selector}</span>
+			<span>Team: {teams[selection.selection].shortName}</span>
+			<span>Fixture: {selection.fixture}</span>
+			<span>User ID: {selection.selector}</span>
 		</div>
 	{/each}
 </main>
