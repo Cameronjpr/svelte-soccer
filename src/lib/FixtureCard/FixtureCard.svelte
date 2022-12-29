@@ -26,8 +26,7 @@
 	article {
 		display: grid;
 		grid-template-columns: 3fr 2fr 3fr;
-
-		padding: 4px;
+		padding: 0px;
 		border: 1px solid black;
 	}
 
@@ -43,6 +42,7 @@
 	}
 	button:hover {
 		text-decoration: underline;
+		background: #eee;
 		cursor: pointer;
 	}
 </style>
