@@ -23,7 +23,7 @@ export const actions: Actions = {
 		}
 		const { data, error } = await supabaseClient
 			.from('Selections')
-			.insert({ selection: selection, user: user?.id, fixture: fixture });
+			.insert({ selection: selection, selector: user?.id, fixture: fixture });
 
 		if (error) {
 			console.log(error);
