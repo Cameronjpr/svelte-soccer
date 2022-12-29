@@ -14,6 +14,8 @@ export const actions: Actions = {
 			data: { user }
 		} = await supabaseClient.auth.getUser();
 
+		console.log(user);
+
 		if (!user) {
 			return fail(401, {
 				message: 'You must be logged in to make a selection.'
