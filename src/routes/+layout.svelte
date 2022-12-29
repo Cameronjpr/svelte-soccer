@@ -14,11 +14,18 @@
 			subscription.unsubscribe();
 		};
 	});
+
+	export let session;
+	console.log(session);
 </script>
 
 <nav>
 	<a href="/">Home</a>
-	<a href="/signin">Sign in</a>
+	{#if $session}
+		<a href="/signin?/signout">Sign out</a>
+	{:else}
+		<a href="/signin">Sign in</a>
+	{/if}
 	<a href="/leaderboard">Leaderboard</a>
 	<a href="/gameweek/1">Fixtures</a>
 </nav>

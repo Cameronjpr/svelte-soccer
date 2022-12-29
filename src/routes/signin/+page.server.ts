@@ -1,4 +1,5 @@
 import { supabaseClient } from '@lib/db';
+import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -9,15 +10,17 @@ export const actions: Actions = {
 		const email = formData.get('email');
 		const password = formData.get('password');
 
-		if (!email) {
-			return null;
-		}
+		console.log(email, password);
 
-		const { data, error } = await supabaseClient.auth.signInWithPassword({
+		const { data, error } = await supabaseClient.auth.signInWithOtp({
 			email: email as string,
-			password: password as string
+			options: {
+				emailRedirectTo: isProd ? 'https://svelte-soccer.vercel.app/' : 'http://localhost:5173/'
+			}
 		});
 
 		console.log(data, error);
+
+		throw redirect(303, '/');
 	}
 };
