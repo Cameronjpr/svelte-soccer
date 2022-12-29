@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { teams } from '@lib/teams';
 	import { each } from 'svelte/internal';
 	import type { PageData } from './$types';
 	export let data: PageData;
@@ -10,10 +11,23 @@
 <main>
 	<h2>Your selections</h2>
 	{#each data?.selections as selection}
-		<div>
-			<span>{selection.selection}</span>
+		<div class="selection">
+			<span>{teams[selection.selection].shortName}</span>
 			<span>{selection.fixture}</span>
-			<span>{selection.selector}</span>
+			<span>by: {selection.selector}</span>
 		</div>
 	{/each}
 </main>
+
+<style>
+	.selection {
+		display: flex;
+		flex-direction: column;
+	}
+
+	main {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+</style>
