@@ -1,0 +1,49 @@
+<script>
+	import { page } from '$app/stores';
+	import { supabaseClient } from '@lib/db';
+	export let form;
+
+	console.log($page);
+</script>
+
+<main>
+	{#if !$page?.data?.session}
+		<h1>Sign in</h1>
+		<form method="POST">
+			<!-- <label for="email"
+				>Email
+
+				<input type="text" name="email" placeholder="email" />
+			</label> -->
+
+			<button formaction="?/login&provider=google">Sign in with Google</button>
+		</form>
+	{:else}
+		<h1>Welcome {$page?.data?.session?.user?.email}</h1>
+	{/if}
+</main>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		max-width: 300px;
+	}
+
+	button {
+		font-size: large;
+		padding: 8px;
+		background: khaki;
+		border: none;
+		border-radius: 4px;
+	}
+	button:hover {
+		box-shadow: 0 0 0 2px green;
+	}
+</style>

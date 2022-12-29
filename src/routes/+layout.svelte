@@ -33,9 +33,9 @@
 <nav>
 	<a href="/">Home</a>
 	{#if data?.session}
-		<button on:click={handleSignout}>Sign out</button>
+		<a href="/profile">Profile</a>
 	{:else}
-		<a href="/signin">Sign in</a>
+		<a href="/login">Sign in</a>
 	{/if}
 	<a href="/leaderboard">Leaderboard</a>
 	<a href="/gameweek/1">Fixtures</a>
@@ -49,7 +49,14 @@
 	nav {
 		display: flex;
 		justify-content: space-between;
-		padding: 2rem;
+		padding: 1rem;
+		background: green;
+	}
+
+	nav a {
+		font-weight: bold;
+		font-size: large;
+		color: white;
 	}
 
 	main {

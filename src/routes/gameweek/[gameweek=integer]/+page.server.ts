@@ -1,6 +1,26 @@
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import type { Fixture } from '@lib/types';
 import { teams } from '@lib/teams';
+import { supabaseClient } from '@lib/db';
+import { fail } from '@sveltejs/kit';
+import { USER } from '$env/static/private';
+
+export const actions: Actions = {
+	select: async ({ request, url }) => {
+		const selection = url.searchParams.get('selection');
+		const fixture = url.searchParams.get('fixture');
+		const { data, error } = await supabaseClient
+			.from('Selections')
+			.insert({ selection: 13, user: 2, fixture: 2292819 });
+
+		if (error) {
+			console.log(error);
+			return fail(400, {
+				message: 'We were unable to log you in. Please try again.'
+			});
+		}
+	}
+};
 
 export const load = (async ({ fetch, params }) => {
 	const res = await fetch('https://fantasy.premierleague.com/api/fixtures/', {
@@ -9,6 +29,10 @@ export const load = (async ({ fetch, params }) => {
 		}
 	});
 	const fixtures = await res.json();
+
+	const { data, error } = await supabaseClient.from('Selections').select().eq('user', Number(1));
+
+	console.log(data, error);
 
 	const gameweekFixtures = fixtures
 		.filter((fixture: Fixture) => fixture.event === Number(params.gameweek))
@@ -29,6 +53,7 @@ export const load = (async ({ fetch, params }) => {
 				}
 			};
 		});
+
 	return {
 		gameweek: {
 			event: Number(params.gameweek),
