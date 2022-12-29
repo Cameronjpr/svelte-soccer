@@ -3,6 +3,7 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
+	import { redirect } from '@sveltejs/kit';
 
 	onMount(() => {
 		const {
@@ -18,12 +19,21 @@
 
 	export let data: LayoutData;
 	console.log(data);
+
+	function handleSignout() {
+		const { error } = supabaseClient.auth.signOut();
+
+		if (error) {
+			console.log(error);
+		}
+		throw redirect(303, '/');
+	}
 </script>
 
 <nav>
 	<a href="/">Home</a>
 	{#if data?.session}
-		<a href="/signout">Sign out</a>
+		<button on:click={handleSignout}>Sign out</button>
 	{:else}
 		<a href="/signin">Sign in</a>
 	{/if}
