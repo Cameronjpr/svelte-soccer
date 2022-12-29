@@ -17,6 +17,6 @@ export const load = (async (event) => {
 	console.log(data);
 
 	return {
-		selections: data
+		selections: data?.sort((a, b) => a.fixture - b.fixture)
 	};
 }) satisfies PageServerLoad;
