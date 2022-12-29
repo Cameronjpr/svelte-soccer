@@ -42,10 +42,6 @@ export const load = (async ({ fetch, params }) => {
 	});
 	const fixtures = await res.json();
 
-	const { data, error } = await supabaseClient.from('Selections').select().eq('user', Number(1));
-
-	console.log(data, error);
-
 	const gameweekFixtures = fixtures
 		.filter((fixture: Fixture) => fixture.event === Number(params.gameweek))
 		.map((fixture) => {
