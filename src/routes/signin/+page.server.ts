@@ -7,18 +7,17 @@ export const actions: Actions = {
 	default: async ({ cookies, request }) => {
 		const formData = await request.formData();
 		const email = formData.get('email');
+		const password = formData.get('password');
 
 		if (!email) {
 			return null;
 		}
 
-		const { data, error } = await supabaseClient.auth.signInWithOtp({
+		const { data, error } = await supabaseClient.auth.signInWithPassword({
 			email: email as string,
-			options: {
-				emailRedirectTo: isProd
-					? 'https://svelte-soccer.vercel.app/signin'
-					: 'http://localhost:5173/signin'
-			}
+			password: password as string
 		});
+
+		console.log(data, error);
 	}
 };
