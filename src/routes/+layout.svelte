@@ -22,7 +22,7 @@
 
 <nav>
 	<a href="/">Home</a>
-	{#if !data?.session}
+	{#if data?.session}
 		<a href="/signout">Sign out</a>
 	{:else}
 		<a href="/signin">Sign in</a>
