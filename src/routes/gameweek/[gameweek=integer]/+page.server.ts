@@ -81,7 +81,7 @@ export const load = (async (event) => {
 	const { data, error } = await supabaseClient
 		.from('Selections')
 		.select()
-		.eq('selector', session?.user.id);
+		.eq('selector', session?.user?.id);
 
 	const gameweekFixtures = fixtures
 		.filter((fixture: Fixture) => fixture.event === Number(params.gameweek))
@@ -106,7 +106,7 @@ export const load = (async (event) => {
 	const activeGameweek = getActiveGameweek(fixtures);
 
 	return {
-		selections: data,
+		selections: data ?? [],
 		activeGameweek: activeGameweek,
 		gameweek: {
 			event: Number(params.gameweek),

@@ -44,7 +44,7 @@
 				Selections:
 				<ul>
 					{#each $page?.data?.selections as selection}
-						<li>GW {selection.gameweek}, {teams[selection.selection].shortName}</li>
+						<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
 					{/each}
 				</ul>
 			</li>
