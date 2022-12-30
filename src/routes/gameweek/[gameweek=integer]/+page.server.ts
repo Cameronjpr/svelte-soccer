@@ -25,7 +25,7 @@ export const actions: Actions = {
 			.eq('selector', session?.user.id);
 
 		const existingGameweekSelection = selections?.find(
-			(selection) => selection.gameweek === Number(gameweek)
+			(selection) => selection?.gameweek === Number(gameweek)
 		);
 
 		if (existingGameweekSelection?.id) {

@@ -21,7 +21,6 @@ export const actions: Actions = {
 				}
 			});
 
-			console.log(data);
 			if (error) {
 				if (error instanceof AuthApiError && error.status === 400) {
 					return fail(400, {

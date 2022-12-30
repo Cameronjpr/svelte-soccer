@@ -40,14 +40,16 @@
 		<span>Debugging info:</span>
 		<ul>
 			<li>Session: {$page?.data?.session}</li>
-			<li>
-				Selections:
-				<ul>
-					{#each $page?.data?.selections as selection}
-						<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
-					{/each}
-				</ul>
-			</li>
+			{#if $page?.data?.selections}
+				<li>
+					Selections:
+					<ul>
+						{#each $page?.data?.selections as selection}
+							<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
+						{/each}
+					</ul>
+				</li>
+			{/if}
 		</ul>
 	</footer>
 </main>
