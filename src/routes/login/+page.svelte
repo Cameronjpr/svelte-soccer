@@ -3,6 +3,7 @@
 	import { supabaseClient } from '@lib/db';
 	export let form;
 
+	console.log('login page');
 	console.log($page);
 </script>
 

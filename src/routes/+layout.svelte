@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { redirect } from '@sveltejs/kit';
+	import { page } from '$app/stores';
 
 	onMount(() => {
 		const {
@@ -18,21 +19,12 @@
 	});
 
 	export let data: LayoutData;
-	console.log(data);
-
-	function handleSignout() {
-		const { error } = supabaseClient.auth.signOut();
-
-		if (error) {
-			console.log(error);
-		}
-		throw redirect(303, '/');
-	}
+	// console.log('layout page data', data);
 </script>
 
 <nav>
 	<a href="/">Home</a>
-	{#if data?.session}
+	{#if $page?.data?.session}
 		<a href="/profile">Profile</a>
 	{:else}
 		<a href="/login">Sign in</a>
@@ -43,6 +35,7 @@
 
 <main>
 	<slot />
+	{$page?.data?.session}
 </main>
 
 <style>

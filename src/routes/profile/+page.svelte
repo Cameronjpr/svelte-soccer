@@ -1,12 +1,18 @@
 <script lang="ts">
+	import { supabaseClient } from '@lib/db';
 	import { teams } from '@lib/teams';
+	import { fail, redirect } from '@sveltejs/kit';
 	import { each } from 'svelte/internal';
 	import type { PageData } from './$types';
+	import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 	export let data: PageData;
 </script>
 
 <h1>Your profile</h1>
 <h2>{data?.session?.user?.email}</h2>
+<form method="POST" action="?/signout">
+	<button>Sign out</button>
+</form>
 
 <main>
 	<h2>Your selections</h2>
