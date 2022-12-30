@@ -1,31 +1,35 @@
 <script lang="ts">
 	import { teams } from '@lib/teams';
 	import type { Fixture, Selection } from '@lib/types';
-	import { fade } from 'svelte/transition';
 
 	export let fixture: Fixture;
 	export let selections: Array<Selection>;
-	const homeTeamSelected =
+	export let isSelectable: boolean;
+
+	$: homeTeamSelected =
 		selections?.findIndex(
 			(s) => s.fixture === fixture.code && s.selection === fixture.team_h.id - 1
 		) > -1;
-	const awayTeamSelected =
+	$: awayTeamSelected =
 		selections?.findIndex(
 			(s) => s.fixture === fixture.code && s.selection === fixture.team_a.id - 1
 		) > -1;
 </script>
 
-<article transition:fade={{ delay: 0, duration: 300 }}>
+<article>
 	<form method="POST">
 		<button
-			class={homeTeamSelected ? 'selected' : ''}
+			disabled={!isSelectable}
+			class={`${homeTeamSelected ? 'selected' : ''} test`}
 			formaction="?/select&selection={fixture.team_h.id -
 				1}&fixture={fixture.code}&gameweek={fixture.event}"
 			style="border-top: 2px solid {teams[fixture.team_h.id - 1]?.primaryColor}"
 			>{fixture.team_h.shortName}</button
 		>
-		{#if fixture.finished_provisional}
-			<span id="score">{fixture.team_h_score} : {fixture.team_a_score}</span>
+		{#if fixture.started}
+			<span id="score" class={fixture?.finished_provisional ? 'score-ft' : 'score-live'}
+				>{fixture.team_h_score} : {fixture.team_a_score}</span
+			>
 		{:else}
 			<span id="kickoff-time"
 				>{new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(
@@ -34,6 +38,7 @@
 			>
 		{/if}
 		<button
+			disabled={!isSelectable}
 			class={awayTeamSelected ? 'selected' : ''}
 			formaction="?/select&selection={fixture.team_a.id -
 				1}&fixture={fixture.code}&gameweek={fixture.event}"
@@ -46,14 +51,33 @@
 <style>
 	form {
 		display: grid;
-		grid-template-columns: 3fr 2fr 3fr;
+		grid-template-columns: 3fr 1fr 3fr;
 		align-items: center;
 		padding: 0px;
 	}
 
-	span#kickoff-time,
+	span#kickoff-time {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: large;
+		font-weight: medium;
+	}
 	span#score {
-		text-align: center;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: large;
+		font-weight: bold;
+	}
+	span.score-ft {
+		background: darkslategrey;
+		color: white;
+	}
+	span.score-live {
+		background: mediumseagreen;
+		color: white;
 	}
 
 	.selected {
@@ -65,17 +89,18 @@
 		background: ivory;
 		height: 3rem;
 		border: none;
+		border-radius: 0rem;
 		padding: 0;
 		box-shadow: none;
 		font: inherit;
-		cursor: pointer;
 		outline: none;
+		color: #111;
 		font-size: large;
-		color: seagreen;
 	}
 
-	button:hover {
+	button:enabled:hover {
 		background: mediumseagreen;
 		color: ivory;
+		cursor: pointer;
 	}
 </style>

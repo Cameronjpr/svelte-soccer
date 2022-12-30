@@ -40,8 +40,6 @@ export const actions: Actions = {
 				})
 				.eq('id', existingGameweekSelection?.id);
 
-			console.log(data);
-
 			if (error) {
 				console.log(error);
 				return fail(400, {
@@ -69,13 +67,11 @@ export const actions: Actions = {
 };
 
 export const load = (async (event) => {
+	const { formattedFixtures, activeGameweek } = await event.parent();
+	console.log('parent fixtures', formattedFixtures?.length);
+
 	const { params } = event;
-	const res = await fetch('https://fantasy.premierleague.com/api/fixtures/', {
-		headers: {
-			'Access-Control-Allow-Origin': 'https://fantasy.premierleague.com'
-		}
-	});
-	const fixtures = await res.json();
+
 	const session = await getServerSession(event);
 
 	const { data, error } = await supabaseClient
@@ -83,31 +79,14 @@ export const load = (async (event) => {
 		.select()
 		.eq('selector', session?.user?.id);
 
-	const gameweekFixtures = fixtures
-		.filter((fixture: Fixture) => fixture.event === Number(params.gameweek))
-		.map((fixture: Fixture) => {
-			return {
-				...fixture,
-				team_h: {
-					id: fixture.team_h,
-					name: teams[fixture.team_h - 1].name,
-					shortName: teams[fixture.team_h - 1].shortName,
-					primaryColor: teams[fixture.team_h - 1].primaryColor
-				},
-				team_a: {
-					id: fixture.team_a,
-					name: teams[fixture.team_a - 1].name,
-					shortName: teams[fixture.team_a - 1].shortName,
-					primaryColor: teams[fixture.team_a - 1].primaryColor
-				}
-			};
-		});
-
-	const activeGameweek = getActiveGameweek(fixtures);
+	const gameweekFixtures = formattedFixtures.filter(
+		(fixture: Fixture) => fixture.event === Number(params.gameweek)
+	);
 
 	return {
 		selections: data ?? [],
 		activeGameweek: activeGameweek,
+		formattedFixtures,
 		gameweek: {
 			event: Number(params.gameweek),
 			fixtures: gameweekFixtures as Array<Fixture>

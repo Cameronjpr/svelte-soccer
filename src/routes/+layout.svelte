@@ -24,14 +24,18 @@
 </script>
 
 <nav>
-	<a href="/">Home</a>
-	{#if $page?.data?.session}
-		<a href="/profile">Profile</a>
-	{:else}
-		<a href="/login">Sign in</a>
-	{/if}
-	<a href="/leaderboard">Leaderboard</a>
-	<a href="/gameweek/1">Fixtures</a>
+	<div>
+		<a href="/">🏠 Home</a>
+	</div>
+	<div id="user-section">
+		{#if $page?.data?.session}
+			<a href="/profile">👋 Profile</a>
+		{:else}
+			<a href="/login">👋 Sign in</a>
+		{/if}
+		<a href="/leaderboard">🏆 Leaderboard</a>
+		<a href="/gameweek/1">🗓 Fixtures</a>
+	</div>
 </nav>
 
 <main>
@@ -58,18 +62,26 @@
 	nav {
 		display: flex;
 		justify-content: space-between;
-		padding: 1rem;
-		background: green;
+		padding: 0.5rem;
+		background: seagreen;
 	}
 
 	nav a {
 		font-weight: bold;
 		font-size: large;
+		text-decoration: none;
 		color: white;
 	}
 
+	#user-section {
+		display: flex;
+		gap: 1.5rem;
+	}
+
 	main {
-		padding: 2rem;
+		margin: auto;
+		padding: 0.5rem;
+		max-width: 768px;
 	}
 
 	footer {

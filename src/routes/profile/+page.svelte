@@ -8,29 +8,17 @@
 	export let data: PageData;
 </script>
 
-<h1>Your profile</h1>
-<h2>{data?.session?.user?.email}</h2>
+<h1>Hey!</h1>
+<h2>Signed in as {data?.session?.user?.username ?? data?.session?.user?.email}</h2>
 <form method="POST" action="?/signout">
 	<button>Sign out</button>
 </form>
 
 <main>
-	<h2>Your selections</h2>
-	{#each data?.selections as selection}
-		<div class="selection">
-			<span>Team: {teams[selection.selection].shortName}</span>
-			<span>Fixture: {selection.fixture}</span>
-			<span>User ID: {selection.selector}</span>
-		</div>
-	{/each}
+	<h2>Badges</h2>
 </main>
 
 <style>
-	.selection {
-		display: flex;
-		flex-direction: column;
-	}
-
 	main {
 		display: flex;
 		flex-direction: column;

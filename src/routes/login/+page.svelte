@@ -11,12 +11,6 @@
 	{#if !$page?.data?.session}
 		<h1>Sign in</h1>
 		<form method="POST">
-			<!-- <label for="email"
-				>Email
-
-				<input type="text" name="email" placeholder="email" />
-			</label> -->
-
 			<button formaction="?/login&provider=google">Sign in with Google</button>
 		</form>
 	{:else}

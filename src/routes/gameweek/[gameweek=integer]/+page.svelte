@@ -3,11 +3,18 @@
 	import type { PageData } from './$types';
 	import dayjs from 'dayjs';
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
+	import { getActiveGameweek } from '@lib/util/gameweek';
+	import { redirect } from '@sveltejs/kit';
+
 	dayjs.extend(advancedFormat);
-
 	export let data: PageData;
+	$: isSelectable = !data.gameweek.fixtures.sort((a, b) => a.kickoff_time - b.kickoff_time)[0]
+		?.started;
 
-	console.log(data.gameweek.fixtures);
+	function handleGameweekSelect(event: CustomEvent) {
+		const gameweek = event.detail.value;
+		throw redirect(303, `/gameweek/${gameweek}`);
+	}
 </script>
 
 <section>
@@ -21,11 +28,15 @@
 		{#if index === 0 || dayjs(data.gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
 			<h2>{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
 		{/if}
-		<FixtureCard {fixture} selections={data?.selections} />
+		<FixtureCard {fixture} selections={data?.selections} {isSelectable} />
 	{/each}
 	<section id="gameweek-pagination">
-		<a id="gameweek-previous" href={`/gameweek/${data.gameweek.event - 1}`}>Previous</a>
-		<a id="gameweek-next" href={`/gameweek/${data.gameweek.event + 1}`}>Next</a>
+		<a data-sveltekit-noscroll id="gameweek-previous" href={`/gameweek/${data.gameweek.event - 1}`}
+			>Previous</a
+		>
+		<a data-sveltekit-noscroll id="gameweek-next" href={`/gameweek/${data.gameweek.event + 1}`}
+			>Next</a
+		>
 	</section>
 </main>
 
