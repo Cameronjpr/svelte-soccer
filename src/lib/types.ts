@@ -23,3 +23,10 @@ export type Team = {
 	primaryColor: string;
 	secondaryColor: string | null;
 };
+
+export type Selection = {
+	id: number;
+	selection: number;
+	selector: string;
+	fixture: number;
+};

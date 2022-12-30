@@ -36,15 +36,4 @@
 		gap: 8px;
 		max-width: 300px;
 	}
-
-	button {
-		font-size: large;
-		padding: 8px;
-		background: khaki;
-		border: none;
-		border-radius: 4px;
-	}
-	button:hover {
-		box-shadow: 0 0 0 2px green;
-	}
 </style>

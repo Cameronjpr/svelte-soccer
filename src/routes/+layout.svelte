@@ -5,6 +5,7 @@
 	import type { LayoutData } from './$types';
 	import { redirect } from '@sveltejs/kit';
 	import { page } from '$app/stores';
+	import { teams } from '@lib/teams';
 
 	onMount(() => {
 		const {
@@ -35,7 +36,20 @@
 
 <main>
 	<slot />
-	{$page?.data?.session}
+	<footer>
+		<span>Debugging info:</span>
+		<ul>
+			<li>Session: {$page?.data?.session}</li>
+			<li>
+				Selections:
+				<ul>
+					{#each $page?.data?.selections as selection}
+						<li>GW {selection.gameweek}, {teams[selection.selection].shortName}</li>
+					{/each}
+				</ul>
+			</li>
+		</ul>
+	</footer>
 </main>
 
 <style>
@@ -54,5 +68,9 @@
 
 	main {
 		padding: 2rem;
+	}
+
+	footer {
+		margin-top: 20px;
 	}
 </style>

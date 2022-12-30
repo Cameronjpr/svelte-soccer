@@ -4,6 +4,7 @@ html {
 }
 
 body {
+  background-color: antiquewhite;
   color: #111;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
@@ -11,4 +12,18 @@ body {
   line-height: 1.6;
   font-size: 1rem;
   font-family:var(--sans-font)
+}
+
+button {
+  height: 30px;
+  background: seagreen;
+  color: white;
+  font-size: large;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0 2px rgb(0, 0, 0);
+}
+
+button:hover {
+  background: mediumseagreen;
 }

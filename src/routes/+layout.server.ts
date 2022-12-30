@@ -3,7 +3,6 @@ import { getServerSession } from '@supabase/auth-helpers-sveltekit';
 import { supabaseClient } from '@lib/db';
 
 export const load: LayoutServerLoad = async (event) => {
-	// console.log('layout load function', await getServerSession(event));
 	const session = await getServerSession(event);
 
 	supabaseClient
@@ -29,6 +28,7 @@ export const load: LayoutServerLoad = async (event) => {
 					});
 			}
 		});
+
 	return {
 		session: await getServerSession(event)
 	};
