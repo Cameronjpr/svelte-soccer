@@ -19,8 +19,9 @@
 		};
 	});
 
+	export let activeGameweek: number;
 	export let data: LayoutData;
-	// console.log('layout page data', data);
+	console.log('layout page data', activeGameweek);
 </script>
 
 <nav>
@@ -34,7 +35,7 @@
 			<a href="/login">👋 Sign in</a>
 		{/if}
 		<a href="/leaderboard">🏆 Leaderboard</a>
-		<a href="/gameweek/1">🗓 Fixtures</a>
+		<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">🗓 Fixtures</a>
 	</div>
 </nav>
 

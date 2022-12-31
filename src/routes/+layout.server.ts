@@ -63,6 +63,9 @@ export const load: LayoutServerLoad = async (event) => {
 			});
 	}
 
+	console.log('formatted fixtures', formattedFixtures?.length);
+	console.log('activeGameweek', activeGameweek);
+
 	return {
 		session: await getServerSession(event),
 		formattedFixtures: formattedFixtures,
