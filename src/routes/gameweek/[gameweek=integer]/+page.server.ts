@@ -1,12 +1,8 @@
 import type { Actions } from './$types';
 import { getServerSession, getSupabase } from '@supabase/auth-helpers-sveltekit';
 import type { Fixture } from '@lib/types';
-import { teams } from '@lib/teams';
 import { supabaseClient } from '@lib/db';
 import { fail, redirect } from '@sveltejs/kit';
-import { USER } from '$env/static/private';
-import { getActiveGameweek } from '@lib/util/gameweek';
-import { writable } from 'svelte/store';
 
 export const actions: Actions = {
 	select: async (event) => {
@@ -61,12 +57,10 @@ export const actions: Actions = {
 				});
 			}
 		}
-
-		throw redirect(303, `/gameweek/${gameweek}`);
 	}
 };
 
-export const load = (async (event) => {
+export const load = (async (event: any) => {
 	const { formattedFixtures, activeGameweek } = await event.parent();
 	console.log('parent fixtures', formattedFixtures?.length);
 

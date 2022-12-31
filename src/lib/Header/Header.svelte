@@ -12,7 +12,7 @@
 
 <nav>
 	<div>
-		<a href="/">Home</a>
+		<a href="/">SvelteSoccer</a>
 	</div>
 	<div id="user-section-desktop">
 		{#if $page?.data?.session}
@@ -93,16 +93,17 @@
 		position: absolute;
 		top: 3.5rem;
 		right: 0;
-		background: darkslategray;
+		background: seagreen;
 		list-style: none;
 		padding: 0;
+		padding-block: 1rem;
 		margin: 0;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: end;
 		gap: 2rem;
-		padding: 0.5rem;
+		padding-right: 0.5rem;
 	}
 
 	@media (max-width: 600px) {

@@ -5,6 +5,7 @@
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import { getActiveGameweek } from '@lib/util/gameweek';
 	import { redirect } from '@sveltejs/kit';
+	import Paginator from '@lib/Paginator/Paginator.svelte';
 
 	dayjs.extend(advancedFormat);
 	export let data: PageData;
@@ -17,12 +18,7 @@
 	}
 </script>
 
-<section>
-	<h1>Gameweek {data.gameweek.event}</h1>
-	{#if !(data.gameweek.event === data.activeGameweek)}
-		<a id="gameweek-live" href={`/gameweek/${data.activeGameweek}`}>Jump to current gameweek</a>
-	{/if}
-</section>
+<h1>Gameweek {data.gameweek.event}</h1>
 <main>
 	{#each data.gameweek.fixtures as fixture, index}
 		{#if index === 0 || dayjs(data.gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
@@ -30,15 +26,8 @@
 		{/if}
 		<FixtureCard {fixture} selections={data?.selections} {isSelectable} />
 	{/each}
-	<section id="gameweek-pagination">
-		<a data-sveltekit-noscroll id="gameweek-previous" href={`/gameweek/${data.gameweek.event - 1}`}
-			>Previous</a
-		>
-		<a data-sveltekit-noscroll id="gameweek-next" href={`/gameweek/${data.gameweek.event + 1}`}
-			>Next</a
-		>
-	</section>
 </main>
+<Paginator currentPage={data?.gameweek?.event} />
 
 <style>
 	section {

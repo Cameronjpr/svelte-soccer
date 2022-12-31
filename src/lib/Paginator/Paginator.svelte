@@ -1,0 +1,53 @@
+<script lang="ts">
+	export let currentPage: number;
+
+	$: offset = 0;
+	$: {
+		switch (currentPage) {
+			case 1:
+				offset = 0;
+				break;
+			case 38:
+				offset = -2;
+				break;
+			default:
+				offset = -1;
+		}
+	}
+
+	$: pages = Array.from({ length: 3 }, (_, i) => i + currentPage + offset);
+</script>
+
+<section>
+	<a data-sveltekit-noscroll href="/gameweek/1">First</a>
+	{#each pages as page}
+		<a data-sveltekit-noscroll href="/gameweek/{page}" class:active={page === currentPage}>{page}</a
+		>
+	{/each}
+	<a data-sveltekit-noscroll href="/gameweek/38">Last</a>
+</section>
+
+<style>
+	section {
+		padding-block: 1rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	a {
+		font-weight: bold;
+		color: white;
+		text-decoration: none;
+		background: darkgray;
+		padding: 1rem;
+		width: 20%;
+		height: 20%;
+		text-align: center;
+		border-radius: 0.5rem;
+	}
+	.active {
+		background: salmon;
+	}
+</style>
