@@ -23,7 +23,7 @@
 			class={`${homeTeamSelected ? 'selected' : ''} test`}
 			formaction="?/select&selection={fixture.team_h.id -
 				1}&fixture={fixture.code}&gameweek={fixture.event}"
-			style="border-top: 2px solid {teams[fixture.team_h.id - 1]?.primaryColor}"
+			style="border-left: 0.25rem solid {teams[fixture.team_h.id - 1]?.primaryColor}"
 			>{fixture.team_h.shortName}</button
 		>
 		{#if fixture.started}
@@ -42,7 +42,7 @@
 			class={awayTeamSelected ? 'selected' : ''}
 			formaction="?/select&selection={fixture.team_a.id -
 				1}&fixture={fixture.code}&gameweek={fixture.event}"
-			style="border-top: 2px solid {teams[fixture.team_a.id - 1]?.primaryColor}"
+			style="border-right: 0.25rem solid {teams[fixture.team_a.id - 1]?.primaryColor}"
 			>{fixture.team_a.shortName}</button
 		>
 	</form>
@@ -56,12 +56,18 @@
 		padding: 0px;
 	}
 
+	span {
+		border-inline: 1px solid white;
+	}
+
 	span#kickoff-time {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-size: large;
 		font-weight: medium;
+		background: ivory;
+		height: 100%;
 	}
 	span#score {
 		height: 100%;

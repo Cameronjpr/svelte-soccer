@@ -27,3 +27,7 @@ button {
 button:hover {
   background: mediumseagreen;
 }
+
+.hidden {
+  display: none !important;
+}

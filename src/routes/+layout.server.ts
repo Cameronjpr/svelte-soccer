@@ -4,6 +4,8 @@ import { supabaseClient } from '@lib/db';
 import { teams } from '@lib/teams';
 import type { Fixture } from '@lib/types';
 import { getActiveGameweek } from '@lib/util/gameweek';
+import { invalidate } from '$app/navigation';
+import { formatFixtures } from '@lib/util/fixture';
 
 export const load: LayoutServerLoad = async (event) => {
 	const session = await getServerSession(event);
@@ -14,27 +16,7 @@ export const load: LayoutServerLoad = async (event) => {
 		}
 	});
 	const fixtures = await res.json();
-	const formattedFixtures = fixtures.map((fixture: Fixture) => {
-		return {
-			...fixture,
-			team_h: {
-				id: fixture.team_h,
-				name: teams[fixture.team_h - 1].name,
-				shortName: teams[fixture.team_h - 1].shortName,
-				primaryColor: teams[fixture.team_h - 1].primaryColor
-			},
-			team_a: {
-				id: fixture.team_a,
-				name: teams[fixture.team_a - 1].name,
-				shortName: teams[fixture.team_a - 1].shortName,
-				primaryColor: teams[fixture.team_a - 1].primaryColor
-			}
-		};
-	});
-
-	const activeGameweek = getActiveGameweek(fixtures);
-
-	console.log('layout gameweek', activeGameweek);
+	const formattedFixtures = formatFixtures(fixtures);
 
 	if (session?.user?.id) {
 		supabaseClient
@@ -63,11 +45,10 @@ export const load: LayoutServerLoad = async (event) => {
 			});
 	}
 
-	console.log('formatted fixtures', formattedFixtures?.length);
-	console.log('activeGameweek', activeGameweek);
+	const activeGameweek = getActiveGameweek(fixtures);
 
 	return {
-		session: await getServerSession(event),
+		session: session,
 		formattedFixtures: formattedFixtures,
 		activeGameweek: activeGameweek
 	};

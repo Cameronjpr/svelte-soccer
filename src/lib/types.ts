@@ -16,6 +16,18 @@ export type Fixture = {
 	team_h_score: number | null;
 };
 
+export type FormattedFixture = Fixture & {
+	code: number;
+	event: number;
+	finished: boolean;
+	finished_provisional: boolean;
+	id: number;
+	kickoff_time: string;
+	pulse_id: number;
+	started: boolean;
+	stats: any;
+};
+
 export type Team = {
 	id: number;
 	name: string;
