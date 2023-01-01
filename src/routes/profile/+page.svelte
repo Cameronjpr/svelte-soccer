@@ -16,6 +16,12 @@
 
 <main>
 	<h2>Badges</h2>
+	<ul>
+		<li>Hot streak</li>
+		<li>Underdog</li>
+		<li>Global Winner, GW5</li>
+		<li>Top 50, 22/23</li>
+	</ul>
 </main>
 
 <style>
@@ -23,5 +29,20 @@
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
+	}
+
+	ul {
+		padding-left: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+	}
+
+	li {
+		list-style: none;
+		background: seagreen;
+		border-radius: 0.25em;
+		padding: 0.5em;
+		width: 30%;
 	}
 </style>

@@ -38,16 +38,20 @@
 
 	a {
 		font-weight: bold;
-		color: white;
+		color: #111;
 		text-decoration: none;
-		background: darkgray;
+		background: white;
 		padding: 1rem;
 		width: 20%;
 		height: 20%;
 		text-align: center;
 		border-radius: 0.5rem;
+		border: 0.25rem solid transparent;
+	}
+	a:visited {
+		color: #111;
 	}
 	.active {
-		background: salmon;
+		border: 0.2rem solid coral;
 	}
 </style>

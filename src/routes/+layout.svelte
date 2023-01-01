@@ -21,14 +21,16 @@
 		};
 	});
 
+	let debugMode = false;
+	let menuOpen = false;
 	export let data: LayoutData;
 </script>
 
-<Header />
+<Header menuOpen />
 
 <main>
 	<slot />
-	{#if data?.debugMode}
+	{#if debugMode}
 		<footer>
 			<span>Debugging info:</span>
 			<ul>

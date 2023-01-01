@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
+	import { onMount } from 'svelte';
 
 	let showMenu = false;
 
@@ -11,7 +12,7 @@
 </script>
 
 <nav>
-	<div>
+	<div id="logo">
 		<a href="/">SvelteSoccer</a>
 	</div>
 	<div id="user-section-desktop">
@@ -20,8 +21,8 @@
 		{:else}
 			<a href="/login">👋 Sign in</a>
 		{/if}
-		<a href="/leaderboard">🏆 Leaderboard</a>
-		<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">🗓 Fixtures</a>
+		<a href="/leaderboard">Leaderboard</a>
+		<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">Fixtures</a>
 	</div>
 	<div id="user-section-mobile">
 		<button on:click={handleMenuClick}>Menu</button>
@@ -29,18 +30,18 @@
 			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 300, easing: quintOut }}>
 				{#if $page?.data?.session}
 					<li>
-						<a href="/profile">👋 Profile</a>
+						<a href="/profile">Profile</a>
 					</li>
 				{:else}
 					<li>
-						<a href="/login">👋 Sign in</a>
+						<a href="/login">Sign in</a>
 					</li>
 				{/if}
 				<li>
-					<a href="/leaderboard">🏆 Leaderboard</a>
+					<a href="/leaderboard">Leaderboard</a>
 				</li>
 				<li>
-					<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">🗓 Fixtures</a>
+					<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">Fixtures</a>
 				</li>
 			</ul>
 			<div
@@ -69,6 +70,14 @@
 		text-decoration: none;
 		color: white;
 	}
+	nav button:hover {
+		background: seagreen;
+		cursor: pointer;
+	}
+
+	#logo {
+		padding-inline: 1rem;
+	}
 
 	#user-section-desktop {
 		display: flex;
@@ -95,15 +104,18 @@
 		right: 0;
 		background: seagreen;
 		list-style: none;
-		padding: 0;
-		padding-block: 1rem;
+		padding-block: 1.5rem;
 		margin: 0;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: end;
+		align-items: start;
 		gap: 2rem;
-		padding-right: 0.5rem;
+		border-bottom: 0.25rem solid darkslategray;
+	}
+
+	.mobile-menu-list li {
+		padding-inline: 1.5rem;
 	}
 
 	@media (max-width: 600px) {

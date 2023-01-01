@@ -52,7 +52,7 @@
 	form {
 		display: grid;
 		grid-template-columns: 3fr 1fr 3fr;
-		gap: 4px;
+		gap: 0.25rem;
 		align-items: center;
 		padding: 0px;
 	}
@@ -66,6 +66,7 @@
 		background: ivory;
 		height: 100%;
 	}
+
 	span#score {
 		height: 100%;
 		display: flex;
@@ -79,13 +80,13 @@
 		color: white;
 	}
 	span.score-live {
-		background: mediumseagreen;
-		color: white;
+		background: coral;
+		color: black;
 	}
 
 	.selected {
-		background: darkslategray;
-		color: ivory;
+		background: black;
+		color: white;
 	}
 
 	button {
@@ -99,6 +100,7 @@
 		outline: none;
 		color: #111;
 		font-size: large;
+		transition: all 0.2s ease-in-out;
 	}
 
 	button:enabled:hover {
