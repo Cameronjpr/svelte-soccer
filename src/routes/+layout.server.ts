@@ -6,6 +6,7 @@ import type { Fixture } from '@lib/types';
 import { getActiveGameweek } from '@lib/util/gameweek';
 import { invalidate } from '$app/navigation';
 import { formatFixtures } from '@lib/util/fixture';
+import { fail } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async (event) => {
 	const session = await getServerSession(event);
@@ -15,6 +16,13 @@ export const load: LayoutServerLoad = async (event) => {
 			'Access-Control-Allow-Origin': 'https://fantasy.premierleague.com'
 		}
 	});
+
+	if (!res.ok) {
+		throw fail(500, {
+			message: 'Unable to fetch fixtures'
+		});
+	}
+
 	const fixtures = await res.json();
 	const formattedFixtures = formatFixtures(fixtures);
 
