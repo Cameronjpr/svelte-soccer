@@ -16,6 +16,8 @@
 		const gameweek = event.detail.value;
 		throw redirect(303, `/gameweek/${gameweek}`);
 	}
+
+	export const prerender = true;
 </script>
 
 <h1>Gameweek {data.gameweek.event}</h1>

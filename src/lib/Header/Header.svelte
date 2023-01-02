@@ -6,9 +6,8 @@
 
 	let showMenu = false;
 
-	function handleMenuClick() {
-		showMenu = !showMenu;
-	}
+	export let menuOpen: boolean;
+	export let toggleMenu: () => void;
 </script>
 
 <nav>
@@ -25,8 +24,8 @@
 		<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">Fixtures</a>
 	</div>
 	<div id="user-section-mobile">
-		<button on:click={handleMenuClick}>Menu</button>
-		{#if showMenu}
+		<button on:click={toggleMenu}>Menu</button>
+		{#if menuOpen}
 			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 300, easing: quintOut }}>
 				{#if $page?.data?.session}
 					<li>
@@ -46,9 +45,9 @@
 			</ul>
 			<div
 				id="menu-safe-area"
-				class={showMenu ? '' : 'hidden'}
-				on:click={handleMenuClick}
-				on:keypress={handleMenuClick}
+				class={menuOpen ? '' : 'hidden'}
+				on:click={toggleMenu}
+				on:keypress={toggleMenu}
 			/>
 		{/if}
 	</div>

@@ -3,6 +3,7 @@ import { getServerSession, getSupabase } from '@supabase/auth-helpers-sveltekit'
 import type { Fixture } from '@lib/types';
 import { supabaseClient } from '@lib/db';
 import { fail, redirect } from '@sveltejs/kit';
+import { formatFixtures } from '@lib/util/fixture';
 
 export const actions: Actions = {
 	select: async (event) => {

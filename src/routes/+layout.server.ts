@@ -1,21 +1,14 @@
 import type { LayoutServerLoad } from './$types';
-import { getServerSession } from '@supabase/auth-helpers-sveltekit';
+import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import { supabaseClient } from '@lib/db';
-import { teams } from '@lib/teams';
-import type { Fixture } from '@lib/types';
 import { getActiveGameweek } from '@lib/util/gameweek';
-import { invalidate } from '$app/navigation';
-import { formatFixtures } from '@lib/util/fixture';
 import { fail } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async (event) => {
-	const session = await getServerSession(event);
+	const { fetch } = event;
+	const { session } = await getSupabase(event);
 
-	const res = await fetch('https://fantasy.premierleague.com/api/fixtures/', {
-		headers: {
-			'Access-Control-Allow-Origin': 'https://fantasy.premierleague.com'
-		}
-	});
+	const res = await fetch('/api/fixtures');
 
 	if (!res.ok) {
 		throw fail(500, {
@@ -24,7 +17,6 @@ export const load: LayoutServerLoad = async (event) => {
 	}
 
 	const fixtures = await res.json();
-	const formattedFixtures = formatFixtures(fixtures);
 
 	if (session?.user?.id) {
 		supabaseClient
@@ -32,7 +24,6 @@ export const load: LayoutServerLoad = async (event) => {
 			.select('*')
 			.eq('auth_user', session?.user?.id)
 			.then((res) => {
-				console.log(res);
 				if (res?.data?.length === 0) {
 					console.log('inserting user', session?.user?.id);
 					supabaseClient
@@ -47,7 +38,6 @@ export const load: LayoutServerLoad = async (event) => {
 								console.log('auth user error');
 								console.log(res.error);
 							}
-							console.log(res.data);
 						});
 				}
 			});
@@ -57,7 +47,7 @@ export const load: LayoutServerLoad = async (event) => {
 
 	return {
 		session: session,
-		formattedFixtures: formattedFixtures,
+		formattedFixtures: fixtures,
 		activeGameweek: activeGameweek
 	};
 };

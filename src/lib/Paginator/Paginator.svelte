@@ -29,6 +29,7 @@
 
 <style>
 	section {
+		margin-top: auto;
 		padding-block: 1rem;
 		display: flex;
 		justify-content: space-between;
@@ -41,16 +42,18 @@
 		color: #111;
 		text-decoration: none;
 		background: white;
-		padding: 1rem;
+		padding: 0.5rem;
 		width: 20%;
 		height: 20%;
 		text-align: center;
 		border-radius: 0.5rem;
 		border: 0.25rem solid transparent;
+		transition: all 0.2s ease-in-out;
 	}
 	a:visited {
 		color: #111;
 	}
+
 	.active {
 		border: 0.2rem solid coral;
 	}

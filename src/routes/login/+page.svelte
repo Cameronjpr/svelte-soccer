@@ -1,10 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import { supabaseClient } from '@lib/db';
-	export let form;
-
-	console.log('login page');
-	console.log($page);
 </script>
 
 <main>
