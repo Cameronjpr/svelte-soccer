@@ -31,7 +31,7 @@ export const load: LayoutServerLoad = async (event) => {
 						.insert({
 							auth_user: session?.user?.id,
 							email: session?.user?.email,
-							username: null
+							username: 'anonymous player'
 						})
 						.then((res) => {
 							if (res.error) {
