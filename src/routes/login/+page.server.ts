@@ -7,8 +7,8 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export const actions: Actions = {
 	login: async (event) => {
-		const { request, cookies, url } = event;
-		const { session, supabaseClient } = await getSupabase(event);
+		const { url } = event;
+		const { supabaseClient } = await getSupabase(event);
 		const provider = url.searchParams.get('provider') as Provider;
 		const redirectTo = url.searchParams.get('redirectTo') ?? '';
 

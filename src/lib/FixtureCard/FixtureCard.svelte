@@ -52,7 +52,7 @@
 	form {
 		display: grid;
 		grid-template-columns: 3fr 1fr 3fr;
-		gap: 0.25rem;
+		gap: 0.5rem;
 		align-items: center;
 		padding: 0px;
 	}
@@ -61,9 +61,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: large;
 		font-weight: medium;
-		background: ivory;
+		background: none;
 		height: 100%;
 	}
 
@@ -72,12 +71,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: large;
-		font-weight: bold;
 	}
 	span.score-ft {
-		background: darkslategrey;
-		color: white;
 	}
 	span.score-live {
 		background: coral;

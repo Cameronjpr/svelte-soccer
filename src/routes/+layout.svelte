@@ -87,6 +87,6 @@
 	}
 
 	footer {
-		margin-top: 20px;
+		margin-top: 5rem;
 	}
 </style>

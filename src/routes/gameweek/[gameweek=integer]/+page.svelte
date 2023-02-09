@@ -32,33 +32,6 @@
 <Paginator currentPage={data?.gameweek?.event} />
 
 <style>
-	section {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding-top: 4px;
-		padding-bottom: 4px;
-	}
-
-	section a {
-		background: seagreen;
-		padding: 0.5rem;
-		font-weight: bold;
-		font-size: large;
-		color: white;
-		border-radius: 0.5rem;
-		text-decoration: none;
-	}
-
-	#gameweek-pagination {
-		margin-top: 1rem;
-	}
-
-	#gameweek-live {
-		background: seagreen;
-		color: white;
-	}
-
 	main {
 		display: flex;
 		gap: 0.5rem;

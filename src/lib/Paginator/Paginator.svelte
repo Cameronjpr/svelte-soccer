@@ -29,7 +29,7 @@
 
 <style>
 	section {
-		margin-top: auto;
+		margin-top: 1rem;
 		padding-block: 1rem;
 		display: flex;
 		justify-content: space-between;

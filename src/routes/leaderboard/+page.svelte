@@ -6,10 +6,32 @@
 <h1>Leaderboard</h1>
 
 <main>
-	{#each data.users as user}
-		<div>
-			<span>{user.username}</span>
-			<span>{user.score}</span>
-		</div>
-	{/each}
+	<ul>
+		{#each data.users as user}
+			<li>
+				<span>{user.username}</span>
+				<span>{user.score}</span>
+			</li>
+		{/each}
+	</ul>
 </main>
+
+<style>
+	ul {
+		padding: 0px;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	li {
+		display: flex;
+		gap: 0.5rem;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.75rem;
+		border-radius: 00.25rem;
+		color: white;
+		background: seagreen;
+	}
+</style>
