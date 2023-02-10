@@ -3,6 +3,8 @@ import { getServerSession, getSupabase } from '@supabase/auth-helpers-sveltekit'
 import type { Fixture } from '@lib/types';
 import { supabaseClient } from '@lib/db';
 import { fail, redirect } from '@sveltejs/kit';
+import { formatFixtures } from '@lib/util/fixture';
+import { getActiveGameweek } from '@lib/util/gameweek';
 
 export const actions: Actions = {
 	select: async (event) => {
@@ -61,12 +63,29 @@ export const actions: Actions = {
 };
 
 export const load = (async (event: any) => {
-	const { formattedFixtures, activeGameweek } = await event.parent();
-	console.log('parent fixtures', formattedFixtures?.length);
-
-	const { params } = event;
+	const { params, fetch } = event;
 
 	const session = await getServerSession(event);
+
+	const res = await fetch(
+		`https://fantasy.premierleague.com/api/fixtures?event=${params.gameweek}`,
+		{
+			headers: {
+				'Access-Control-Allow-Origin': 'https://fantasy.premierleague.com'
+			}
+		}
+	);
+
+	if (!res.ok) {
+		throw fail(500, {
+			message: 'Unable to fetch fixtures'
+		});
+	}
+
+	const fixtures = await res.json();
+	const formattedFixtures = formatFixtures(fixtures);
+
+	const activeGameweek = getActiveGameweek(fixtures);
 
 	const { data, error } = await supabaseClient
 		.from('Selections')

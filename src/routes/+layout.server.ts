@@ -5,18 +5,8 @@ import { getActiveGameweek } from '@lib/util/gameweek';
 import { fail } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async (event) => {
-	const { fetch } = event;
+	const { fetch, setHeaders } = event;
 	const { session } = await getSupabase(event);
-
-	const res = await fetch('/api/fixtures');
-
-	if (!res.ok) {
-		throw fail(500, {
-			message: 'Unable to fetch fixtures'
-		});
-	}
-
-	const fixtures = await res.json();
 
 	if (session?.user?.id) {
 		supabaseClient
@@ -43,11 +33,13 @@ export const load: LayoutServerLoad = async (event) => {
 			});
 	}
 
-	const activeGameweek = getActiveGameweek(fixtures);
+	setHeaders({
+		'cache-control': 'max-age=60'
+	});
 
 	return {
-		session: session,
-		formattedFixtures: fixtures,
-		activeGameweek: activeGameweek
+		session: session
+		// formattedFixtures: fixtures,
+		// activeGameweek: activeGameweek
 	};
 };
