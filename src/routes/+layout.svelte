@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { supabaseClient } from '$lib/db';
-	import { invalidate, invalidateAll } from '$app/navigation';
+	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import type { LayoutData, LayoutServerData } from './$types';
+	import type { LayoutData } from './$types';
 	import { redirect } from '@sveltejs/kit';
 	import { page, navigating } from '$app/stores';
 	import { teams } from '@lib/teams';
@@ -25,15 +25,12 @@
 	let debugMode = false;
 
 	function toggleMenu(): void {
-		console.log(menuOpen);
 		menuOpen = !menuOpen;
 	}
 
 	$: if ($navigating) {
 		menuOpen = false;
 	}
-
-	export let data: LayoutData;
 </script>
 
 <Header {menuOpen} {toggleMenu} />
@@ -61,25 +58,6 @@
 </main>
 
 <style>
-	nav {
-		display: flex;
-		justify-content: space-between;
-		padding: 0.5rem;
-		background: seagreen;
-	}
-
-	nav a {
-		font-weight: bold;
-		font-size: large;
-		text-decoration: none;
-		color: white;
-	}
-
-	#user-section {
-		display: flex;
-		gap: 1.5rem;
-	}
-
 	main {
 		margin: auto;
 		padding: 0.5rem;

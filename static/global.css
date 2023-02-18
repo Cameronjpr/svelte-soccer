@@ -1,10 +1,14 @@
 html {
   --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
-  --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif
+  --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  --color-bg: #f2e8cf;
+  --color-text: hsla(0, 0%, 0%, 0.8);
+  --color-primary: #a7c957;
+  --color-secondary: #6a994e;
 }
 
 body {
-  background-color: antiquewhite;
+  background-color: var(--color-bg);
   color: #111;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
@@ -17,8 +21,8 @@ body {
 button {
   height: 2.5rem;
   padding-inline: 1rem;
-  background: seagreen;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text);
   font-size: large;
   border: none;
   cursor: pointer;
@@ -26,7 +30,7 @@ button {
 }
 
 button:hover {
-  background: mediumseagreen;
+  background: var(--color-primary);
 }
 
 .hidden {

@@ -7,6 +7,9 @@
 	let showMenu = false;
 
 	export let menuOpen: boolean;
+	console.log(menuOpen);
+	const activeGameweek = $page?.data?.activeGameweek || 1;
+	console.log(activeGameweek);
 	export let toggleMenu: () => void;
 </script>
 
@@ -21,7 +24,7 @@
 			<a href="/login">👋 Sign in</a>
 		{/if}
 		<a href="/leaderboard">Leaderboard</a>
-		<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">Fixtures</a>
+		<a href="/gameweek/{activeGameweek}">Fixtures</a>
 	</div>
 	<div id="user-section-mobile">
 		<button on:click={toggleMenu}>Menu</button>
@@ -59,18 +62,19 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.5rem;
-		background: seagreen;
+		color: var(--color-text);
+		background: var(--color-secondary);
 	}
 
 	nav a,
 	nav button {
+		color: var(--color-text);
+		background: none;
 		font-weight: bold;
 		font-size: large;
 		text-decoration: none;
-		color: white;
 	}
 	nav button:hover {
-		background: seagreen;
 		cursor: pointer;
 	}
 
@@ -101,7 +105,7 @@
 		position: absolute;
 		top: 3.5rem;
 		right: 0;
-		background: seagreen;
+		background: var(--color-secondary);
 		list-style: none;
 		padding-block: 1.5rem;
 		margin: 0;
@@ -110,7 +114,7 @@
 		flex-direction: column;
 		align-items: start;
 		gap: 2rem;
-		border-bottom: 0.25rem solid darkslategray;
+		border-bottom: 0.25rem solid var(--color-primary);
 	}
 
 	.mobile-menu-list li {

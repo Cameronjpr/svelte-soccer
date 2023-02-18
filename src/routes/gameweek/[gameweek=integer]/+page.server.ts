@@ -1,4 +1,4 @@
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { getServerSession, getSupabase } from '@supabase/auth-helpers-sveltekit';
 import type { Fixture } from '@lib/types';
 import { supabaseClient } from '@lib/db';
@@ -63,6 +63,7 @@ export const actions: Actions = {
 };
 
 export const load = (async (event: any) => {
+	const { activeGameweek } = await event.parent();
 	const { params, fetch } = event;
 
 	const session = await getServerSession(event);
@@ -84,8 +85,6 @@ export const load = (async (event: any) => {
 
 	const fixtures = await res.json();
 	const formattedFixtures = formatFixtures(fixtures);
-
-	const activeGameweek = getActiveGameweek(fixtures);
 
 	const { data, error } = await supabaseClient
 		.from('Selections')

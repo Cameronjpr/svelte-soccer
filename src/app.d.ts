@@ -8,9 +8,12 @@ declare global {
 			SchemaName: 'public';
 		}
 
-		// interface Locals {}
+		interface Locals {
+			session: import('@supabase/auth-helpers-sveltekit').SupabaseSession;
+		}
+
 		interface PageData {
-			session: import('@supabase/supabase-js').Session | null;
+			session: import('@supabase/auth-helpers-sveltekit').SupabaseSession;
 		}
 		// interface Error {}
 		// interface Locals {}
