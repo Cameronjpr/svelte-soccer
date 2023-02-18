@@ -22,7 +22,7 @@
 	});
 
 	let menuOpen = false;
-	let debugMode = false;
+	let debugMode = true;
 
 	function toggleMenu(): void {
 		menuOpen = !menuOpen;

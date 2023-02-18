@@ -19,9 +19,9 @@
 	</div>
 	<div id="user-section-desktop">
 		{#if $page?.data?.session}
-			<a href="/profile">👋 Profile</a>
+			<a href="/profile">Profile</a>
 		{:else}
-			<a href="/login">👋 Sign in</a>
+			<a href="/login">Sign in</a>
 		{/if}
 		<a href="/leaderboard">Leaderboard</a>
 		<a href="/gameweek/{activeGameweek}">Fixtures</a>
@@ -29,7 +29,7 @@
 	<div id="user-section-mobile">
 		<button on:click={toggleMenu}>Menu</button>
 		{#if menuOpen}
-			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 300, easing: quintOut }}>
+			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 100, easing: quintOut }}>
 				{#if $page?.data?.session}
 					<li>
 						<a href="/profile">Profile</a>

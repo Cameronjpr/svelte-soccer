@@ -9,40 +9,28 @@
 </script>
 
 <h1>Hey!</h1>
-<h2>Signed in as {data?.session?.user?.username ?? data?.session?.user?.email}</h2>
+<h2>Signed in as {data?.session?.user?.username ?? 'anonymous'}</h2>
+
+<main>
+	<h2>Your selections</h2>
+	<ul>
+		{#each data?.selections as selection}
+			<li>
+				<span>GW {selection?.gameweek}</span>
+				<span>{teams[selection?.selection].shortName}</span>
+			</li>
+		{/each}
+	</ul>
+</main>
+
 <form method="POST" action="?/signout">
 	<button>Sign out</button>
 </form>
-
-<main>
-	<h2>Badges</h2>
-	<ul>
-		<li>Hot streak</li>
-		<li>Underdog</li>
-		<li>Global Winner, GW5</li>
-		<li>Top 50, 22/23</li>
-	</ul>
-</main>
 
 <style>
 	main {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-	}
-
-	ul {
-		padding-left: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem;
-	}
-
-	li {
-		list-style: none;
-		background: seagreen;
-		border-radius: 0.25em;
-		padding: 0.5em;
-		width: 30%;
 	}
 </style>

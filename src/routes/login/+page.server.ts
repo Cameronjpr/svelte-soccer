@@ -12,14 +12,13 @@ export const actions: Actions = {
 		const provider = url.searchParams.get('provider') as Provider;
 		const redirectTo = url.searchParams.get('redirectTo') ?? '';
 
-		console.log(isProd);
+		console.log('isProd', isProd);
 
 		if (provider) {
 			const { data, error } = await supabaseClient.auth.signInWithOAuth({
 				provider: provider,
 				options: {
-					redirectTo:
-						(isProd ? 'https://svelte-soccer.vercel.app/' : 'http://localhost:5173/') + redirectTo
+					redirectTo: isProd ? 'https://svelte-soccer.vercel.app' : 'http://localhost:5173'
 				}
 			});
 

@@ -2,9 +2,12 @@ html {
   --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
   --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
   --color-bg: #f2e8cf;
-  --color-text: hsla(0, 0%, 0%, 0.8);
+  --color-text: hsla(0, 0%, 0%, 0.9);
+  --color-text-light: hsla(0, 0%, 100%, 0.9);
   --color-primary: #a7c957;
   --color-secondary: #6a994e;
+  -webkit-font-smoothing: antialiased;
+  color: var(--color-text);
 }
 
 body {
@@ -35,4 +38,20 @@ button:hover {
 
 .hidden {
   display: none !important;
+}
+
+a {
+  color: var(--color-text)
+}:visited {
+  color: var(--color-text)
+}
+
+hr {
+  border-top: 2px solid var(--color-text);
+  width: 100%;
+  margin-block: 2rem;
+}
+
+h1, h2 {
+  color: var(--color-text)
 }

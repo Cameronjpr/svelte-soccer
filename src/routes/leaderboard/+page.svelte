@@ -31,7 +31,7 @@
 		align-items: center;
 		padding: 0.75rem;
 		border-radius: 00.25rem;
-		color: white;
-		background: seagreen;
+		color: var(--color-text-light);
+		background: var(--color-secondary);
 	}
 </style>
