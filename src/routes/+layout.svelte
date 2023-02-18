@@ -21,6 +21,7 @@
 		};
 	});
 
+	export let data: LayoutData;
 	let menuOpen = false;
 	let debugMode = true;
 
@@ -42,6 +43,7 @@
 			<span>Debugging info:</span>
 			<ul>
 				<li>Session: {$page?.data?.session}</li>
+				<li>Active gameweek: {data?.activeGameweek}</li>
 				{#if $page?.data?.selections}
 					<li>
 						Selections:

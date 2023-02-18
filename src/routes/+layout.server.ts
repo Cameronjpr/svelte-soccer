@@ -18,6 +18,8 @@ export const load: LayoutServerLoad = async (event) => {
 	const fixtures = await res.json();
 
 	const activeGameweek = getActiveGameweek(fixtures);
+
+	console.log('activeGameweek', activeGameweek);
 	return {
 		session: await getServerSession(event),
 		activeGameweek

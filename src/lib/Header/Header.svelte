@@ -7,9 +7,7 @@
 	let showMenu = false;
 
 	export let menuOpen: boolean;
-	console.log(menuOpen);
 	const activeGameweek = $page?.data?.activeGameweek || 1;
-	console.log(activeGameweek);
 	export let toggleMenu: () => void;
 </script>
 
