@@ -78,9 +78,7 @@ export const load = (async (event: any) => {
 	);
 
 	if (!res.ok) {
-		throw fail(500, {
-			message: 'Unable to fetch fixtures'
-		});
+		throw redirect(307, '/maintenance');
 	}
 
 	const fixtures = await res.json();

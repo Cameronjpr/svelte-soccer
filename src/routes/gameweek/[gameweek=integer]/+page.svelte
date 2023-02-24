@@ -3,22 +3,14 @@
 	import type { PageData } from './$types';
 	import dayjs from 'dayjs';
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
-	import { getActiveGameweek } from '@lib/util/gameweek';
-	import { redirect } from '@sveltejs/kit';
 	import Paginator from '@lib/Paginator/Paginator.svelte';
 	import type { Fixture } from '@lib/types';
-	import ScrollingPaginator from '@lib/Paginator/ScrollingPaginator.svelte';
 
 	dayjs.extend(advancedFormat);
 	export let data: PageData;
 	$: isSelectable = !data.gameweek.fixtures.sort(
 		(a: Fixture, b: Fixture) => dayjs(a.kickoff_time).valueOf() - dayjs(b.kickoff_time).valueOf()
 	)[0]?.started;
-
-	function handleGameweekSelect(event: CustomEvent) {
-		const gameweek = event.detail.value;
-		throw redirect(303, `/gameweek/${gameweek}`);
-	}
 </script>
 
 <h1>Gameweek {data.gameweek.event}</h1>
