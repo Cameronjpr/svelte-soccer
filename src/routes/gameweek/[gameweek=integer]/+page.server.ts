@@ -78,6 +78,9 @@ export const load = (async (event: any) => {
 	);
 
 	if (!res.ok) {
+		console.log(res.status);
+
+		console.log(res);
 		throw redirect(307, '/maintenance');
 	}
 
