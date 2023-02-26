@@ -39,19 +39,14 @@
 
 	a {
 		font-weight: bold;
-		color: #111;
 		text-decoration: none;
-		background: white;
-		padding: 0.5rem;
 		width: 20%;
-		height: 20%;
+		height: 2.5rem;
+		line-height: 2.5rem;
 		text-align: center;
-		border-radius: 0.5rem;
-		border: 0.25rem solid transparent;
+		border-radius: 0.75rem;
+		border: 0.2rem solid var(--color-secondary);
 		transition: all 0.2s ease-in-out;
-	}
-	a:visited {
-		color: #111;
 	}
 
 	.active {

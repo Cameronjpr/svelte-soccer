@@ -8,6 +8,7 @@
 	import { teams } from '@lib/teams';
 	import Header from '@lib/Header/Header.svelte';
 	import UserCircle from '@lib/icons/UserCircle.svelte';
+	import Footer from '@lib/Footer/Footer.svelte';
 
 	onMount(() => {
 		const {
@@ -24,7 +25,7 @@
 
 	export let data: LayoutData;
 	let menuOpen = false;
-	let debugMode = true;
+	let debugMode = false;
 
 	function toggleMenu(): void {
 		menuOpen = !menuOpen;
@@ -59,6 +60,7 @@
 		</footer>
 	{/if}
 </main>
+<Footer />
 
 <style>
 	main {

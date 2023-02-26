@@ -14,6 +14,9 @@
 		selections?.findIndex(
 			(s) => s.fixture === fixture.code && s.selection === fixture.team_a.id - 1
 		) > -1;
+
+	const homeColor = teams[fixture.team_h.id - 1]?.primaryColor;
+	const awayColor = teams[fixture.team_a.id - 1]?.primaryColor;
 </script>
 
 <article>
@@ -23,8 +26,7 @@
 			class={`${homeTeamSelected ? 'selected' : ''} test`}
 			formaction="?/select&selection={fixture.team_h.id -
 				1}&fixture={fixture.code}&gameweek={fixture.event}"
-			style="border-left: 0.25rem solid {teams[fixture.team_h.id - 1]?.primaryColor}"
-			>{fixture.team_h.shortName}</button
+			style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
 		>
 		{#if fixture.started}
 			<span id="score" class={fixture?.finished_provisional ? 'score-ft' : 'score-live'}
@@ -42,8 +44,7 @@
 			class={awayTeamSelected ? 'selected' : ''}
 			formaction="?/select&selection={fixture.team_a.id -
 				1}&fixture={fixture.code}&gameweek={fixture.event}"
-			style="border-right: 0.25rem solid {teams[fixture.team_a.id - 1]?.primaryColor}"
-			>{fixture.team_a.shortName}</button
+			style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
 		>
 	</form>
 </article>
@@ -75,32 +76,31 @@
 	span.score-ft {
 	}
 	span.score-live {
-		background: coral;
-		color: black;
+		background: var(--color-secondary);
 	}
 
 	.selected {
-		background: black;
-		color: white;
+		background: var(--color-accent);
+		color: var(--color-text);
 	}
 
 	button {
-		background: ivory;
+		background: var(--color-base);
+		border: 1px solid var(--color-accent);
 		height: 3rem;
-		border: none;
 		border-radius: 0rem;
 		padding: 0;
 		box-shadow: none;
 		font: inherit;
 		outline: none;
-		color: #111;
+		color: var(--color-text);
 		font-size: large;
-		transition: all 0.2s ease-in-out;
+		transition: all 0.1s ease-in-out;
 	}
 
 	button:enabled:hover {
-		background: mediumseagreen;
-		color: ivory;
+		background: var(--color-primary);
+		color: var(--color-text);
 		cursor: pointer;
 	}
 </style>

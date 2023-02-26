@@ -63,12 +63,12 @@ export const actions: Actions = {
 
 export const load = (async (event: any) => {
 	const { activeGameweek } = await event.parent();
-	const { params, fetch } = event;
+	const { params, fetch, setHeaders } = event;
 
 	const session = await getServerSession(event);
 
 	const res = await fetch(
-		`https://fantasy.premierleague.com/api/fixtures?event=${params.gameweek}`,
+		`https://fantasy.premierleague.com/api/fixtures/?event=${params.gameweek}`,
 		{
 			headers: {
 				'Access-Control-Allow-Origin': 'https://fantasy.premierleague.com'
@@ -94,6 +94,8 @@ export const load = (async (event: any) => {
 	const gameweekFixtures = formattedFixtures.filter(
 		(fixture: Fixture) => fixture.event === Number(params.gameweek)
 	);
+
+	setHeaders();
 
 	return {
 		selections: data ?? [],

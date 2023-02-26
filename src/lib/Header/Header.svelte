@@ -76,7 +76,6 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.5rem 0.5rem 0.5rem 1rem;
-		color: var(--color-text);
 		background: var(--color-secondary);
 	}
 
@@ -90,10 +89,6 @@
 	}
 	nav button:hover {
 		cursor: pointer;
-	}
-
-	#logo {
-		padding-inline: 1rem;
 	}
 
 	#user-section-desktop {
@@ -128,8 +123,7 @@
 		color: var(--color-text);
 		background: var(--color-secondary);
 	}
-	.desktop-menu-list li {
-	}
+
 	.desktop-menu-list a {
 		display: flex;
 		flex-direction: column;
@@ -154,7 +148,7 @@
 		flex-direction: column;
 		align-items: start;
 		gap: 2rem;
-		border-bottom: 0.25rem solid var(--color-primary);
+		border-bottom: 0.25rem solid var(--color-accent);
 	}
 
 	.mobile-menu-list li {

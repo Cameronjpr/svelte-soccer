@@ -4,6 +4,7 @@
 	import dayjs from 'dayjs';
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import Paginator from '@lib/Paginator/Paginator.svelte';
+	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import type { Fixture } from '@lib/types';
 
 	dayjs.extend(advancedFormat);
@@ -14,8 +15,7 @@
 </script>
 
 <h1>Gameweek {data.gameweek.event}</h1>
-<Paginator currentPage={data?.gameweek?.event} />
-<!-- <ScrollingPaginator currentPage={data?.gameweek?.event} /> -->
+<SimplePaginator currentGameweek={data.gameweek.event} />
 <main>
 	{#each data.gameweek.fixtures as fixture, index}
 		{#if index === 0 || dayjs(data.gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
