@@ -11,6 +11,6 @@
 		justify-content: end;
 		background: var(--color-secondary);
 		margin-top: 5rem;
-		height: 10rem;
+		height: 12vh;
 	}
 </style>

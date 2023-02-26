@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { slide } from 'svelte/transition';
+	import { slide, fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import UserCircle from '@lib/icons/UserCircle.svelte';
 	import Calendar from '@lib/icons/Calendar.svelte';
@@ -62,7 +62,7 @@
 			</ul>
 			<div
 				id="menu-safe-area"
-				class={menuOpen ? '' : 'hidden'}
+				transition:fade={{ delay: 0, duration: 150 }}
 				on:click={toggleMenu}
 				on:keypress={toggleMenu}
 			/>
@@ -103,10 +103,11 @@
 	#menu-safe-area {
 		display: block;
 		position: absolute;
-		top: 3.5rem;
+		top: 4rem;
 		left: 0;
-		height: calc(100vh - 3.5rem);
+		height: calc(100vh - 2.5rem);
 		width: 100%;
+		background: hsla(0, 0%, 0%, 0.8);
 	}
 
 	ul {

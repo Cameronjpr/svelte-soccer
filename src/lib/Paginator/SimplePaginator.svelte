@@ -1,5 +1,8 @@
 
 <script lang="ts">
+	import ChevLeft from "@lib/icons/ChevLeft.svelte";
+	import ChevRight from "@lib/icons/ChevRight.svelte";
+
   export let currentGameweek = 1;
 
   $: prevGameweek = currentGameweek > 1 ? currentGameweek - 1 : 1
@@ -7,8 +10,8 @@
 </script>
 
 <section>
-	<a data-sveltekit-noscroll href="/gameweek/{prevGameweek}">Previous</a>
-	<a data-sveltekit-noscroll href="/gameweek/{nextGameweek}">Next</a>
+	<a data-sveltekit-noscroll href="/gameweek/{prevGameweek}"><ChevLeft/>Previous</a>
+	<a data-sveltekit-noscroll href="/gameweek/{nextGameweek}">Next<ChevRight /></a>
 </section>
 
 <style>
@@ -17,18 +20,18 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		gap: 1rem;
 	}
 
 	a {
 		font-weight: bold;
-		text-decoration: none;
-		width: 20%;
-		height: 2.5rem;
-		line-height: 2.5rem;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.35rem;
+    height: 2rem;
+		width: fit-content;
 		text-align: center;
-		border-radius: 0.75rem;
-		border: 0.2rem solid var(--color-accent);
 		transition: all 0.2s ease-in-out;
 	}
 

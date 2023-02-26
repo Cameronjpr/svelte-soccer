@@ -67,6 +67,7 @@
 		margin: auto;
 		padding: 0.5rem;
 		max-width: 768px;
+		min-height: 75vh;
 	}
 
 	footer {
