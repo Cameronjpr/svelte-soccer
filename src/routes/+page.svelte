@@ -1,4 +1,4 @@
-<h1>Welcome to SvelteSoccer</h1>
+<h1>Welcome to PremPredictor</h1>
 
 <h2>How to play</h2>
 

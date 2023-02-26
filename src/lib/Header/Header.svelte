@@ -16,7 +16,7 @@
 </script>
 
 <nav>
-	<a href="/">SvelteSoccer</a>
+	<a href="/">PremPredictor</a>
 	<ul class="desktop-menu-list">
 		<div id="user-section-desktop">
 			{#if $page?.data?.session}

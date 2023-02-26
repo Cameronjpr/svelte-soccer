@@ -1,5 +1,5 @@
 <footer>
-	<strong>SvelteSoccer</strong>
+	<strong>PremPredictor</strong>
 	<span>Created by Cameron Robson</span>
 </footer>
 
