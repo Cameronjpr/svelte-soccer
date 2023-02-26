@@ -2,7 +2,11 @@
 	import { page } from '$app/stores';
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import { onMount } from 'svelte';
+	import UserCircle from '@lib/icons/UserCircle.svelte';
+	import Calendar from '@lib/icons/Calendar.svelte';
+	import Hamburger from '@lib/icons/Hamburger.svelte';
+	import Cross from '@lib/icons/Cross.svelte';
+	import Trophy from '@lib/icons/Trophy.svelte';
 
 	let showMenu = false;
 
@@ -12,20 +16,32 @@
 </script>
 
 <nav>
-	<div id="logo">
-		<a href="/">SvelteSoccer</a>
-	</div>
-	<div id="user-section-desktop">
-		{#if $page?.data?.session}
-			<a href="/profile">Profile</a>
-		{:else}
-			<a href="/login">Sign in</a>
-		{/if}
-		<a href="/leaderboard">Leaderboard</a>
-		<a href="/gameweek/{activeGameweek}">Fixtures</a>
-	</div>
+	<a href="/">SvelteSoccer</a>
+	<ul class="desktop-menu-list">
+		<div id="user-section-desktop">
+			{#if $page?.data?.session}
+				<li>
+					<a href="/profile"><UserCircle />Profile</a>
+				</li>
+			{:else}
+				<li>
+					<a href="/login"><UserCircle />Sign in</a>
+				</li>
+			{/if}
+			<li>
+				<a href="/gameweek/{activeGameweek}"><Calendar />Fixtures</a>
+			</li>
+			<li>
+				<a href="/leaderboard"><Trophy />Leaderboard</a>
+			</li>
+		</div>
+	</ul>
 	<div id="user-section-mobile">
-		<button on:click={toggleMenu}>Menu</button>
+		{#if menuOpen}
+			<button on:click={toggleMenu}><Cross /></button>
+		{:else}
+			<button on:click={toggleMenu}><Hamburger /></button>
+		{/if}
 		{#if menuOpen}
 			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 100, easing: quintOut }}>
 				{#if $page?.data?.session}
@@ -59,7 +75,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0.5rem;
+		padding: 0.5rem 0.5rem 0.5rem 1rem;
 		color: var(--color-text);
 		background: var(--color-secondary);
 	}
@@ -98,13 +114,39 @@
 		width: 100%;
 	}
 
+	ul {
+		list-style: none;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	.desktop-menu-list {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-inline: 0.5rem;
+		color: var(--color-text);
+		background: var(--color-secondary);
+	}
+	.desktop-menu-list li {
+	}
+	.desktop-menu-list a {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		height: 2.75rem;
+		width: 4rem;
+		font-size: 0.75rem;
+		line-height: 0.75rem;
+	}
+
 	.mobile-menu-list {
 		z-index: 2;
 		position: absolute;
 		top: 3.5rem;
 		right: 0;
 		background: var(--color-secondary);
-		list-style: none;
 		padding-block: 1.5rem;
 		margin: 0;
 		width: 100%;

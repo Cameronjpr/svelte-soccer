@@ -4,7 +4,6 @@ import type { Fixture } from '@lib/types';
 import { supabaseClient } from '@lib/db';
 import { fail, redirect } from '@sveltejs/kit';
 import { formatFixtures } from '@lib/util/fixture';
-import { getActiveGameweek } from '@lib/util/gameweek';
 
 export const actions: Actions = {
 	select: async (event) => {

@@ -7,6 +7,7 @@
 	import { page, navigating } from '$app/stores';
 	import { teams } from '@lib/teams';
 	import Header from '@lib/Header/Header.svelte';
+	import UserCircle from '@lib/icons/UserCircle.svelte';
 
 	onMount(() => {
 		const {

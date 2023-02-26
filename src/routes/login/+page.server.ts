@@ -10,7 +10,6 @@ export const actions: Actions = {
 		const { url } = event;
 		const { supabaseClient } = await getSupabase(event);
 		const provider = url.searchParams.get('provider') as Provider;
-		const redirectTo = url.searchParams.get('redirectTo') ?? '';
 
 		console.log('isProd', isProd);
 
