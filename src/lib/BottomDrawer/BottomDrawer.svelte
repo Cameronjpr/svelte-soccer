@@ -1,12 +1,11 @@
 <script>
-	import { quintOut } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';
 	export let isOpen = false;
 	export let toggleDrawer = () => {};
 </script>
 
-<section class={isOpen ? 'open' : 'closed'}>
-	{#if isOpen}
+{#if isOpen}
+	<section>
 		<div
 			class="bottom-drawer-safe-area"
 			on:click={toggleDrawer}
@@ -19,8 +18,8 @@
 			<slot />
 			<button class="appearance-tertiary" on:click={toggleDrawer}>Cancel</button>
 		</div>
-	{/if}
-</section>
+	</section>
+{/if}
 
 <style>
 	.bottom-drawer-safe-area {
@@ -28,7 +27,7 @@
 		top: 0;
 		left: 0;
 		height: 100%;
-		width: 100vw;
+		width: 100%;
 		background: rgba(0, 0, 0, 0.5);
 		z-index: 1;
 	}
@@ -50,10 +49,6 @@
 		z-index: 2;
 		background: white;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-	}
-
-	.open .bottom-drawer-content {
-		transform: translateY(0);
 	}
 
 	section {

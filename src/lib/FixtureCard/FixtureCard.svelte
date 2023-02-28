@@ -65,6 +65,10 @@
 		style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
 	>
 
+	{#if drawerOpen}
+		<span>open!</span>
+	{/if}
+
 	{#if session}
 		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
 			<strong>You have selected {teams[preselectedTeam - 1]?.shortName}.</strong>
@@ -101,7 +105,6 @@
 		display: grid;
 		grid-template-columns: 3fr 1fr 3fr;
 		gap: 0.5rem;
-		align-items: center;
 		padding: 0px;
 	}
 
@@ -111,11 +114,9 @@
 		justify-content: center;
 		font-weight: medium;
 		background: none;
-		height: 100%;
 	}
 
 	span#score {
-		height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -123,6 +124,9 @@
 
 	span.score-live {
 		background: var(--color-secondary);
+	}
+
+	span.score-ft {
 	}
 
 	.selected {
