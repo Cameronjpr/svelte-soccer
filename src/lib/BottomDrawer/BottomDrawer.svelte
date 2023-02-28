@@ -37,6 +37,7 @@
 		height: auto;
 		display: flex;
 		flex-direction: column;
+		align-content: center;
 		margin: 0 auto;
 		max-width: 768px;
 		border-radius: 0.5rem 0.5rem 0 0;

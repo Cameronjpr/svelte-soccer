@@ -7,6 +7,7 @@ import { formatFixtures } from '@lib/util/fixture';
 
 export const actions: Actions = {
 	select: async (event) => {
+		console.log('selecting fixture');
 		const selection = event.url.searchParams.get('selection');
 		const fixture = event.url.searchParams.get('fixture');
 		const gameweek = event.url.searchParams.get('gameweek');
@@ -58,6 +59,7 @@ export const actions: Actions = {
 				});
 			}
 		}
+		return { success: true };
 	}
 };
 
