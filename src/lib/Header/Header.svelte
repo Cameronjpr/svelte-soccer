@@ -17,25 +17,6 @@
 
 <nav>
 	<a href="/">PremPredictor</a>
-	<ul class="desktop-menu-list">
-		<div id="user-section-desktop">
-			{#if $page?.data?.session}
-				<li>
-					<a href="/profile"><UserCircle />Profile</a>
-				</li>
-			{:else}
-				<li>
-					<a href="/login"><UserCircle />Sign in</a>
-				</li>
-			{/if}
-			<li>
-				<a href="/gameweek/{activeGameweek}"><Calendar />Fixtures</a>
-			</li>
-			<li>
-				<a href="/leaderboard"><Trophy />Leaderboard</a>
-			</li>
-		</div>
-	</ul>
 	<div id="user-section-mobile">
 		{#if menuOpen}
 			<button on:click={toggleMenu}><Cross /></button>
@@ -46,18 +27,18 @@
 			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 100, easing: quintOut }}>
 				{#if $page?.data?.session}
 					<li>
-						<a href="/profile">Profile</a>
+						<a href="/profile"><UserCircle />Profile</a>
 					</li>
 				{:else}
 					<li>
-						<a href="/login">Sign in</a>
+						<a href="/login"><UserCircle />Sign in</a>
 					</li>
 				{/if}
 				<li>
-					<a href="/leaderboard">Leaderboard</a>
+					<a href="/gameweek/{activeGameweek}"><Calendar />Fixtures</a>
 				</li>
 				<li>
-					<a href="/gameweek/{$page?.data?.activeGameweek ?? 1}">Fixtures</a>
+					<a href="/leaderboard"><Trophy />Leaderboard</a>
 				</li>
 			</ul>
 			<div
@@ -75,7 +56,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0.5rem 0.5rem 0.5rem 1rem;
+		padding: 0.5rem 1rem 0.5rem 1rem;
 		background: var(--color-secondary);
 	}
 
@@ -86,18 +67,10 @@
 		font-weight: bold;
 		font-size: large;
 		text-decoration: none;
+		padding: 0px;
 	}
 	nav button:hover {
 		cursor: pointer;
-	}
-
-	#user-section-desktop {
-		display: flex;
-		gap: 1.5rem;
-	}
-
-	#user-section-mobile {
-		display: none;
 	}
 
 	#menu-safe-area {
@@ -116,26 +89,6 @@
 		margin: 0px;
 	}
 
-	.desktop-menu-list {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding-inline: 0.5rem;
-		color: var(--color-text);
-		background: var(--color-secondary);
-	}
-
-	.desktop-menu-list a {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		height: 2.75rem;
-		width: 4rem;
-		font-size: 0.75rem;
-		line-height: 0.75rem;
-	}
-
 	.mobile-menu-list {
 		z-index: 2;
 		position: absolute;
@@ -152,17 +105,10 @@
 		border-bottom: 0.25rem solid var(--color-accent);
 	}
 
-	.mobile-menu-list li {
+	.mobile-menu-list a {
 		padding-inline: 1.5rem;
-	}
-
-	@media (max-width: 600px) {
-		#user-section-desktop {
-			display: none;
-		}
-
-		#user-section-mobile {
-			display: flex;
-		}
+		display: flex;
+		gap: 1rem;
+		align-items: center;
 	}
 </style>
