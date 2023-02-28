@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import BottomDrawer from '@lib/BottomDrawer/BottomDrawer.svelte';
 	import { teams } from '@lib/teams';
 	import type { Fixture, Selection } from '@lib/types';
 
@@ -15,17 +17,34 @@
 			(s) => s.fixture === fixture.code && s.selection === fixture.team_a.id - 1
 		) > -1;
 
+	let preselectedTeam = 1;
+
 	const homeColor = teams[fixture.team_h.id - 1]?.primaryColor;
 	const awayColor = teams[fixture.team_a.id - 1]?.primaryColor;
+
+	let drawerOpen = false;
+
+	const toggleDrawer = () => {
+		drawerOpen = !drawerOpen;
+	};
+
+	function handlePreselect(teamId: number) {
+		preselectedTeam = teamId;
+
+		toggleDrawer();
+	}
+
+	export let form;
+
+	console.log(form);
 </script>
 
 <article>
-	<form method="POST">
+	<form method="POST" use:enhance>
 		<button
 			disabled={!isSelectable}
-			class={`${homeTeamSelected ? 'selected' : ''} test`}
-			formaction="?/select&selection={fixture.team_h.id -
-				1}&fixture={fixture.code}&gameweek={fixture.event}"
+			class={`fixture-button ${homeTeamSelected ? 'selected' : ''}`}
+			on:click={() => handlePreselect(fixture.team_h.id)}
 			style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
 		>
 		{#if fixture.started}
@@ -41,11 +60,20 @@
 		{/if}
 		<button
 			disabled={!isSelectable}
-			class={awayTeamSelected ? 'selected' : ''}
-			formaction="?/select&selection={fixture.team_a.id -
-				1}&fixture={fixture.code}&gameweek={fixture.event}"
+			class={`fixture-button ${awayTeamSelected ? 'selected' : ''}`}
+			on:click={() => handlePreselect(fixture.team_a.id)}
 			style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
 		>
+
+		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
+			<strong>You have selected {teams[preselectedTeam - 1]?.shortName}.</strong>
+			<button
+				class="appearance-primary"
+				disabled={!isSelectable || !drawerOpen}
+				formaction="?/select&selection={preselectedTeam -
+					1}&fixture={fixture.code}&gameweek={fixture.event}">Confirm</button
+			>
+		</BottomDrawer>
 	</form>
 </article>
 
@@ -84,7 +112,7 @@
 		color: var(--color-text);
 	}
 
-	button {
+	form > button {
 		background: var(--color-base);
 		border: 1px solid var(--color-accent);
 		height: 3rem;
@@ -99,7 +127,7 @@
 	}
 
 	button:enabled:hover {
-		background: var(--color-primary);
+		background: var(--color-accent);
 		color: var(--color-text);
 		cursor: pointer;
 	}
