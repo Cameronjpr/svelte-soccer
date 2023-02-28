@@ -9,6 +9,8 @@
 	export let selections: Array<Selection>;
 	export let isSelectable: boolean;
 
+	import { page } from '$app/stores';
+
 	$: homeTeamSelected =
 		selections?.findIndex(
 			(s) => s.fixture === fixture.code && s.selection === fixture.team_h.id - 1
@@ -34,12 +36,14 @@
 
 		toggleDrawer();
 	}
+
+	const session = $page.data.session;
 </script>
 
 <article>
 	<button
 		disabled={!isSelectable}
-		class={`fixture-button ${homeTeamSelected ? 'selected' : ''}`}
+		class={`${homeTeamSelected ? 'selected' : ''}`}
 		on:click={() => handlePreselect(fixture.team_h.id)}
 		style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
 	>
@@ -56,33 +60,40 @@
 	{/if}
 	<button
 		disabled={!isSelectable}
-		class={`fixture-button ${awayTeamSelected ? 'selected' : ''}`}
+		class={`${awayTeamSelected ? 'selected' : ''}`}
 		on:click={() => handlePreselect(fixture.team_a.id)}
 		style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
 	>
 
-	<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
-		<strong>You have selected {teams[preselectedTeam - 1]?.shortName}.</strong>
-		<form
-			method="POST"
-			use:enhance={({ form, data, action, cancel }) => {
-				return async ({ result, update }) => {
-					if (result?.type === 'success') {
-						toggleDrawer();
-						update();
-					}
-				};
-			}}
-		>
-			<button
-				style="width: 100%;"
-				class="appearance-primary"
-				disabled={!isSelectable || !drawerOpen}
-				formaction="?/select&selection={preselectedTeam -
-					1}&fixture={fixture.code}&gameweek={fixture.event}">Confirm</button
+	{#if session}
+		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
+			<strong>You have selected {teams[preselectedTeam - 1]?.shortName}.</strong>
+			<form
+				method="POST"
+				use:enhance={({ form, data, action, cancel }) => {
+					return async ({ result, update }) => {
+						if (result?.type === 'success') {
+							toggleDrawer();
+							update();
+						}
+					};
+				}}
 			>
-		</form>
-	</BottomDrawer>
+				<button
+					style="width: 100%;"
+					class="appearance-primary"
+					disabled={!isSelectable || !drawerOpen}
+					formaction="?/select&selection={preselectedTeam -
+						1}&fixture={fixture.code}&gameweek={fixture.event}">Confirm</button
+				>
+			</form>
+		</BottomDrawer>
+	{:else}
+		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
+			<strong>Sign in to play PremPredictor</strong>
+			<a class="linkbutton" href="/login">Sign in</a>
+		</BottomDrawer>
+	{/if}
 </article>
 
 <style>
@@ -109,33 +120,27 @@
 		align-items: center;
 		justify-content: center;
 	}
-	span.score-ft {
-	}
+
 	span.score-live {
 		background: var(--color-secondary);
 	}
 
 	.selected {
-		background: var(--color-accent);
+		background: var(--color-secondary);
 		color: var(--color-text);
 	}
 
 	article > button {
-		background: var(--color-base);
+		background: white;
 		border: 1px solid var(--color-accent);
 		height: 3rem;
 		border-radius: 0rem;
 		box-shadow: none;
+		padding-inline: 0px;
 		font: inherit;
 		outline: none;
 		color: var(--color-text);
 		font-size: large;
 		transition: all 0.1s ease-in-out;
-	}
-
-	button:enabled:hover {
-		background: var(--color-accent);
-		color: var(--color-text);
-		cursor: pointer;
 	}
 </style>

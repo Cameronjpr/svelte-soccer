@@ -36,6 +36,28 @@ button {
   border-radius: .75rem;
 }
 
+.linkbutton {
+  height: 3rem;
+  padding-inline: 1.5rem;
+  background: var(--color-primary);
+  color: var(--color-text);
+  font-size: large;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: .75rem;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkbutton:hover {
+  border: 2px solid var(--color-text);
+  color: var(--color-text);
+}
+
 .appearance-primary {
   background: var(--color-primary);
   color: var(--color-text);
@@ -69,7 +91,12 @@ hr {
 
 h1, h2 {
   color: var(--color-text);
+  margin-block: 1rem;
   text-decoration: underline;
   text-decoration-color: var(--color-secondary);
-  margin-block: 1rem;
+}
+
+h2 {
+  text-decoration-color: var(--color-accent);
+  margin-bottom: 0.5rem;
 }

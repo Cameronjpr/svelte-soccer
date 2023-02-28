@@ -16,6 +16,7 @@
 		} = supabaseClient.auth.onAuthStateChange(() => {
 			invalidate('supabase:auth');
 			invalidate('user');
+			invalidate('supabase');
 		});
 
 		return () => {

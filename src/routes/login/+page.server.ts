@@ -11,8 +11,6 @@ export const actions: Actions = {
 		const { supabaseClient } = await getSupabase(event);
 		const provider = url.searchParams.get('provider') as Provider;
 
-		console.log('isProd', isProd);
-
 		if (provider) {
 			const { data, error } = await supabaseClient.auth.signInWithOAuth({
 				provider: provider,

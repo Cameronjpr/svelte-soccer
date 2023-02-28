@@ -7,6 +7,7 @@
 	import Hamburger from '@lib/icons/Hamburger.svelte';
 	import Cross from '@lib/icons/Cross.svelte';
 	import Trophy from '@lib/icons/Trophy.svelte';
+	import Lightbulb from '@lib/icons/Lightbulb.svelte';
 
 	let showMenu = false;
 
@@ -16,7 +17,6 @@
 </script>
 
 <nav>
-	<a href="/">PremPredictor</a>
 	<div id="user-section-mobile">
 		{#if menuOpen}
 			<button on:click={toggleMenu}><Cross /></button>
@@ -25,30 +25,30 @@
 		{/if}
 		{#if menuOpen}
 			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 100, easing: quintOut }}>
-				{#if $page?.data?.session}
-					<li>
-						<a href="/profile"><UserCircle />Profile</a>
-					</li>
-				{:else}
-					<li>
-						<a href="/login"><UserCircle />Sign in</a>
-					</li>
-				{/if}
 				<li>
 					<a href="/gameweek/{activeGameweek}"><Calendar />Fixtures</a>
 				</li>
 				<li>
 					<a href="/leaderboard"><Trophy />Leaderboard</a>
 				</li>
+				<li>
+					<a href="/how-to-play"><Lightbulb />How to play</a>
+				</li>
 			</ul>
 			<div
 				id="menu-safe-area"
-				transition:fade={{ delay: 0, duration: 150 }}
+				transition:fade={{ delay: 0, duration: 100 }}
 				on:click={toggleMenu}
 				on:keypress={toggleMenu}
 			/>
 		{/if}
 	</div>
+	<a href="/">PremPredictor</a>
+	{#if $page?.data?.session}
+		<a href="/profile" aria-label="profile"><UserCircle /></a>
+	{:else}
+		<a href="/login" aria-label="log in"><UserCircle /></a>
+	{/if}
 </nav>
 
 <style>
@@ -105,10 +105,13 @@
 		border-bottom: 0.25rem solid var(--color-accent);
 	}
 
-	.mobile-menu-list a {
-		padding-inline: 1.5rem;
+	nav a {
 		display: flex;
 		gap: 1rem;
 		align-items: center;
+	}
+
+	.mobile-menu-list a {
+		padding-inline: 1.5rem;
 	}
 </style>
