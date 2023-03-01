@@ -3,15 +3,15 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
-	import { redirect } from '@sveltejs/kit';
 	import { page, navigating } from '$app/stores';
 	import { teams } from '@lib/teams';
 	import Header from '@lib/Header/Header.svelte';
-	import UserCircle from '@lib/icons/UserCircle.svelte';
 	import Footer from '@lib/Footer/Footer.svelte';
 
-	import { setContext } from 'svelte';
-	import { writable } from 'svelte/store';
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
+
+	inject({ mode: dev ? 'development' : 'production' });
 
 	export let data: LayoutData;
 

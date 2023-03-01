@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.8.7",
 		"@supabase/supabase-js": "^2.8.0",
+		"@vercel/analytics": "^0.1.11",
 		"dayjs": "^1.11.7"
 	}
 }
