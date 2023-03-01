@@ -65,13 +65,12 @@
 		style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
 	>
 
-	{#if drawerOpen}
-		<span>open!</span>
-	{/if}
-
 	{#if session}
 		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
-			<strong>You have selected {teams[preselectedTeam - 1]?.shortName}.</strong>
+			<p>
+				<strong>Select {teams[preselectedTeam - 1]?.shortName}?</strong><br />
+				You have <strong>two</strong> selections for this team remaining.
+			</p>
 			<form
 				method="POST"
 				use:enhance={({ form, data, action, cancel }) => {
@@ -106,9 +105,11 @@
 		grid-template-columns: 3fr 1fr 3fr;
 		gap: 0.5rem;
 		padding: 0px;
+		max-height: 3rem;
 	}
 
-	span#kickoff-time {
+	span {
+		max-height: 3rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -116,10 +117,7 @@
 		background: none;
 	}
 
-	span#score {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	span#kickoff-time {
 	}
 
 	span.score-live {
