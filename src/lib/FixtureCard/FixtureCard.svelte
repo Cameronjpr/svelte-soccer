@@ -20,6 +20,8 @@
 			(s) => s.fixture === fixture.code && s.selection === fixture.team_a.id - 1
 		) > -1;
 
+	console.log(isSelectable);
+
 	let preselectedTeam = 1;
 
 	const homeColor = teams[fixture.team_h.id - 1]?.primaryColor;
@@ -68,8 +70,8 @@
 	{#if session}
 		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
 			<p>
-				<strong>Select {teams[preselectedTeam - 1]?.shortName}?</strong><br />
-				You have <strong>two</strong> selections for this team remaining.
+				<strong>Select {teams[preselectedTeam - 1]?.name}?</strong><br />
+				You have <strong>two</strong> available selections for this team.
 			</p>
 			<form
 				method="POST"
