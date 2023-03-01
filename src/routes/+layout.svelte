@@ -10,6 +10,11 @@
 	import UserCircle from '@lib/icons/UserCircle.svelte';
 	import Footer from '@lib/Footer/Footer.svelte';
 
+	import { setContext } from 'svelte';
+	import { writable } from 'svelte/store';
+
+	export let data: LayoutData;
+
 	onMount(() => {
 		const {
 			data: { subscription }
@@ -24,7 +29,12 @@
 		};
 	});
 
-	export let data: LayoutData;
+	// // Create a store and update it when necessary...
+	// const fixtures = writable();
+	// $: fixtures.set(data.fixtures);
+	// // ...and add it to the context for child components to access
+	// setContext('user', user);
+
 	let menuOpen = false;
 	let debugMode = false;
 

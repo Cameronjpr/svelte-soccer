@@ -3,7 +3,6 @@
 	import type { PageData } from './$types';
 	import dayjs from 'dayjs';
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
-	import Paginator from '@lib/Paginator/Paginator.svelte';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import type { Fixture } from '@lib/types';
 
