@@ -5,6 +5,7 @@
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import type { Fixture } from '@lib/types';
+	import LockClosed from '@lib/icons/LockClosed.svelte';
 
 	dayjs.extend(advancedFormat);
 	export let data: PageData;
@@ -15,14 +16,17 @@
 </script>
 
 <h1>Gameweek {data.gameweek.event}</h1>
-<!-- {#if data.gameweek.event === data?.activeGameweek}
-	<span id="live-chip">live</span>
-{/if} -->
 <SimplePaginator currentGameweek={data.gameweek.event} />
 {#if isFinished}
-	<p>Selections are locked because this gameweek has finished</p>
+	<section class="alert">
+		<LockClosed />
+		<p>This gameweek has finished</p>
+	</section>
 {:else if hasStarted}
-	<p>Selections are locked because this gameweek has started</p>
+	<section class="alert">
+		<LockClosed />
+		<p>This gameweek has already started</p>
+	</section>
 {/if}
 <main>
 	{#each data.gameweek.fixtures as fixture, index}
@@ -40,7 +44,12 @@
 		flex-direction: column;
 	}
 
-	p {
+	.alert {
+		display: grid;
+		grid-template-columns: 1fr 6fr 1fr;
+		align-items: center;
+		justify-content: center;
+		gap: 0.25rem;
 		padding-inline: 1rem;
 		padding-block: 0.5rem;
 		background: var(--color-accent);
@@ -48,11 +57,7 @@
 		text-align: center;
 	}
 
-	#live-chip {
-		background: var(--color-primary);
-		color: var(--color-text);
-		padding: 0.25rem 0.5rem;
-		border-radius: 0.5rem;
-		margin-left: 0.5rem;
+	p {
+		margin: 0;
 	}
 </style>

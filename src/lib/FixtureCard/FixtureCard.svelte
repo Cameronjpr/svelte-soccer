@@ -20,9 +20,8 @@
 			(s) => s.fixture === fixture.code && s.selection === fixture.team_a.id - 1
 		) > -1;
 
-	console.log(isSelectable);
-
 	let preselectedTeam = 1;
+	let selectionLoading = false;
 
 	const homeColor = teams[fixture.team_h.id - 1]?.primaryColor;
 	const awayColor = teams[fixture.team_a.id - 1]?.primaryColor;
@@ -76,18 +75,20 @@
 			<form
 				method="POST"
 				use:enhance={({ form, data, action, cancel }) => {
+					selectionLoading = true;
 					return async ({ result, update }) => {
 						if (result?.type === 'success') {
 							toggleDrawer();
 							update();
 						}
+						selectionLoading = false;
 					};
 				}}
 			>
 				<button
-					style="width: 100%;"
+					style="width: 100%; {selectionLoading ? 'cursor: wait;' : ''}"
 					class="appearance-primary"
-					disabled={!isSelectable || !drawerOpen}
+					disabled={!isSelectable || !drawerOpen || selectionLoading}
 					formaction="?/select&selection={preselectedTeam -
 						1}&fixture={fixture.code}&gameweek={fixture.event}">Confirm</button
 				>
@@ -117,16 +118,11 @@
 		justify-content: center;
 		font-weight: medium;
 		background: none;
-	}
-
-	span#kickoff-time {
+		color: var(--color-text);
 	}
 
 	span.score-live {
 		background: var(--color-secondary);
-	}
-
-	span.score-ft {
 	}
 
 	.selected {
