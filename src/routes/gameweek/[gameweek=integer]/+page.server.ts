@@ -1,9 +1,7 @@
 import type { Actions, PageServerLoad } from './$types';
 import { getServerSession, getSupabase } from '@supabase/auth-helpers-sveltekit';
-import type { Fixture } from '@lib/types';
 import { supabaseClient } from '@lib/db';
 import { fail, redirect } from '@sveltejs/kit';
-import { formatFixtures } from '@lib/util/fixture';
 
 export const actions: Actions = {
 	select: async (event) => {
@@ -17,6 +15,7 @@ export const actions: Actions = {
 			throw redirect(303, '/login');
 		}
 
+		// Find selections for this user
 		const { data: selections } = await supabaseClient
 			.from('Selections')
 			.select()
@@ -65,19 +64,12 @@ export const actions: Actions = {
 
 export const load = (async (event: any) => {
 	const { activeGameweek } = await event.parent();
-	const { params, fetch, setHeaders } = event;
-
-	const session = await getServerSession(event);
-
-	const { data, error } = await supabaseClient
-		.from('Selections')
-		.select()
-		.eq('selector', session?.user?.id);
+	const { selections } = await event.parent();
+	const { popular } = await event.parent();
 
 	return {
-		selections: data ?? [],
-		activeGameweek: activeGameweek
+		activeGameweek,
+		selections,
+		popular
 	};
 }) satisfies PageServerLoad;
-
-// export const prerender = true;

@@ -1,14 +1,17 @@
 <script lang="ts">
 	import FixtureCard from '@lib/FixtureCard/FixtureCard.svelte';
-	import type { PageData } from './$types';
+	import type { PageData, PageServerData } from './$types';
 	import dayjs from 'dayjs';
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import type { Fixture } from '@lib/types';
 	import LockClosed from '@lib/icons/LockClosed.svelte';
+	import { page } from '$app/stores';
 
 	dayjs.extend(advancedFormat);
 	export let data: PageData;
+
+	console.log(data?.popular);
 
 	$: hasStarted = data.gameweek.fixtures.some((f: Fixture) => f.started);
 	$: isFinished = data.gameweek.fixtures.every((f: Fixture) => f.finished_provisional);
@@ -33,7 +36,7 @@
 		{#if index === 0 || dayjs(data.gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
 			<h2>{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
 		{/if}
-		<FixtureCard {fixture} selections={data?.selections} {isSelectable} />
+		<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
 	{/each}
 </main>
 

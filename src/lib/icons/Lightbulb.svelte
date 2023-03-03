@@ -1,8 +1,3 @@
-<script lang="ts">
-	export let color = 'currentColor';
-	export let fill = 'currentColor';
-</script>
-
 <svg
 	fill="none"
 	stroke="currentColor"

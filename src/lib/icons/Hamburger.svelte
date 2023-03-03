@@ -1,11 +1,6 @@
-<script lang="ts">
-	export let color = 'currentColor';
-	export let fill = 'currentColor';
-</script>
-
 <svg
 	fill="none"
-	stroke={color}
+	stroke="currentColor"
 	stroke-width="1.5"
 	width="2rem"
 	height="2rem"

@@ -20,7 +20,6 @@ export const load = (async (event) => {
 	const data = await res.json();
 
 	return {
-		// selections: data ?? [],
 		activeGameweek: activeGameweek,
 		gameweek: data
 	};

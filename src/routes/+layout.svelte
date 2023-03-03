@@ -29,12 +29,6 @@
 		};
 	});
 
-	// // Create a store and update it when necessary...
-	// const fixtures = writable();
-	// $: fixtures.set(data.fixtures);
-	// // ...and add it to the context for child components to access
-	// setContext('user', user);
-
 	let menuOpen = false;
 	let debugMode = false;
 

@@ -19,18 +19,12 @@ export const GET = (async ({ fetch }) => {
 			return new Response(String(1));
 		}
 
-		// const readSingle = await fetch(
-		// 	`https://edge-config.vercel.com/${EDGE_CONFIG_ID}/item/config?token=${EDGE_CONFIG_TOKEN}`
-		// );
-		// const result = await readSingle.json();
-
 		const fixtures = await res.json();
 		const activeGameweek = getActiveGameweek(fixtures);
 
 		return new Response(String(activeGameweek));
 	} catch (error) {
-		console.log(error);
-		return fail(500);
+		return new Response(String(1));
 	}
 
 	// return new Response(String(random));

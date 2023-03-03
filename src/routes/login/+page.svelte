@@ -9,7 +9,7 @@
 			<button formaction="?/login&provider=google">Sign in with Google</button>
 		</form>
 	{:else}
-		<h1>Welcome {$page?.data?.session?.user?.email}</h1>
+		<h1>You're already signed in.</h1>
 	{/if}
 </main>
 

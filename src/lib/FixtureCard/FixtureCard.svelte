@@ -4,24 +4,21 @@
 	import { teams } from '@lib/teams';
 	import type { Fixture, Selection } from '@lib/types';
 	import type { ActionData, PageData } from '../../routes/gameweek/[gameweek=integer]/$types';
-
-	export let fixture: Fixture;
-	export let selections: Array<Selection>;
-	export let isSelectable: boolean;
-
 	import { page } from '$app/stores';
 
-	$: homeTeamSelected =
-		selections?.findIndex(
-			(s) => s.fixture === fixture.code && s.selection === fixture.team_h.id - 1
-		) > -1;
-	$: awayTeamSelected =
-		selections?.findIndex(
-			(s) => s.fixture === fixture.code && s.selection === fixture.team_a.id - 1
-		) > -1;
+	export let fixture: Fixture;
+	export let isSelectable: boolean;
+	export let selections: Array<Selection>;
+
+	if (!fixture) {
+		throw new Error('FixtureCard must be passed a fixture');
+	}
 
 	let preselectedTeam = 1;
 	let selectionLoading = false;
+	$: gameweekSelection = selections.find(
+		(selection) => selection.gameweek === fixture.event
+	)?.selection;
 
 	const homeColor = teams[fixture.team_h.id - 1]?.primaryColor;
 	const awayColor = teams[fixture.team_a.id - 1]?.primaryColor;
@@ -44,7 +41,7 @@
 <article>
 	<button
 		disabled={!isSelectable}
-		class={`${homeTeamSelected ? 'selected' : ''}`}
+		class={gameweekSelection === fixture?.team_h.id ? 'selected' : ''}
 		on:click={() => handlePreselect(fixture.team_h.id)}
 		style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
 	>
@@ -61,7 +58,7 @@
 	{/if}
 	<button
 		disabled={!isSelectable}
-		class={`${awayTeamSelected ? 'selected' : ''}`}
+		class={gameweekSelection === fixture?.team_a.id ? 'selected' : ''}
 		on:click={() => handlePreselect(fixture.team_a.id)}
 		style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
 	>
@@ -89,8 +86,8 @@
 					style="width: 100%; {selectionLoading ? 'cursor: wait;' : ''}"
 					class="appearance-primary"
 					disabled={!isSelectable || !drawerOpen || selectionLoading}
-					formaction="?/select&selection={preselectedTeam -
-						1}&fixture={fixture.code}&gameweek={fixture.event}">Confirm</button
+					formaction="?/select&selection={preselectedTeam}&fixture={fixture.code}&gameweek={fixture.event}"
+					>Confirm</button
 				>
 			</form>
 		</BottomDrawer>

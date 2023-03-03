@@ -40,5 +40,6 @@ export type Selection = {
 	id: number;
 	selection: number;
 	selector: string;
+	gameweek: number;
 	fixture: number;
 };

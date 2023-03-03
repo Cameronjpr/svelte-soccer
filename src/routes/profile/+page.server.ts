@@ -1,18 +1,30 @@
-import { USER } from '$env/static/private';
-import { supabaseClient } from '@lib/db';
 import { getSupabase } from '@supabase/auth-helpers-sveltekit';
-import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { redirect, type Actions } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
 export const load = (async (event) => {
 	const { session, supabaseClient } = await getSupabase(event);
 
-	const { data, error } = await supabaseClient
+	const { data: selections } = await supabaseClient
 		.from('Selections')
 		.select()
 		.eq('selector', session?.user.id);
 
+	const { data: users } = await supabaseClient
+		.from('Users')
+		.select()
+		.eq('auth_user', session?.user.id);
+
+	if (users?.length) {
+		return {
+			selections: selections?.sort((a, b) => a.fixture - b.fixture),
+			user: users[0]
+		};
+	}
+
 	return {
-		selections: data?.sort((a, b) => a.fixture - b.fixture)
+		selections: selections?.sort((a, b) => a.fixture - b.fixture),
+		user: null
 	};
 }) satisfies PageServerLoad;
 
@@ -27,16 +39,43 @@ export const actions: Actions = {
 		const data = await event.request.formData();
 		const username = data.get('username');
 
-		const { error } = await supabaseClient
+		const { data: users } = await supabaseClient
 			.from('Users')
-			.update({ username: username })
-			.eq('auth_user', session?.user.id);
+			.select()
+			.eq('auth_user', session?.user?.id);
 
-		if (error) {
-			console.log(error);
-			return {
-				error: 'Something went wrong updating your username.'
-			};
+		if (users?.length) {
+			console.log('user exists. updating username...');
+
+			const { data } = await supabaseClient
+				.from('Users')
+				.select()
+				.eq('auth_user', session?.user?.id);
+
+			const { error } = await supabaseClient
+				.from('Users')
+				.update({ username: username as string })
+				.eq('auth_user', session?.user?.id);
+
+			if (error) {
+				console.log(error);
+				return {
+					error: 'Something went wrong updating your username.'
+				};
+			}
+		} else {
+			const { error } = await supabaseClient.from('Users').insert({
+				username: username as string,
+				auth_user: session?.user?.id,
+				email: session?.user?.email
+			});
+
+			if (error) {
+				console.log(error);
+				return {
+					error: 'Something went wrong updating your username.'
+				};
+			}
 		}
 
 		return {
