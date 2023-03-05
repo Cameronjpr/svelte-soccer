@@ -128,7 +128,7 @@
 	}
 
 	article > button {
-		background: white;
+		background: var(--color-accent-bright);
 		border: 1px solid var(--color-accent);
 		height: 3rem;
 		border-radius: 0rem;

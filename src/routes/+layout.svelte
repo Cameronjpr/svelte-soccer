@@ -41,6 +41,13 @@
 	}
 </script>
 
+<svelte:head>
+	<script>
+		const theme = localStorage.getItem('theme') ?? 'light';
+		document.documentElement.setAttribute('data-theme', theme ?? 'light');
+	</script>
+</svelte:head>
+
 <Header {menuOpen} {toggleMenu} />
 
 <main>

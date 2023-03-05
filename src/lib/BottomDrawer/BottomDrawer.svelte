@@ -47,7 +47,7 @@
 		left: 0;
 		right: 0;
 		z-index: 2;
-		background: white;
+		background: var(--color-base);
 	}
 
 	section {

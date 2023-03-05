@@ -8,12 +8,28 @@
 	import Cross from '@lib/icons/Cross.svelte';
 	import Trophy from '@lib/icons/Trophy.svelte';
 	import Lightbulb from '@lib/icons/Lightbulb.svelte';
+	import Moon from '@lib/icons/Moon.svelte';
+	import Sun from '@lib/icons/Sun.svelte';
+	import { onMount } from 'svelte';
 
 	let showMenu = false;
 
 	export let menuOpen: boolean;
 	const activeGameweek = $page?.data?.activeGameweek || 1;
 	export let toggleMenu: () => void;
+
+	$: theme = '';
+
+	onMount(() => {
+		theme = localStorage.getItem('theme') ?? 'light';
+		document.documentElement.setAttribute('data-theme', theme ?? 'light');
+	});
+
+	function toggleTheme(): void {
+		document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
+		localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark');
+		theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+	}
 </script>
 
 <nav>
@@ -34,6 +50,16 @@
 				<li>
 					<a href="/how-to-play"><Lightbulb />How to play</a>
 				</li>
+				<li>
+					<button on:click={toggleTheme}>
+						{#if theme === 'dark'}
+							<Moon />
+						{:else}
+							<Sun />
+						{/if}
+						Toggle theme
+					</button>
+				</li>
 			</ul>
 			<div
 				id="menu-safe-area"
@@ -44,11 +70,13 @@
 		{/if}
 	</div>
 	<a href="/">PremPredictor</a>
-	{#if $page?.data?.session}
-		<a href="/profile" aria-label="profile"><UserCircle /></a>
-	{:else}
-		<a href="/login" aria-label="log in"><UserCircle /></a>
-	{/if}
+	<div class="icon-controls">
+		{#if $page?.data?.session}
+			<a href="/profile" aria-label="profile"><UserCircle /></a>
+		{:else}
+			<a href="/login" aria-label="log in"><UserCircle /></a>
+		{/if}
+	</div>
 </nav>
 
 <style>
@@ -71,6 +99,12 @@
 	}
 	nav button:hover {
 		cursor: pointer;
+	}
+
+	.icon-controls {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
 	}
 
 	#menu-safe-area {
@@ -105,13 +139,21 @@
 		border-bottom: 0.25rem solid var(--color-accent);
 	}
 
+	.mobile-menu-list li {
+		padding-inline: 1.5rem;
+	}
+
+	.mobile-menu-list button {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		height: 2rem;
+		border: none;
+	}
+
 	nav a {
 		display: flex;
 		gap: 1rem;
 		align-items: center;
-	}
-
-	.mobile-menu-list a {
-		padding-inline: 1.5rem;
 	}
 </style>
