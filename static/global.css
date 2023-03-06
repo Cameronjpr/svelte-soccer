@@ -33,7 +33,9 @@ body {
   line-height: 1.6;
   font-size: 1rem;
   height: 100%;
-  font-family:var(--sans-font)
+  font-family:var(--sans-font);
+  touch-action: manipulation;
+
 }
 
 button {
@@ -46,6 +48,7 @@ button {
   box-sizing: border-box;
   cursor: pointer;
   border-radius: .75rem;
+  user-select: none;
 }
 
 input {

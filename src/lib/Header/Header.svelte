@@ -34,11 +34,13 @@
 
 <nav>
 	<div id="hamburger-wrapper">
-		{#if menuOpen}
-			<button on:click={toggleMenu}><Cross /></button>
-		{:else}
-			<button on:click={toggleMenu}><Hamburger /></button>
-		{/if}
+		<button on:click={toggleMenu} aria-label="Toggle menu">
+			{#if menuOpen}
+				<Cross />
+			{:else}
+				<Hamburger />
+			{/if}
+		</button>
 		{#if menuOpen}
 			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 100, easing: quintOut }}>
 				<li>
