@@ -1,6 +1,8 @@
+
 html {
   --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
   --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  --hero-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --color-text: hsla(0, 0%, 0%, 0.85);
   --color-text-light: hsla(0, 0%, 100%, 0.9);
   --color-primary: rgb(199, 83, 75);

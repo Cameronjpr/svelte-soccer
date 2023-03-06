@@ -33,7 +33,7 @@
 </script>
 
 <nav>
-	<div id="user-section-mobile">
+	<div id="hamburger-wrapper">
 		{#if menuOpen}
 			<button on:click={toggleMenu}><Cross /></button>
 		{:else}
@@ -92,10 +92,14 @@
 	nav button {
 		color: var(--color-text);
 		background: none;
+		/* height: 2rem; */
 		font-weight: bold;
 		font-size: large;
+
 		text-decoration: none;
 		padding: 0px;
+		display: flex;
+		align-items: center;
 	}
 	nav button:hover {
 		cursor: pointer;
