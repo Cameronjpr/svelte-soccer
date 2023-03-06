@@ -21,7 +21,7 @@ html {
   --color-secondary: hsl(210, 83%, 2%);
   --color-base: rgb(35, 36, 38);
   --color-accent: hsla(0, 0%, 50%, 0.15);
-  --color-accent-bright: hsla(211, 45%, 81%, 0.5);
+  --color-accent-bright: hsla(211, 18%, 47%, 0.5);
 }
 
 body {

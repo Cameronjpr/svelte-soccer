@@ -3,14 +3,14 @@
 	export let data: PageData;
 </script>
 
-<h1>Leaderboard</h1>
+<h1>Global leaderboard</h1>
 
 <main>
 	<ul>
 		{#each data.users as user}
 			<li>
 				<span>{user.username}</span>
-				<span>{user.score}</span>
+				<span>{user.score ?? '?'} pts</span>
 			</li>
 		{/each}
 	</ul>
