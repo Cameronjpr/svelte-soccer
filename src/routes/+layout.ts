@@ -33,17 +33,12 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
     .select()
     .eq('selector', session?.user?.id);
 
-  const { data: popular } = await supabase
-    .from('Selections')
-    .select('*', { count: 'exact', head: true });
-
-  const { data: users } = await supabase.from('Users').select('*');
+  const { data: users } = await supabase.from('Users').select('username');
 
   return {
     supabase,
     session,
     selections: selections || [],
-    popular,
     users: users?.length,
     activeGameweek: activeGameweek || 1
   }

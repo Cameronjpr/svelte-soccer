@@ -18,7 +18,7 @@ export const actions: Actions = {
 
     if (res.ok) {
       // Find selections for this user
-      const { data: users } = await supabase.from('Users').select();
+      const { data: users } = await supabase.from('Users').select('id');
       const { data: selections } = await supabase.from('Selections').select();
       const fixtures: Fixture[] = await res.json();
 

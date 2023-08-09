@@ -63,11 +63,9 @@ export const actions: Actions = {
 export const load = (async (event: any) => {
 	const { activeGameweek } = await event.parent();
 	const { selections } = await event.parent();
-	const { popular } = await event.parent();
 
 	return {
 		activeGameweek,
 		selections,
-		popular
 	};
 }) satisfies PageServerLoad;

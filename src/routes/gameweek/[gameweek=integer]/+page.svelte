@@ -11,8 +11,6 @@
 	dayjs.extend(advancedFormat);
 	export let data: PageData;
 
-	console.log(data?.popular);
-
 	$: hasStarted = data.gameweek.fixtures.some((f: Fixture) => f.started);
 	$: isFinished = data.gameweek.fixtures.every((f: Fixture) => f.finished_provisional);
 	$: isSelectable = !hasStarted && !isFinished;

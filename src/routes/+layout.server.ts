@@ -19,16 +19,11 @@ export const load = async ({ fetch, locals: { getSession, supabase } }) => {
 		selections = data;
 	}
 
-	const { data: popular } = await supabase
-		.from('Selections')
-		.select('*', { count: 'exact', head: true });
-
-	const { data: users } = await supabase.from('Users').select('*');
+	const { data: users } = await supabase.from('Users').select('username');
 
 	return {
 		session,
 		selections: selections || [],
-		popular,
 		users: users?.length,
 		activeGameweek: activeGameweek || 1
 	};
