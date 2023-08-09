@@ -28,7 +28,7 @@
 	<ul>
 		{#each data?.selections as selection}
 			<li>
-				<span>GW {selection?.gameweek}</span>
+				<span>Week {selection?.gameweek}</span>
 				<span>{teams[selection?.selection - 1].name}</span>
 			</li>
 		{/each}
