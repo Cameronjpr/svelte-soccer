@@ -20,7 +20,7 @@ export const actions: Actions = {
 			const { data, error } = await supabaseClient.auth.signInWithOAuth({
 				provider: provider,
 				options: {
-					redirectTo: isProd ? 'https://svelte-soccer.vercel.app' : 'http://localhost:5173'
+					redirectTo: isProd ? 'https://svelte-soccer.vercel.app/gameweek/1' : 'http://localhost:5173/gameweek/1'
 				}
 			});
 
