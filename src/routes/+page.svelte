@@ -22,9 +22,7 @@
 	</ol>
 
 	<section>
-		<h2>
-			Join {data?.users} other players by <a href="/login">creating your account today!</a>
-		</h2>
+		<a href="/login">Create your account today!</a>
 	</section>
 {/if}
 
@@ -44,7 +42,9 @@
 
 	ol {
 		margin: 0;
+		margin-top: 2rem;
 		padding: 0;
+		padding-left: 1rem;
 		list-style: none;
 	}
 
@@ -57,5 +57,17 @@
 	li::before {
 		content: '⚽️';
 		margin-right: 0.5rem;
+	}
+
+	section {
+		margin-top: 5rem;
+		background-color: #000;
+		padding: 1rem;
+		text-align: center;
+	}
+
+	section a {
+		color: var(--color-text-light);
+		font-size: 1.4rem;
 	}
 </style>
