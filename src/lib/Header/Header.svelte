@@ -64,6 +64,11 @@
 						Toggle theme
 					</button>
 				</li>
+				{#if $page?.data?.session?.user?.email === 'cameronjpr@gmail.com'}
+					<li>
+						<a href="/admin">Admin</a>
+					</li>
+				{/if}
 			</ul>
 			<div
 				id="menu-safe-area"
@@ -73,7 +78,7 @@
 			/>
 		{/if}
 	</div>
-	<a href={authenticated ? "/gameweek/1" : "/"}>PremPredictor</a>
+	<a href={authenticated ? '/gameweek/1' : '/'}>PremPredictor</a>
 	<div class="icon-controls">
 		{#if $page?.data?.session}
 			<a href="/profile" aria-label="profile"><UserCircle /></a>
