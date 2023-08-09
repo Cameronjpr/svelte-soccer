@@ -7,5 +7,10 @@
 	<button class="appearance-primary" formaction="?/calculate"> Calculate scores </button>
 </form>
 
-<!-- +page.svelte -->
-<button type="button" on:click={unknownFunction}>Break the world</button>
+<button
+	on:click={() => {
+		throw new Error('Sentry Frontend Error');
+	}}
+>
+	Throw error
+</button>
