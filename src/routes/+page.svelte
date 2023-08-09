@@ -7,7 +7,7 @@
 
 <h1>Welcome to <mark>GameweekGurus</mark> 👋</h1>
 
-<h2>the <span>live</span> football predictor game</h2>
+<h2>the <mark>live</mark> football predictor game</h2>
 
 <ol>
 	<li>Make your predictions for the upcoming gameweek</li>
@@ -22,9 +22,11 @@
 </section>
 
 <style>
-	h2 span {
-		color: #eb1717;
+	h2 mark {
+		background-color: #eb1717;
+		color: var(--color-text-light);
 		text-decoration: underline;
+		padding-inline: 4px;
 	}
 
 	mark {
