@@ -8,10 +8,16 @@ export const load = async ({ fetch, locals: { getSession, supabase } }) => {
 
 	const session = await getSession();
 
-	const { data: selections, error } = await supabase
-		.from('Selections')
-		.select()
-		.eq('selector', session?.user?.id);
+	let selections = [];
+
+	if (session) {
+		const { data, error } = await supabase
+			.from('Selections')
+			.select()
+			.eq('selector', session?.user?.id);
+
+		selections = data;
+	}
 
 	const { data: popular } = await supabase
 		.from('Selections')

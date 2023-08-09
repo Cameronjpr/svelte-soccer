@@ -1,11 +1,52 @@
 <script lang="ts">
+	import dayjs from 'dayjs';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 </script>
 
-<h1>Welcome to GameweekGurus</h1>
+<h1>Welcome to <mark>GameweekGurus</mark> 👋</h1>
+
+<h2>the <span>live</span> football predictor game</h2>
+
+<ol>
+	<li>Make your predictions for the upcoming gameweek</li>
+	<li>Score points for correct predictions</li>
+	<li>Climb the leaderboard and win!</li>
+</ol>
 
 <section>
-	<a href="/login">Join {data?.users} players by creating your account today!</a>
+	<h2>
+		Join {data?.users} other players by <a href="/login">creating your account today!</a>
+	</h2>
 </section>
+
+<style>
+	h2 span {
+		color: #eb1717;
+		text-decoration: underline;
+	}
+
+	mark {
+		background-color: #000;
+		color: var(--color-text-light);
+		padding-inline: 2px;
+	}
+
+	ol {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		margin-bottom: 1rem;
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	li::before {
+		content: '⚽️';
+		margin-right: 0.5rem;
+	}
+</style>

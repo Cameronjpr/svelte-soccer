@@ -9,6 +9,7 @@
 
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
+	import dayjs from 'dayjs';
 
 	inject({ mode: dev ? 'development' : 'production' });
 
@@ -39,6 +40,9 @@
 	$: if ($navigating) {
 		menuOpen = false;
 	}
+
+	const startTime = dayjs('2023-08-11 21:00:00');
+	const timeUntilStart = startTime.diff(dayjs(), 'hour');
 </script>
 
 <svelte:head>
@@ -49,6 +53,16 @@
 		document.documentElement.setAttribute('data-theme', theme ?? 'light');
 	</script>
 </svelte:head>
+
+{#if timeUntilStart > 0}
+	<div id="banner">
+		<span
+			>🚨 The new season kicks off in just <strong
+				>{timeUntilStart} hour{timeUntilStart > 1 ? 's' : ''}</strong
+			>. <a href="/login">Join now!</a> 🚨</span
+		>
+	</div>
+{/if}
 
 <Header {authenticated} {menuOpen} {toggleMenu} />
 
@@ -86,5 +100,20 @@
 
 	footer {
 		margin-top: 5rem;
+	}
+
+	#banner {
+		margin: 0 auto;
+		padding: 0.25rem;
+		padding-inline: '1rem';
+		text-decoration: none;
+		margin-bottom: 1rem;
+		background-color: hsl(0, 0%, 0%);
+		color: white;
+		text-align: center;
+	}
+
+	#banner a {
+		color: white;
 	}
 </style>
