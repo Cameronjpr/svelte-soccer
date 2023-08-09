@@ -32,7 +32,7 @@
 	let menuOpen = false;
 	let debugMode = false;
 
-	const authenticated = !!data.session
+	const authenticated = !!data.session;
 
 	function toggleMenu(): void {
 		menuOpen = !menuOpen;
@@ -45,7 +45,7 @@
 
 <svelte:head>
 	<meta />
-	<title>PremPredictor</title>
+	<title>GameweekGurus</title>
 	<script>
 		const theme = localStorage.getItem('theme') ?? 'light';
 		document.documentElement.setAttribute('data-theme', theme ?? 'light');

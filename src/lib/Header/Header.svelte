@@ -78,7 +78,7 @@
 			/>
 		{/if}
 	</div>
-	<a href={authenticated ? '/gameweek/1' : '/'}>PremPredictor</a>
+	<a href={authenticated ? '/gameweek/1' : '/'}>GameweekGurus</a>
 	<div class="icon-controls">
 		{#if $page?.data?.session}
 			<a href="/profile" aria-label="profile"><UserCircle /></a>

@@ -1,7 +1,7 @@
-<h1>How to play PremPredictor</h1>
+<h1>How to play GameweekGurus</h1>
 
 <p>
-	<strong>PremPredictor</strong> is a free to play fantasy football game where you can predict the outcome
+	<strong>GameweekGurus</strong> is a free to play fantasy football game where you can predict the outcome
 	of Premier League fixtures.
 </p>
 
@@ -15,9 +15,7 @@
 	point!
 </p>
 
-<p>
-	The player with the most points at the end of the season wins. Good luck!
-</p>
+<p>The player with the most points at the end of the season wins. Good luck!</p>
 
 <style>
 	p {

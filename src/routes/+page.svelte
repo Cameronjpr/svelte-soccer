@@ -4,7 +4,7 @@
 	export let data: PageData;
 </script>
 
-<h1>Welcome to PremPredictor</h1>
+<h1>Welcome to GameweekGurus</h1>
 
 <section>
 	<a href="/login">Join {data?.users} players by creating your account today!</a>

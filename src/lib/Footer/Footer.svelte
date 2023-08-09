@@ -1,5 +1,5 @@
 <footer>
-	<strong>PremPredictor</strong>
+	<strong>GameweekGurus</strong>
 	<span>Created by Cameron Robson</span>
 </footer>
 

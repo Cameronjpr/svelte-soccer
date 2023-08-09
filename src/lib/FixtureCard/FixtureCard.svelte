@@ -93,7 +93,7 @@
 		</BottomDrawer>
 	{:else}
 		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
-			<strong>Sign in to play PremPredictor</strong>
+			<strong>Sign in to play GameweekGurus</strong>
 			<a class="linkbutton" href="/login">Sign in</a>
 		</BottomDrawer>
 	{/if}
