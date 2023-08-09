@@ -1,10 +1,17 @@
+import { sequence } from '@sveltejs/kit/hooks';
+import * as Sentry from '@sentry/sveltekit';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 
 import { redirect, error, type Handle } from '@sveltejs/kit';
 
-export const handle: Handle = async ({ event, resolve }) => {
+Sentry.init({
+	dsn: "https://39d6598b1f4633ea39cb73c4a753c585@o4505675782946816.ingest.sentry.io/4505675785175040",
+	tracesSampleRate: 1
+})
+
+export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, resolve }) => {
 	console.log(event.url.pathname)
 
 	event.locals.supabase = createSupabaseServerClient({
@@ -58,5 +65,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 			return name === 'content-range'
 		},
 	})
-};
+});
 
+export const handleError = Sentry.handleErrorWithSentry();

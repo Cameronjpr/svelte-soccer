@@ -5,7 +5,7 @@ html {
   --hero-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --color-text: hsla(0, 0%, 0%, 0.85);
   --color-text-light: hsla(0, 0%, 100%, 0.9);
-  --color-primary: hsl(140, 89%, 42%);
+  --color-primary: rgb(12, 202, 75);
   --color-secondary: hsl(114, 43%, 65%);
   --color-base: rgb(242, 242, 242);
   --color-accent: hsla(0, 0%, 50%, 0.15);

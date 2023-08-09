@@ -9,3 +9,6 @@
 <section>
 	<a href="/login">Join {data?.users} players by creating your account today!</a>
 </section>
+
+<!-- +page.svelte -->
+<button type="button" on:click={unknownFunction}>Break the world</button>
