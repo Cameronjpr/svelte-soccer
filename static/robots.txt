@@ -5,3 +5,5 @@ Disallow: /*.js$
 Disallow: /*.json
 Disallow: /analytics.json
 Disallow: /current-visitors.json
+
+Sitemap: https://www.gameweekgurus.app/sitemap.xml
