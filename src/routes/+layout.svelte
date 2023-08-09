@@ -28,7 +28,7 @@
 	});
 
 	let menuOpen = false;
-	let debugMode = true;
+	let debugMode = false;
 
 	const authenticated = !!data.session;
 
