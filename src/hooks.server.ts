@@ -4,12 +4,21 @@ import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import { redirect, error, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	console.log(event.url.pathname)
 	// protect requests to all routes that start with /protected-routes
 	if (event.url.pathname.startsWith('/profile')) {
 		const { session, supabaseClient } = await getSupabase(event);
 
 		if (!session) {
 			throw redirect(303, '/login');
+		}
+	}
+
+		if (event.url.pathname === '/') {
+		const { session } = await getSupabase(event);
+
+		if (!!session) {
+			throw redirect(303, '/gameweek/1');
 		}
 	}
 

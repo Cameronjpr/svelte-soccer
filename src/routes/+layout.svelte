@@ -32,6 +32,8 @@
 	let menuOpen = false;
 	let debugMode = false;
 
+	const authenticated = !!data.session
+
 	function toggleMenu(): void {
 		menuOpen = !menuOpen;
 	}
@@ -50,7 +52,7 @@
 	</script>
 </svelte:head>
 
-<Header {menuOpen} {toggleMenu} />
+<Header {authenticated} {menuOpen} {toggleMenu} />
 
 <main>
 	<slot />

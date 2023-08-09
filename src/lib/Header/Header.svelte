@@ -11,10 +11,12 @@
 	import Moon from '@lib/icons/Moon.svelte';
 	import Sun from '@lib/icons/Sun.svelte';
 	import { onMount } from 'svelte';
+	import type { PageData } from '../../routes/$types';
 
 	let showMenu = false;
 
 	export let menuOpen: boolean;
+	export let authenticated: boolean;
 	const activeGameweek = $page?.data?.activeGameweek || 1;
 	export let toggleMenu: () => void;
 
@@ -71,7 +73,7 @@
 			/>
 		{/if}
 	</div>
-	<a href="/">PremPredictor</a>
+	<a href={authenticated ? "/gameweek/1" : "/"}>PremPredictor</a>
 	<div class="icon-controls">
 		{#if $page?.data?.session}
 			<a href="/profile" aria-label="profile"><UserCircle /></a>

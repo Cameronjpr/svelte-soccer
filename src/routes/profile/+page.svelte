@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { teams } from '@lib/teams';
-	import type { ActionData, PageData, PageServerData } from './$types';
+	import type { ActionData, PageServerData } from './$types';
 	export let data: PageServerData;
 	export let form: ActionData;
 
-	console.log(data);
+	
 </script>
 
 <h1>My profile</h1>
@@ -31,7 +31,7 @@
 		{#each data?.selections as selection}
 			<li>
 				<span>GW {selection?.gameweek}</span>
-				<span>{teams[selection?.selection].name}</span>
+				<span>{teams[selection?.selection-1].name}</span>
 			</li>
 		{/each}
 	</ul>

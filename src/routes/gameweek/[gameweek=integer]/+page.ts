@@ -10,8 +10,6 @@ export const load = (async (event) => {
 
 	const res = await fetch(`/api/gameweek/${params.gameweek}`);
 
-	console.log(res)
-
 	if (!res.ok) {
 		console.log(res.status);
 

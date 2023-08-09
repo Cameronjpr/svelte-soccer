@@ -3,7 +3,8 @@
 	export let data: PageData;
 </script>
 
-<h1>Global leaderboard</h1>
+<h1>Leaderboard</h1>
+<p>Scores are updated after each gameweek.</p>
 
 <main>
 	<ul>
