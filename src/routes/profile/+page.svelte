@@ -4,8 +4,6 @@
 	import type { ActionData, PageServerData } from './$types';
 	export let data: PageServerData;
 	export let form: ActionData;
-
-	
 </script>
 
 <h1>My profile</h1>
@@ -31,13 +29,13 @@
 		{#each data?.selections as selection}
 			<li>
 				<span>GW {selection?.gameweek}</span>
-				<span>{teams[selection?.selection-1].name}</span>
+				<span>{teams[selection?.selection - 1].name}</span>
 			</li>
 		{/each}
 	</ul>
 {/if}
 <form method="POST" action="?/signout">
-	<button>Sign out</button>
+	<button class="linkbutton">Sign out</button>
 </form>
 
 <style>

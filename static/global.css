@@ -5,8 +5,8 @@ html {
   --hero-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --color-text: hsla(0, 0%, 0%, 0.85);
   --color-text-light: hsla(0, 0%, 100%, 0.9);
-  --color-primary: hsl(140, 89%, 42%);
-  --color-secondary: hsl(114, 43%, 65%);
+  --color-primary: hsl(0, 76%, 31%);
+  --color-secondary: hsl(0, 73%, 63%);
   --color-base: rgb(242, 242, 242);
   --color-accent: hsla(0, 0%, 50%, 0.15);
   --color-accent-bright: hsla(211, 45%, 81%, 0.5);
@@ -17,11 +17,12 @@ html {
 [data-theme="dark"] {
   --color-text: hsla(0, 6%, 85%, 0.85);
   --color-text-light: hsla(0, 0%, 100%, 0.9);
-  --color-primary: hsl(140, 74%, 27%);
+  --color-primary: hsl(0, 71%, 38%);
   --color-secondary: hsl(210, 83%, 2%);
   --color-base: rgb(35, 36, 38);
   --color-accent: hsla(0, 0%, 50%, 0.15);
   --color-accent-bright: hsla(211, 18%, 47%, 0.5);
+   color: var(--color-text);
 }
 
 body {
@@ -44,12 +45,20 @@ button {
   background: var(--color-primary);
   color: var(--color-text);
   font-size: large;
+  font-weight: 700;
   border: 2px solid transparent;
   box-sizing: border-box;
   cursor: pointer;
   border-radius: .75rem;
   user-select: none;
 }
+
+a {
+  color: var(--color-text)
+}:visited {
+  color: var(--color-text)
+}
+
 
 input {
   height: 2.5rem;
@@ -66,8 +75,9 @@ input {
   height: 3rem;
   padding-inline: 1.5rem;
   background: var(--color-primary);
-  color: var(--color-text);
+  color: var(--color-text-light);
   font-size: large;
+  font-weight: 700;
   border: 2px solid transparent;
   box-sizing: border-box;
   cursor: pointer;
@@ -81,12 +91,21 @@ input {
 
 .linkbutton:hover {
   border: 2px solid var(--color-text);
-  color: var(--color-text);
+  color: var(--color-text-light);
+}
+
+.linkbutton a {
+  color: var(--color-text-light);
+  text-decoration: none;
+}
+
+.linkbutton a:visited {
+  color: var(--color-text-light)
 }
 
 .appearance-primary {
   background: var(--color-primary);
-  color: var(--color-text);
+  color: var(--color-text-light);
 }
 
 .appearance-secondary {
@@ -103,11 +122,6 @@ input {
   display: none !important;
 }
 
-a {
-  color: var(--color-text)
-}:visited {
-  color: var(--color-text)
-}
 
 hr {
   border-top: 2px solid var(--color-text);

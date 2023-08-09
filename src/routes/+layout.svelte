@@ -57,9 +57,9 @@
 {#if timeUntilStart > 0}
 	<div id="banner">
 		<span
-			>🚨 The new season kicks off in just <strong
+			>The new season kicks off in <strong
 				>{timeUntilStart} hour{timeUntilStart > 1 ? 's' : ''}</strong
-			>. <a href="/login">Join now!</a> 🚨</span
+			>. <a href="/login">Join now!</a></span
 		>
 	</div>
 {/if}

@@ -6,7 +6,7 @@
 	{#if !$page?.data?.session}
 		<h1>Sign in</h1>
 		<form method="POST">
-			<button formaction="?/login&provider=google">Sign in with Google</button>
+			<button class="linkbutton" formaction="?/login&provider=google">Sign in with Google</button>
 		</form>
 	{:else}
 		<h1>You're already signed in.</h1>
