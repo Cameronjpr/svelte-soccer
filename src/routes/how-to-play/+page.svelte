@@ -16,16 +16,7 @@
 </p>
 
 <p>
-	Correctly picking a winning team in 3 consecutive weeks will earn you a <strong
-		>streak multiplier</strong
-	>, which means you earn 2 points for a win!
-</p>
-
-<p>
-	There's also a reward for picking the underdog: if you pick a team in the <strong
-		>relegation zone</strong
-	> (at the start of the gameweek), you'll earn 2 points for a win – and this can also be multiplied
-	by a streak for a total of 4 points!
+	The player with the most points at the end of the season wins. Good luck!
 </p>
 
 <style>
