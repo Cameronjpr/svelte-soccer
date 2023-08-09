@@ -1,11 +1,11 @@
+import { PUBLIC_ADMIN_EMAIL, } from '$env/static/public';
 import type { Fixture } from '@lib/types';
-import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import { redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
-  calculate: async (event) => {
-    const { session, supabaseClient } = await getSupabase(event);
-    if (!session || session.user.email !== 'cameronjpr@gmail.com') {
+  calculate: async ({ fetch, locals: { supabase, getSession } }) => {
+    const session = await getSession();
+    if (!session || session.user.email !== PUBLIC_ADMIN_EMAIL) {
       throw redirect(303, '/');
     }
 
@@ -18,8 +18,8 @@ export const actions: Actions = {
 
     if (res.ok) {
       // Find selections for this user
-      const { data: users } = await supabaseClient.from('Users').select();
-      const { data: selections } = await supabaseClient.from('Selections').select();
+      const { data: users } = await supabase.from('Users').select();
+      const { data: selections } = await supabase.from('Selections').select();
       const fixtures: Fixture[] = await res.json();
 
       users?.forEach(async (u) => {
@@ -55,7 +55,7 @@ export const actions: Actions = {
           }
         });
 
-        const { error, status, data } = await supabaseClient.from('Users').update({ score: tally }).eq('id', u.id);
+        const { error, status, data } = await supabase.from('Users').update({ score: tally }).eq('id', u.id);
 
         console.log({ error, status, data })
       });

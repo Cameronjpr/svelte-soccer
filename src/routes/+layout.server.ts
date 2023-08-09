@@ -1,10 +1,4 @@
-import type { LayoutServerLoad } from './$types';
-
-import { getServerSession } from '@supabase/auth-helpers-sveltekit';
-import { supabaseClient } from '@lib/db';
-
-export const load: LayoutServerLoad = async (event) => {
-	const { fetch } = event;
+export const load = async ({ fetch, locals: { getSession, supabase } }) => {
 	const res = await fetch('/api/active-gameweek');
 	let activeGameweek = 1;
 
@@ -12,24 +6,25 @@ export const load: LayoutServerLoad = async (event) => {
 		activeGameweek = await res.json();
 	}
 
-	const session = await getServerSession(event);
+	const session = await getSession();
 
-	const { data: selections, error } = await supabaseClient
+	const { data: selections, error } = await supabase
 		.from('Selections')
 		.select()
 		.eq('selector', session?.user?.id);
 
-	const { data: popular } = await supabaseClient
+	const { data: popular } = await supabase
 		.from('Selections')
 		.select('*', { count: 'exact', head: true });
 
-	const { data: users } = await supabaseClient.from('Users').select('*');
+	const { data: users } = await supabase.from('Users').select('*');
 
 	return {
-		session: await getServerSession(event),
+		session,
 		selections: selections || [],
 		popular,
 		users: users?.length,
 		activeGameweek: activeGameweek || 1
 	};
 };
+

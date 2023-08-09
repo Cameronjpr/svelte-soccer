@@ -1,14 +1,15 @@
 import { AuthApiError, type Provider } from '@supabase/supabase-js';
 import { fail, redirect } from '@sveltejs/kit';
-import { getSupabase } from '@supabase/auth-helpers-sveltekit';
 import type { Actions } from './$types';
 
 const isProd = process.env.NODE_ENV === 'production';
 
 export const actions: Actions = {
-	login: async (event) => {
-		const { url } = event;
-		const { supabaseClient, session } = await getSupabase(event);
+	login: async ({ url, locals: {
+		getSession,
+		supabase
+	} }) => {
+		const session = await getSession();
 
 		if (session) {
 			throw redirect(303, '/profile');
@@ -17,7 +18,7 @@ export const actions: Actions = {
 		const provider = url.searchParams.get('provider') as Provider;
 
 		if (provider) {
-			const { data, error } = await supabaseClient.auth.signInWithOAuth({
+			const { data, error } = await supabase.auth.signInWithOAuth({
 				provider: provider,
 				options: {
 					redirectTo: isProd ? 'https://svelte-soccer.vercel.app/gameweek/1' : 'http://localhost:5173/gameweek/1'

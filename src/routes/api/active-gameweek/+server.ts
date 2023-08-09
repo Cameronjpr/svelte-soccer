@@ -1,4 +1,3 @@
-import { EDGE_CONFIG, EDGE_CONFIG_ID, EDGE_CONFIG_TOKEN } from '$env/static/private';
 import { error, fail } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { getActiveGameweek } from '$lib/util/gameweek';

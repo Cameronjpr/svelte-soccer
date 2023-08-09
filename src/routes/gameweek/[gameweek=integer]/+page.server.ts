@@ -1,22 +1,20 @@
 import type { Actions, PageServerLoad } from './$types';
-import { getServerSession, getSupabase } from '@supabase/auth-helpers-sveltekit';
-import { supabaseClient } from '@lib/db';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const actions: Actions = {
-	select: async (event) => {
+	select: async ({ url, locals: { getSession, supabase } }) => {
 		console.log('selecting fixture');
-		const selection = event.url.searchParams.get('selection');
-		const fixture = event.url.searchParams.get('fixture');
-		const gameweek = event.url.searchParams.get('gameweek');
+		const selection = url.searchParams.get('selection');
+		const fixture = url.searchParams.get('fixture');
+		const gameweek = url.searchParams.get('gameweek');
 
-		const { session, supabaseClient } = await getSupabase(event);
+		const session = await getSession();
 		if (!session) {
 			throw redirect(303, '/login');
 		}
 
 		// Find selections for this user
-		const { data: selections } = await supabaseClient
+		const { data: selections } = await supabase
 			.from('Selections')
 			.select()
 			.eq('selector', session?.user.id);
@@ -27,7 +25,7 @@ export const actions: Actions = {
 
 		if (existingGameweekSelection?.id) {
 			console.log('overwriting selection');
-			const { data, error } = await supabaseClient
+			const { data, error } = await supabase
 				.from('Selections')
 				.update({
 					selection: selection,
@@ -44,7 +42,7 @@ export const actions: Actions = {
 				});
 			}
 		} else {
-			const { data, error } = await supabaseClient.from('Selections').insert({
+			const { data, error } = await supabase.from('Selections').insert({
 				selection: selection,
 				selector: session?.user?.id,
 				fixture: fixture,

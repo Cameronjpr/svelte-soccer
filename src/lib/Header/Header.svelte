@@ -12,6 +12,7 @@
 	import Sun from '@lib/icons/Sun.svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from '../../routes/$types';
+	import { PUBLIC_ADMIN_EMAIL } from '$env/static/public';
 
 	let showMenu = false;
 
@@ -64,7 +65,7 @@
 						Toggle theme
 					</button>
 				</li>
-				{#if $page?.data?.session?.user?.email === 'cameronjpr@gmail.com'}
+				{#if $page?.data?.session?.user?.email === PUBLIC_ADMIN_EMAIL}
 					<li>
 						<a href="/admin">Admin</a>
 					</li>
@@ -94,7 +95,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.5rem 1rem 0.5rem 1rem;
-		background: var(--color-secondary);
+		background: var(--color-base);
 	}
 
 	nav a,
@@ -141,7 +142,7 @@
 		position: absolute;
 		top: 3.5rem;
 		right: 0;
-		background: var(--color-secondary);
+		background: var(--color-base);
 		padding-block: 1.5rem;
 		margin: 0;
 		width: 100%;

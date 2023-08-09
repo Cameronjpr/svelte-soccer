@@ -1,12 +1,8 @@
-import { supabaseClient } from '@lib/db';
-import type { Fixture } from '@lib/types';
-import { formatFixtures } from '@lib/util/fixture';
 import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
-export const load = (async (event) => {
-	const { fetch, params } = event;
-	const { activeGameweek } = await event.parent();
+export const load = (async ({ fetch, parent, params, depends }) => {
+	const { activeGameweek } = await parent();
 
 	const res = await fetch(`/api/gameweek/${params.gameweek}`);
 
@@ -17,10 +13,10 @@ export const load = (async (event) => {
 		throw redirect(307, '/maintenance');
 	}
 
-	const data = await res.json();
+	const plData = await res.json();
 
 	return {
 		activeGameweek: activeGameweek,
-		gameweek: data
+		gameweek: plData
 	};
 }) satisfies PageLoad;

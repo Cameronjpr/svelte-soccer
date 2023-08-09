@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { supabaseClient } from '$lib/db';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
@@ -14,23 +13,22 @@
 	inject({ mode: dev ? 'development' : 'production' });
 
 	export let data: LayoutData;
+	$: ({ supabase, session } = data);
 
 	onMount(() => {
 		const {
 			data: { subscription }
-		} = supabaseClient.auth.onAuthStateChange(() => {
-			invalidate('supabase:auth');
-			invalidate('user');
-			invalidate('supabase');
+		} = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth');
+			}
 		});
 
-		return () => {
-			subscription.unsubscribe();
-		};
+		return () => subscription.unsubscribe();
 	});
 
 	let menuOpen = false;
-	let debugMode = false;
+	let debugMode = true;
 
 	const authenticated = !!data.session;
 

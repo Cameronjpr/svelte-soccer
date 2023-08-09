@@ -9,7 +9,7 @@
 		flex-direction: column;
 		padding: 1rem;
 		justify-content: end;
-		background: var(--color-secondary);
+		background: var(--color-base);
 		margin-top: 5rem;
 		height: 12vh;
 	}

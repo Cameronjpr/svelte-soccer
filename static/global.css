@@ -5,9 +5,9 @@ html {
   --hero-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --color-text: hsla(0, 0%, 0%, 0.85);
   --color-text-light: hsla(0, 0%, 100%, 0.9);
-  --color-primary: rgb(199, 83, 75);
-  --color-secondary: hsl(212, 43%, 65%);
-  --color-base: hsla(212, 36%, 90%, 1);
+  --color-primary: hsl(140, 89%, 42%);
+  --color-secondary: hsl(114, 43%, 65%);
+  --color-base: rgb(242, 242, 242);
   --color-accent: hsla(0, 0%, 50%, 0.15);
   --color-accent-bright: hsla(211, 45%, 81%, 0.5);
   -webkit-font-smoothing: antialiased;
@@ -17,7 +17,7 @@ html {
 [data-theme="dark"] {
   --color-text: hsla(0, 6%, 85%, 0.85);
   --color-text-light: hsla(0, 0%, 100%, 0.9);
-  --color-primary: rgb(173, 69, 62);
+  --color-primary: hsl(140, 74%, 27%);
   --color-secondary: hsl(210, 83%, 2%);
   --color-base: rgb(35, 36, 38);
   --color-accent: hsla(0, 0%, 50%, 0.15);
