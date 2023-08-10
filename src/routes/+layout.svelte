@@ -8,10 +8,11 @@
 	import Header from '@lib/Header/Header.svelte';
 	import Footer from '@lib/Footer/Footer.svelte';
 
-	import { dev } from '$app/environment';
+	import { browser, dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
 	import dayjs from 'dayjs';
 	import toast, { Toaster } from 'svelte-french-toast';
+	import { webVitals } from '@lib/vitals';
 
 	inject({ mode: dev ? 'development' : 'production' });
 
@@ -50,6 +51,16 @@
 		if (authenticated) {
 			toast.success(`You’re signed in`);
 		}
+	}
+
+	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
+
+	$: if (browser && analyticsId) {
+		webVitals({
+			path: $page.url.pathname,
+			params: $page.params,
+			analyticsId
+		});
 	}
 </script>
 
@@ -109,9 +120,5 @@
 
 	footer {
 		margin-top: 5rem;
-	}
-
-	#banner a {
-		color: white;
 	}
 </style>
