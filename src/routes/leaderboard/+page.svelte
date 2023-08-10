@@ -4,35 +4,15 @@
 </script>
 
 <h1>Leaderboard</h1>
-<p>Scores are updated after each gameweek.</p>
+<p class="text-center">Scores are updated after each gameweek.</p>
 
-<main>
-	<ul>
+<main class="py-8">
+	<ul class="p-0">
 		{#each data.users as user}
-			<li>
+			<li class="border-b-2 border-red-600 p-4 font-semibold text-lg flex justify-between">
 				<span>{user.username}</span>
 				<span>{user.score ?? '?'} pts</span>
 			</li>
 		{/each}
 	</ul>
 </main>
-
-<style>
-	ul {
-		padding: 0px;
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	li {
-		display: flex;
-		gap: 0.5rem;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.75rem;
-		border-radius: 00.25rem;
-		color: var(--color-text-light);
-		background: var(--color-secondary);
-	}
-</style>

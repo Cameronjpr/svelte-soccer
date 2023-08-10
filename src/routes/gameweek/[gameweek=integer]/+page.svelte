@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import toast, { Toaster } from 'svelte-french-toast';
 	import FixtureCard from '@lib/FixtureCard/FixtureCard.svelte';
 	import type { PageData, PageServerData } from './$types';
 	import dayjs from 'dayjs';
@@ -8,6 +10,7 @@
 	import type { Fixture } from '@lib/types';
 	import LockClosed from '@lib/icons/LockClosed.svelte';
 	import { page } from '$app/stores';
+	import { teams } from '@lib/teams';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -19,8 +22,21 @@
 
 	$: kickoffs = data.gameweek.fixtures.map((f: Fixture) => f.kickoff_time);
 	$: firstKickoff = dayjs(kickoffs.sort()[0]);
+
+	let initialTeam = data.selections.find((s) => s.gameweek === data.gameweek.event)?.selection;
+
+	$: {
+		const selectedTeam = data.selections.find((s) => s.gameweek === data.gameweek.event)?.selection;
+
+		if (selectedTeam !== null && selectedTeam !== undefined && selectedTeam !== initialTeam) {
+			toast.success(`You selected ${teams[selectedTeam - 1].shortName}!`);
+
+			initialTeam = selectedTeam;
+		}
+	}
 </script>
 
+<Toaster />
 <h1>Gameweek {data.gameweek.event}</h1>
 <SimplePaginator currentGameweek={data.gameweek.event} />
 {#if isFinished}

@@ -32,6 +32,12 @@
 		document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
 		localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark');
 		theme = document.documentElement.getAttribute('data-theme') ?? 'light';
+
+		if (theme === 'dark') {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
 	}
 </script>
 

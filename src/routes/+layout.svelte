@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '../app.css';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
@@ -55,18 +56,18 @@
 </svelte:head>
 
 {#if timeUntilStart > 0}
-	<div id="banner">
+	<div class="bg-black text-white p-2 text-center">
 		<span
 			>The new season kicks off in <strong
 				>{timeUntilStart} hour{timeUntilStart > 1 ? 's' : ''}</strong
-			>. <a href="/login">Join now!</a></span
+			>. <a class="text-white underline" href="/login">Join now!</a></span
 		>
 	</div>
 {/if}
 
 <Header {authenticated} {menuOpen} {toggleMenu} />
 
-<main>
+<main class="p-2">
 	<slot />
 	{#if debugMode}
 		<footer>
@@ -100,17 +101,6 @@
 
 	footer {
 		margin-top: 5rem;
-	}
-
-	#banner {
-		margin: 0 auto;
-		padding: 0.25rem;
-		padding-inline: '1rem';
-		text-decoration: none;
-		margin-bottom: 1rem;
-		background-color: hsl(0, 0%, 0%);
-		color: white;
-		text-align: center;
 	}
 
 	#banner a {

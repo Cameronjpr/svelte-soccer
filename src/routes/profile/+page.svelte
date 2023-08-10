@@ -6,9 +6,8 @@
 	export let form: ActionData;
 </script>
 
-<h1>My profile</h1>
 {#if data?.user?.username}
-	<h2>Signed in as {data?.user?.username}</h2>
+	<h1>Signed in as {data?.user?.username}</h1>
 {:else}
 	<span>You don't have a <strong>username</strong> set.</span>
 	<form method="POST" action="?/updateUsername" use:enhance>
@@ -25,16 +24,16 @@
 
 {#if data?.selections}
 	<h2>Your selections</h2>
-	<ul>
+	<ul class="text-center">
 		{#each data?.selections as selection}
 			<li>
-				<span>Week {selection?.gameweek}</span>
+				<span>Week {selection?.gameweek}:</span>
 				<span>{teams[selection?.selection - 1].name}</span>
 			</li>
 		{/each}
 	</ul>
 {/if}
-<form method="POST" action="?/signout">
+<form method="POST" action="?/signout" class="py-12 max-w-sm m-auto">
 	<button class="linkbutton">Sign out</button>
 </form>
 

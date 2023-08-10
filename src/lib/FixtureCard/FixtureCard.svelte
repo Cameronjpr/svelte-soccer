@@ -41,7 +41,9 @@
 <article>
 	<button
 		disabled={!isSelectable}
-		class={gameweekSelection === fixture?.team_h.id ? 'selected' : ''}
+		class={`${selectionLoading ? 'animate-pulse' : ''} ${
+			gameweekSelection === fixture?.team_h.id ? 'selected' : ''
+		}`}
 		on:click={() => handlePreselect(fixture.team_h.id)}
 		style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
 	>
@@ -58,7 +60,9 @@
 	{/if}
 	<button
 		disabled={!isSelectable}
-		class={gameweekSelection === fixture?.team_a.id ? 'selected' : ''}
+		class={`${selectionLoading ? 'animate-pulse' : ''} ${
+			gameweekSelection === fixture?.team_a.id ? 'selected' : ''
+		}`}
 		on:click={() => handlePreselect(fixture.team_a.id)}
 		style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
 	>
@@ -84,7 +88,7 @@
 			>
 				<button
 					style="width: 100%; {selectionLoading ? 'cursor: wait;' : ''}"
-					class="appearance-primary"
+					class={`appearance-primary ${selectionLoading ? 'animate-pulse' : ''}`}
 					disabled={!isSelectable || !drawerOpen || selectionLoading}
 					formaction="?/select&selection={preselectedTeam}&fixture={fixture.code}&gameweek={fixture.event}"
 					>Confirm</button
