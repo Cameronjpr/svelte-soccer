@@ -1,6 +1,7 @@
 <footer>
 	<strong>GameweekGurus</strong>
 	<span>Created by Cameron Robson</span>
+	<a href="/privacy-policy">Privacy Policy</a>
 </footer>
 
 <style>

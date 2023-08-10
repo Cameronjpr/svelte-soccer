@@ -11,6 +11,7 @@
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
 	import dayjs from 'dayjs';
+	import toast, { Toaster } from 'svelte-french-toast';
 
 	inject({ mode: dev ? 'development' : 'production' });
 
@@ -44,6 +45,12 @@
 
 	const startTime = dayjs('2023-08-11 21:00:00');
 	const timeUntilStart = startTime.diff(dayjs(), 'hour');
+
+	$: {
+		if (authenticated) {
+			toast.success(`You’re signed in`);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -66,6 +73,7 @@
 {/if}
 
 <Header {authenticated} {menuOpen} {toggleMenu} />
+<Toaster />
 
 <main class="p-2">
 	<slot />
