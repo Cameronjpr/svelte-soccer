@@ -1,26 +1,13 @@
 <script lang="ts">
-	export let appearance: 'primary' | 'secondary' = 'primary';
-	export let formaction;
+	export let formaction: any = null;
+	export let disabled = false;
+	export let isLoading = false;
 </script>
 
-<button {formaction} class={appearance}>
+<button
+	{disabled}
+	{formaction}
+	class="w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-emerald-300 border-2 border-emerald-400 shadow"
+>
 	<slot />
 </button>
-
-<style>
-	button {
-		height: 3rem;
-		padding-inline: 1.5rem;
-		background: var(--color-primary);
-		color: var(--color-text-light);
-		font-size: large;
-		border: 2px solid transparent;
-		box-sizing: border-box;
-		cursor: pointer;
-		border-radius: 0.75rem;
-	}
-
-	button:hover {
-		background: var(--color-secondary);
-	}
-</style>

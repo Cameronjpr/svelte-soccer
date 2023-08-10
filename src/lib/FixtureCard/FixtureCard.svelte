@@ -5,6 +5,7 @@
 	import type { Fixture, Selection } from '@lib/types';
 	import type { ActionData, PageData } from '../../routes/gameweek/[gameweek=integer]/$types';
 	import { page } from '$app/stores';
+	import Button from '@lib/Button/Button.svelte';
 
 	export let fixture: Fixture;
 	export let isSelectable: boolean;
@@ -42,7 +43,7 @@
 	<button
 		disabled={!isSelectable || gameweekSelection == fixture?.team_h.id}
 		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
-			gameweekSelection == fixture?.team_h.id ? 'bg-emerald-500' : 'bg-slate-200'
+			gameweekSelection == fixture?.team_h.id ? 'bg-emerald-300' : 'bg-slate-200'
 		}`}
 		on:click={() => handlePreselect(fixture.team_h.id)}
 		style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
@@ -61,7 +62,7 @@
 	<button
 		disabled={!isSelectable || gameweekSelection == fixture?.team_a.id}
 		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
-			gameweekSelection == fixture?.team_a.id ? 'bg-emerald-500' : 'bg-slate-200'
+			gameweekSelection == fixture?.team_a.id ? 'bg-emerald-300' : 'bg-slate-200'
 		}`}
 		on:click={() => handlePreselect(fixture.team_a.id)}
 		style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
@@ -77,7 +78,9 @@
 			</div>
 			<form
 				method="POST"
+				action="?/select"
 				use:enhance={({ form, data, action, cancel }) => {
+					console.log(action);
 					selectionLoading = true;
 					return async ({ result, update }) => {
 						if (result?.type === 'success') {
@@ -90,22 +93,21 @@
 			>
 				<button
 					style="width: 100%; {selectionLoading ? 'cursor: wait;' : ''}"
-					class={`w-full h-auto bg-emerald-500 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md ${
+					class={`w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-emerald-300 border-2 border-emerald-400 shadow ${
 						selectionLoading ? 'animate-pulse' : ''
 					}`}
 					disabled={!isSelectable || !drawerOpen || selectionLoading}
 					formaction="?/select&selection={preselectedTeam}&fixture={fixture.code}&gameweek={fixture.event}"
-					>Confirm</button
+					>Select</button
 				>
 			</form>
 		</BottomDrawer>
 	{:else}
 		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
 			<strong>Sign in to play GameweekGurus</strong>
-			<a
-				class="w-full h-auto bg-emerald-500 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
-				href="/login">Sign in</a
-			>
+			<form method="POST" action="/login?/login&provider=google">
+				<Button>Join with Google</Button>
+			</form>
 		</BottomDrawer>
 	{/if}
 </article>

@@ -12,8 +12,6 @@ Sentry.init({
 })
 
 export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, resolve }) => {
-	console.log(event.url.pathname)
-
 	event.locals.supabase = createSupabaseServerClient({
 		supabaseUrl: PUBLIC_SUPABASE_URL,
 		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,

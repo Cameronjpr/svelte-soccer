@@ -1,3 +1,5 @@
+
+
 export const load = (async ({ locals: {
 	supabase
 } }) => {
@@ -10,6 +12,7 @@ export const load = (async ({ locals: {
 		}
 
 	})
+
 	return {
 		users: safeUsers
 	};

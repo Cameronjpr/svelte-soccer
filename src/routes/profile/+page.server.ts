@@ -35,9 +35,6 @@ export const actions: Actions = {
 	deleteAccount: async ({ locals: { supabase, getSession } }) => {
 		const session = await getSession();
 
-		console.log(session?.user.id)
-		console.log(await supabase.from('Users').select().eq('auth_user', session?.user.id))
-
 		const { error } = await supabase
 			.from('Users')
 			.delete()

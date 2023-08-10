@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { teams } from '@lib/teams';
 	import type { ActionData, PageServerData } from './$types';
+	import Button from '@lib/Button/Button.svelte';
 	export let data: PageServerData;
 	export let form: ActionData;
 </script>
@@ -34,7 +35,7 @@
 			{#each data?.selections as selection}
 				<li>
 					<span>Week {selection?.gameweek}:</span>
-					<span>{teams[selection?.selection - 1].name}</span>
+					<span>{teams[selection?.selection - 1]?.name}</span>
 				</li>
 			{/each}
 		</ul>
@@ -42,14 +43,11 @@
 {/if}
 <section class="flex flex-col justify-stretch gap-4 max-w-sm m-auto">
 	<form method="POST" action="?/signout" class="max-w-sm m-auto w-full">
-		<button
-			class="w-full h-auto bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-lg shadow-md"
-			>Sign out</button
-		>
+		<Button>Sign out</Button>
 	</form>
 	<form method="POST" action="?/deleteAccount" class="max-w-sm m-auto w-full">
 		<button
-			class="w-full h-auto bg-slate-100 border-red-600 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
+			class="w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-red-300 border-2 border-red-400 shadow"
 			>Delete account</button
 		>
 	</form>

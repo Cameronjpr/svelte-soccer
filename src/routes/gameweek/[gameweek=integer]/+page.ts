@@ -20,9 +20,6 @@ export const load = (async ({ fetch, parent, params, depends }) => {
 	const res = await fetch(`/api/gameweek/${params.gameweek}`);
 
 	if (!res.ok) {
-		console.log(res.status);
-
-		console.log(res);
 		throw redirect(307, '/maintenance');
 	}
 

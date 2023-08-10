@@ -11,10 +11,6 @@ export const GET = (async ({ fetch }) => {
 		});
 
 		if (!res.ok) {
-			console.log(res.status);
-
-			console.log(res);
-
 			return new Response(String(1));
 		}
 

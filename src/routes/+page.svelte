@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import Button from '@lib/Button/Button.svelte';
 
 	export let data: PageData;
 	let ready = false;
@@ -21,12 +22,9 @@
 		<li>Climb the leaderboard and win!</li>
 	</ol>
 
-	<section class="w-full flex flex-col justify-center">
-		<form method="POST">
-			<button
-				class="w-full h-auto bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-lg shadow-md"
-				formaction="?/login&provider=google">Join with Google</button
-			>
+	<section class="w-full flex flex-col justify-center items-center mt-12">
+		<form method="POST" action="?/login&provider=google">
+			<Button>Join with Google</Button>
 		</form>
 	</section>
 {/if}

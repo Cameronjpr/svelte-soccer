@@ -17,7 +17,7 @@
 		>
 			<slot />
 			<button
-				class="w-full h-auto bg-slate-300 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
+				class="w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-slate-200 border-2 border-slate-300 shadow"
 				on:click={toggleDrawer}>Cancel</button
 			>
 		</div>
