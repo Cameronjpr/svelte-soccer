@@ -11,7 +11,16 @@ const config = {
 		alias: {
 			'@lib': './src/lib'
 		},
-		adapter: adapter()
+		adapter: adapter(),
+		csp: {
+      directives: {
+        'script-src': ['self'],
+				'connect-src': ['vitals.vercel-insights.com'],
+      },
+      reportOnly: {
+        'script-src': ['self']
+      }
+    }
 	}
 };
 
