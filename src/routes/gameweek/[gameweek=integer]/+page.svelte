@@ -38,7 +38,7 @@
 
 <Toaster />
 <h1>Gameweek {data.gameweek.event}</h1>
-<SimplePaginator currentGameweek={data.gameweek.event} />
+<SimplePaginator currentGameweek={data.gameweek.event} fixtures={data.gameweek.fixtures} />
 {#if isFinished}
 	<section class="alert">
 		<LockClosed />
@@ -50,11 +50,11 @@
 		<p>This gameweek has already started</p>
 	</section>
 {:else}
-	<section class="live-gw">
-		<p>Deadline {dayjs().to(dayjs(firstKickoff))}</p>
+	<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>
+		<p>Selection deadline: {dayjs().to(dayjs(firstKickoff))}</p>
 	</section>
 {/if}
-<main>
+<main class="py-8">
 	{#each data.gameweek.fixtures as fixture, index}
 		{#if index === 0 || dayjs(data.gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
 			<h2>{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
@@ -68,18 +68,6 @@
 		display: flex;
 		gap: 0.5rem;
 		flex-direction: column;
-	}
-
-	.live-gw {
-		align-items: center;
-		justify-content: center;
-		gap: 0.25rem;
-		padding-inline: 1rem;
-		font-weight: 700;
-		padding-block: 0.5rem;
-		background: var(--color-accent);
-		border-radius: 0.5rem;
-		text-align: center;
 	}
 
 	.alert {

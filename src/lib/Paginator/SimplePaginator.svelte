@@ -8,19 +8,12 @@
 	$: nextGameweek = currentGameweek < 38 ? currentGameweek + 1 : 38;
 </script>
 
-<section>
+<section class="flex align-middle justify-between mb-2">
 	<a data-sveltekit-noscroll href="/gameweek/{prevGameweek}"><ChevLeft />Previous</a>
 	<a data-sveltekit-noscroll href="/gameweek/{nextGameweek}">Next<ChevRight /></a>
 </section>
 
 <style>
-	section {
-		margin-bottom: 1rem;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
 	a {
 		font-weight: bold;
 		text-decoration: none;
