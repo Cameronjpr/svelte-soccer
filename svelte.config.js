@@ -17,9 +17,6 @@ const config = {
         'script-src': ['self'],
 				'connect-src': ['vitals.vercel-insights.com'],
       },
-      reportOnly: {
-        'script-src': ['self']
-      }
     }
 	}
 };
