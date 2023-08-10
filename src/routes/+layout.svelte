@@ -55,7 +55,7 @@
 	</script>
 </svelte:head>
 
-{#if timeUntilStart > 0}
+{#if timeUntilStart > 0 && !authenticated}
 	<div class="bg-black text-white p-2 text-center">
 		<span
 			>The new season kicks off in <strong

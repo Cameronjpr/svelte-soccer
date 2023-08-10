@@ -12,7 +12,11 @@ const config = {
 			'@lib': './src/lib'
 		},
 		adapter: adapter(),
-		
+		csp: {
+			directives: {
+				'connect-src': ['vitals.vercel-insights.com', '*.sentry.io', 'self', '*.supabase.co'],
+			}
+		}
 	}
 };
 

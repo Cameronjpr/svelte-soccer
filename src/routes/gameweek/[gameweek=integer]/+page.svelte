@@ -37,7 +37,7 @@
 </script>
 
 <Toaster />
-<h1>Gameweek {data.gameweek.event}</h1>
+<h1>Week {data.gameweek.event}</h1>
 <SimplePaginator currentGameweek={data.gameweek.event} fixtures={data.gameweek.fixtures} />
 {#if isFinished}
 	<section class="alert">
