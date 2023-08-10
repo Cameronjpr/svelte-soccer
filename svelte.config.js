@@ -12,12 +12,7 @@ const config = {
 			'@lib': './src/lib'
 		},
 		adapter: adapter(),
-		csp: {
-      directives: {
-        'script-src': ['self'],
-				'connect-src': ['vitals.vercel-insights.com'],
-      },
-    }
+		
 	}
 };
 
