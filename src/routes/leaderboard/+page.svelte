@@ -10,7 +10,9 @@
 <main class="py-8">
 	<ul class="p-0">
 		{#each data.users as user}
-			<li class="border-b-2 border-red-600 px-1 py-4 font-semibold text-lg flex justify-between">
+			<li
+				class="border-b-2 border-emerald-600 px-1 py-4 font-semibold text-lg flex justify-between"
+			>
 				<div class="flex gap-2 align-middle">
 					<User />
 					<span>{user.username}</span>

@@ -41,8 +41,8 @@
 <article>
 	<button
 		disabled={!isSelectable}
-		class={`${selectionLoading ? 'animate-pulse' : ''} ${
-			gameweekSelection === fixture?.team_h.id ? 'selected' : ''
+		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
+			gameweekSelection == fixture?.team_h.id ? 'bg-emerald-500' : 'bg-slate-200'
 		}`}
 		on:click={() => handlePreselect(fixture.team_h.id)}
 		style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
@@ -60,8 +60,8 @@
 	{/if}
 	<button
 		disabled={!isSelectable}
-		class={`${selectionLoading ? 'animate-pulse' : ''} ${
-			gameweekSelection === fixture?.team_a.id ? 'selected' : ''
+		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
+			gameweekSelection == fixture?.team_a.id ? 'bg-emerald-500' : 'bg-slate-200'
 		}`}
 		on:click={() => handlePreselect(fixture.team_a.id)}
 		style="border-right: 0.25rem solid {awayColor}">{fixture.team_a.shortName}</button
@@ -117,7 +117,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-weight: medium;
 		background: none;
 		color: var(--color-text);
 	}
@@ -126,21 +125,13 @@
 		background: var(--color-secondary);
 	}
 
-	.selected {
-		background: var(--color-secondary);
-		color: var(--color-text);
-	}
-
 	article > button {
-		background: var(--color-accent);
 		border: 1px solid var(--color-accent);
 		height: 3rem;
 		border-radius: 0rem;
 		box-shadow: none;
 		padding-inline: 0px;
-		font: inherit;
 		outline: none;
-		color: var(--color-text);
 		font-size: large;
 		transition: all 0.1s ease-in-out;
 	}
