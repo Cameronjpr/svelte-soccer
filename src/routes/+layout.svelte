@@ -79,7 +79,7 @@
 	<slot />
 	{#if debugMode}
 		<footer>
-			<span>Debugging info:</span>
+			<span>Debugging info</span>
 			<ul>
 				<li>Session: {$page?.data?.session}</li>
 				<li>Active gameweek: {data?.activeGameweek}</li>
