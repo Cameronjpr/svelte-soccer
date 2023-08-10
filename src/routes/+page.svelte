@@ -21,8 +21,12 @@
 		<li>Climb the leaderboard and win!</li>
 	</ol>
 
-	<section>
-		<a href="/login">Create your account today!</a>
+	<section class="w-full flex justify-center">
+		<a
+			class="bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-xl shadow-md"
+			href="/login"
+			><span>Join now</span>
+		</a>
 	</section>
 {/if}
 
@@ -57,17 +61,5 @@
 	li::before {
 		content: '⚽️';
 		margin-right: 0.5rem;
-	}
-
-	section {
-		margin-top: 5rem;
-		background-color: #000;
-		padding: 1rem;
-		text-align: center;
-	}
-
-	section a {
-		color: var(--color-text-light);
-		font-size: 1.4rem;
 	}
 </style>
