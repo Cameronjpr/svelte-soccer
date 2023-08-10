@@ -9,7 +9,7 @@ const config = {
         sourceMapsUploadOptions: {
             org: "gameweek-gurus",
             project: "javascript-sveltekit"
-        }
+        },
     }), sveltekit(), Icons({
         compiler: 'svelte'
     })]

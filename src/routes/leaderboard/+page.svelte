@@ -1,4 +1,5 @@
 <script lang="ts">
+	import User from '@lib/icons/User.svelte';
 	import type { PageData } from './$types';
 	export let data: PageData;
 </script>
@@ -9,8 +10,11 @@
 <main class="py-8">
 	<ul class="p-0">
 		{#each data.users as user}
-			<li class="border-b-2 border-red-600 p-4 font-semibold text-lg flex justify-between">
-				<span>{user.username}</span>
+			<li class="border-b-2 border-red-600 px-1 py-4 font-semibold text-lg flex justify-between">
+				<div class="flex gap-2 align-middle">
+					<User />
+					<span>{user.username}</span>
+				</div>
 				<span>{user.score ?? '?'} pts</span>
 			</li>
 		{/each}
