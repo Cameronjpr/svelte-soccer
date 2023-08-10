@@ -21,12 +21,13 @@
 		<li>Climb the leaderboard and win!</li>
 	</ol>
 
-	<section class="w-full flex justify-center">
-		<a
-			class="bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-xl shadow-md"
-			href="/login"
-			><span>Join now</span>
-		</a>
+	<section class="w-full flex flex-col justify-center">
+		<form method="POST">
+			<button
+				class="w-full h-auto bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-lg shadow-md"
+				formaction="?/login&provider=google">Join with Google</button
+			>
+		</form>
 	</section>
 {/if}
 
