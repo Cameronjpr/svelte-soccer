@@ -8,23 +8,8 @@ export const load = async ({ fetch, locals: { getSession, supabase } }) => {
 
 	const session = await getSession();
 
-	let selections = [];
-
-	if (session) {
-		const { data, error } = await supabase
-			.from('Selections')
-			.select()
-			.eq('selector', session?.user?.id);
-
-		selections = data;
-	}
-
-	const { data: users } = await supabase.from('Users').select('username');
-
 	return {
 		session,
-		selections: selections || [],
-		users: users?.length,
 		activeGameweek: activeGameweek || 1
 	};
 };

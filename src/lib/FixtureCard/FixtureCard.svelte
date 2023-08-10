@@ -40,7 +40,7 @@
 
 <article>
 	<button
-		disabled={!isSelectable}
+		disabled={!isSelectable || gameweekSelection == fixture?.team_h.id}
 		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
 			gameweekSelection == fixture?.team_h.id ? 'bg-emerald-500' : 'bg-slate-200'
 		}`}
@@ -59,7 +59,7 @@
 		>
 	{/if}
 	<button
-		disabled={!isSelectable}
+		disabled={!isSelectable || gameweekSelection == fixture?.team_a.id}
 		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
 			gameweekSelection == fixture?.team_a.id ? 'bg-emerald-500' : 'bg-slate-200'
 		}`}
@@ -69,10 +69,12 @@
 
 	{#if session}
 		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
-			<p>
-				<strong>Select {teams[preselectedTeam - 1]?.name}?</strong><br />
-				You have <strong>two</strong> available selections for this team.
-			</p>
+			<div>
+				<h3>Select {teams[preselectedTeam - 1]?.name}?</h3>
+				<p class="text-center mt-0">
+					You have <strong>two</strong> available selections for this team.
+				</p>
+			</div>
 			<form
 				method="POST"
 				use:enhance={({ form, data, action, cancel }) => {
@@ -88,7 +90,9 @@
 			>
 				<button
 					style="width: 100%; {selectionLoading ? 'cursor: wait;' : ''}"
-					class={`appearance-primary ${selectionLoading ? 'animate-pulse' : ''}`}
+					class={`w-full h-auto bg-emerald-500 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md ${
+						selectionLoading ? 'animate-pulse' : ''
+					}`}
 					disabled={!isSelectable || !drawerOpen || selectionLoading}
 					formaction="?/select&selection={preselectedTeam}&fixture={fixture.code}&gameweek={fixture.event}"
 					>Confirm</button
@@ -98,7 +102,10 @@
 	{:else}
 		<BottomDrawer isOpen={drawerOpen} {toggleDrawer}>
 			<strong>Sign in to play GameweekGurus</strong>
-			<a class="linkbutton" href="/login">Sign in</a>
+			<a
+				class="w-full h-auto bg-emerald-500 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
+				href="/login">Sign in</a
+			>
 		</BottomDrawer>
 	{/if}
 </article>

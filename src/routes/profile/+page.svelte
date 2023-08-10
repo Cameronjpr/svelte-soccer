@@ -34,7 +34,10 @@
 	</ul>
 {/if}
 <form method="POST" action="?/signout" class="py-12 max-w-sm m-auto">
-	<button class="linkbutton">Sign out</button>
+	<button
+		class="w-full h-auto bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-lg shadow-md"
+		>Sign out</button
+	>
 </form>
 
 <style>

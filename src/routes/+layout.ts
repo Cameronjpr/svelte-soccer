@@ -28,18 +28,9 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
     data: { session },
   } = await supabase.auth.getSession()
 
-  const { data: selections, error } = await supabase
-    .from('Selections')
-    .select()
-    .eq('selector', session?.user?.id);
-
-  const { data: users } = await supabase.from('Users').select('username');
-
   return {
     supabase,
     session,
-    selections: selections || [],
-    users: users?.length,
     activeGameweek: activeGameweek || 1
   }
 }

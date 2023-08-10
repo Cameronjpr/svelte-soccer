@@ -42,7 +42,7 @@ export const actions: Actions = {
 				});
 			}
 		} else {
-			const { data, error } = await supabase.from('Selections').insert({
+			const { error } = await supabase.from('Selections').insert({
 				selection: selection,
 				selector: session?.user?.id,
 				fixture: fixture,
@@ -60,9 +60,14 @@ export const actions: Actions = {
 	}
 };
 
-export const load = (async (event: any) => {
-	const { activeGameweek } = await event.parent();
-	const { selections } = await event.parent();
+export const load = (async ({ parent, locals: { supabase } }) => {
+	const { activeGameweek, session } = await parent();
+
+	const { data: selections, error } = await supabase
+		.from('Selections')
+		.select()
+		.eq('selector', session?.user?.id);
+
 
 	return {
 		activeGameweek,

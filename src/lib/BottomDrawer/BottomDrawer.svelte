@@ -16,7 +16,10 @@
 			transition:fly={{ delay: 0, duration: 300, x: 0, y: 500, opacity: 0.5 }}
 		>
 			<slot />
-			<button class="appearance-tertiary" on:click={toggleDrawer}>Cancel</button>
+			<button
+				class="w-full h-auto bg-slate-300 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
+				on:click={toggleDrawer}>Cancel</button
+			>
 		</div>
 	</section>
 {/if}
