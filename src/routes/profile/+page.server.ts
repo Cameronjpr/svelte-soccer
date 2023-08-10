@@ -32,6 +32,26 @@ export const actions: Actions = {
 		await supabase.auth.signOut();
 		throw redirect(303, '/');
 	},
+	deleteAccount: async ({ locals: { supabase, getSession } }) => {
+		const session = await getSession();
+
+		console.log(session?.user.id)
+		console.log(await supabase.from('Users').select().eq('auth_user', session?.user.id))
+
+		const { error } = await supabase
+			.from('Users')
+			.delete()
+			.eq('auth_user', session?.user.id);
+
+		if (error) {
+			console.log(error);
+			return {
+				error: 'Something went wrong deleting your account.'
+			};
+		}
+
+		await supabase.auth.signOut();
+	},
 	updateUsername: async ({ request, locals: { getSession, supabase } }) => {
 		const session = await getSession();
 		const data = await request.formData();

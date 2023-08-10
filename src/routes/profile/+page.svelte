@@ -9,36 +9,51 @@
 {#if data?.user?.username}
 	<h1>Signed in as {data?.user?.username}</h1>
 {:else}
-	<span>You don't have a <strong>username</strong> set.</span>
-	<form method="POST" action="?/updateUsername" use:enhance>
-		<label for="username">
-			Username
-			<input type="text" name="username" />
-		</label>
-		<button>Set username</button>
-	</form>
-	{#if form?.error}
-		<span class="error">{form?.error}</span>
-	{/if}
+	<section class="flex flex-col justify-stretch gap-4 max-w-sm m-auto">
+		<span>You don't have a <strong>username</strong> set.</span>
+		<form method="POST" action="?/updateUsername" use:enhance class="flex flex-col gap-2">
+			<label class="flex flex-col gap-1 font-semibold" for="username">
+				Username
+				<input class="px-3" type="text" name="username" />
+			</label>
+			<button
+				class="w-full h-auto bg-emerald-500 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
+				>Set username</button
+			>
+		</form>
+		{#if form?.error}
+			<span class="error">{form?.error}</span>
+		{/if}
+	</section>
 {/if}
 
 {#if data?.selections}
-	<h2>Your selections</h2>
-	<ul class="text-center">
-		{#each data?.selections as selection}
-			<li>
-				<span>Week {selection?.gameweek}:</span>
-				<span>{teams[selection?.selection - 1].name}</span>
-			</li>
-		{/each}
-	</ul>
+	<section class="flex flex-col justify-stretch gap-0 max-w-sm m-auto my-12">
+		<h2>Your selections</h2>
+		<ul class="text-center">
+			{#each data?.selections as selection}
+				<li>
+					<span>Week {selection?.gameweek}:</span>
+					<span>{teams[selection?.selection - 1].name}</span>
+				</li>
+			{/each}
+		</ul>
+	</section>
 {/if}
-<form method="POST" action="?/signout" class="py-12 max-w-sm m-auto">
-	<button
-		class="w-full h-auto bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-lg shadow-md"
-		>Sign out</button
-	>
-</form>
+<section class="flex flex-col justify-stretch gap-4 max-w-sm m-auto">
+	<form method="POST" action="?/signout" class="max-w-sm m-auto w-full">
+		<button
+			class="w-full h-auto bg-emerald-500 p-3 rounded-lg mt-8 text-center text-black font-semibold text-lg shadow-md"
+			>Sign out</button
+		>
+	</form>
+	<form method="POST" action="?/deleteAccount" class="max-w-sm m-auto w-full">
+		<button
+			class="w-full h-auto bg-slate-100 border-red-600 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
+			>Delete account</button
+		>
+	</form>
+</section>
 
 <style>
 	main {
