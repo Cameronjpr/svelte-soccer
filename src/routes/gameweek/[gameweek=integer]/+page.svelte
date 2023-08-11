@@ -22,18 +22,6 @@
 
 	$: kickoffs = data.gameweek.fixtures.map((f: Fixture) => f.kickoff_time);
 	$: firstKickoff = dayjs(kickoffs.sort()[0]);
-
-	let initialTeam = data.selections.find((s) => s.gameweek === data.gameweek.event)?.selection;
-
-	$: {
-		const selectedTeam = data.selections.find((s) => s.gameweek === data.gameweek.event)?.selection;
-
-		if (selectedTeam !== null && selectedTeam !== undefined && selectedTeam !== initialTeam) {
-			toast.success(`You selected ${teams[selectedTeam - 1].shortName}!`);
-
-			initialTeam = selectedTeam;
-		}
-	}
 </script>
 
 <Toaster />

@@ -6,6 +6,7 @@
 	import type { ActionData, PageData } from '../../routes/gameweek/[gameweek=integer]/$types';
 	import { page } from '$app/stores';
 	import Button from '@lib/Button/Button.svelte';
+	import toast from 'svelte-french-toast';
 
 	export let fixture: Fixture;
 	export let isSelectable: boolean;
@@ -91,6 +92,7 @@
 						if (result?.type === 'success') {
 							toggleDrawer();
 							update();
+							toast.success(`You selected ${teams[preselectedTeam - 1].shortName}!`);
 						}
 						selectionLoading = false;
 					};
