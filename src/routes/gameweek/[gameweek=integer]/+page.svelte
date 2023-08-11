@@ -38,6 +38,7 @@
 
 <Toaster />
 <h1>Week {data.gameweek.event}</h1>
+<p class="text-center pb-4">Select <strong>one</strong> team you think will win this week!</p>
 <SimplePaginator currentGameweek={data.gameweek.event} fixtures={data.gameweek.fixtures} />
 {#if isFinished}
 	<section class="alert">
