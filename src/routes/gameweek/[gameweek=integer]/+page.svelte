@@ -1,16 +1,13 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import toast, { Toaster } from 'svelte-french-toast';
+	import { Toaster } from 'svelte-french-toast';
 	import FixtureCard from '@lib/FixtureCard/FixtureCard.svelte';
-	import type { PageData, PageServerData } from './$types';
+	import type { PageData } from './$types';
 	import dayjs from 'dayjs';
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import type { Fixture } from '@lib/types';
 	import LockClosed from '@lib/icons/LockClosed.svelte';
-	import { page } from '$app/stores';
-	import { teams } from '@lib/teams';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -21,28 +18,28 @@
 
 	$: kickoffs = data.gameweek.fixtures.map((f: Fixture) => f.kickoff_time);
 	$: firstKickoff = dayjs(kickoffs.sort()[0]);
-	$: deadline = firstKickoff.subtract(1, 'hour');
+	$: FPLdeadline = firstKickoff.subtract(1, 'hour');
 
-	$: isSelectable = !hasStarted && !isFinished && dayjs().isBefore(deadline);
+	$: isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff);
 </script>
 
 <Toaster />
 <h1>Week {data.gameweek.event}</h1>
 <p class="text-center pb-4">Select <strong>one</strong> team you think will win this week!</p>
-<SimplePaginator currentGameweek={data.gameweek.event} fixtures={data.gameweek.fixtures} />
+<SimplePaginator currentGameweek={data.gameweek.event} />
 {#if isFinished}
 	<section class={`alert bg-slate-600 text-white p-2 rounded-lg text-center font-semibold`}>
 		<LockClosed />
 		<p>This gameweek has finished</p>
 	</section>
-{:else if hasStarted || (!isFinished && !dayjs().isBefore(deadline))}
+{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
 	<section class={`alert bg-red-700 text-white p-2 rounded-lg text-center font-semibold`}>
 		<LockClosed />
 		<p>This gameweek is LIVE!</p>
 	</section>
 {:else}
 	<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>
-		<p>Selection deadline: {dayjs().to(deadline)}</p>
+		<p>Selection deadline: {dayjs().to(firstKickoff)}</p>
 	</section>
 {/if}
 <main class="py-8">
