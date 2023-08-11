@@ -89,7 +89,7 @@
 {:else if authenticated && !username}
 	<div class="bg-green-700 text-white p-2 text-center">
 		<span
-			>Thanks for joining! Complete your account by <a class="text-white underline" href="/login"
+			>Thanks for joining! Complete your account by <a class="text-white underline" href="/profile"
 				>setting a username
 			</a></span
 		>
