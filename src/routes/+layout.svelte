@@ -19,7 +19,9 @@
 	export let data: LayoutData;
 	$: ({ supabase, session } = data);
 
-	onMount(() => {
+	let username;
+
+	onMount(async () => {
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange((event, _session) => {
@@ -28,6 +30,9 @@
 			}
 		});
 
+		const { data } = await supabase.from('Users').select().eq('auth_user', session?.user?.id);
+
+		username = data?.[0]?.username;
 		return () => subscription.unsubscribe();
 	});
 
@@ -79,6 +84,14 @@
 			>The new season kicks off in <strong
 				>{timeUntilStart} hour{timeUntilStart > 1 ? 's' : ''}</strong
 			>. <a class="text-white underline" href="/login">Join now!</a></span
+		>
+	</div>
+{:else if authenticated && !username}
+	<div class="bg-green-700 text-white p-2 text-center">
+		<span
+			>Thanks for joining! Complete your account by <a class="text-white underline" href="/login"
+				>setting a username
+			</a></span
 		>
 	</div>
 {/if}
