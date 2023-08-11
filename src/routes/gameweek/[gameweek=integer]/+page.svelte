@@ -36,7 +36,7 @@
 {:else if hasStarted}
 	<section class="alert">
 		<LockClosed />
-		<p>This gameweek has already started</p>
+		<p>This gameweek is LIVE!</p>
 	</section>
 {:else}
 	<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>

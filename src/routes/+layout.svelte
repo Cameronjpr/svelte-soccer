@@ -13,6 +13,7 @@
 	import dayjs from 'dayjs';
 	import toast, { Toaster } from 'svelte-french-toast';
 	import { webVitals } from '@lib/vitals';
+	import { fade, slide } from 'svelte/transition';
 
 	inject({ mode: dev ? 'development' : 'production' });
 
@@ -78,16 +79,16 @@
 	</script>
 </svelte:head>
 
-{#if timeUntilStart > 0 && !authenticated}
-	<div class="bg-black text-white p-2 text-center">
+{#if browser && timeUntilStart > 0 && !authenticated}
+	<div transition:slide class="bg-slate-900 text-white p-2 text-center">
 		<span
 			>The new season kicks off in <strong
 				>{timeUntilStart} hour{timeUntilStart > 1 ? 's' : ''}</strong
 			>. <a class="text-white underline" href="/login">Join now!</a></span
 		>
 	</div>
-{:else if authenticated && !username}
-	<div class="bg-green-700 text-white p-2 text-center">
+{:else if browser && authenticated && !username}
+	<div transition:slide class="bg-green-700 text-white p-2 text-center">
 		<span
 			>Thanks for joining! Complete your account by <a class="text-white underline" href="/profile"
 				>setting a username
