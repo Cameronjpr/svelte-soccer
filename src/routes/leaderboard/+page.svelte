@@ -1,6 +1,7 @@
 <script lang="ts">
 	import User from '@lib/icons/User.svelte';
 	import type { PageData } from './$types';
+	import { teams } from '@lib/teams';
 	export let data: PageData;
 </script>
 
@@ -17,13 +18,24 @@
 	<ul class="p-0">
 		{#each data.users as user}
 			<li
-				class="border-b-2 border-emerald-600 px-1 py-4 font-semibold text-lg flex justify-between"
+				class="border-b-2 border-emerald-600 px-1 py-3 font-semibold text-lg flex justify-between items-center"
 			>
-				<div class="flex gap-2 align-middle">
+				<div class="flex items-center gap-4">
 					<User />
-					<span>{user.username}</span>
+					<div class="flex flex-col items-start">
+						<span>{user.username}</span>
+						{#if user?.selection}
+							<span class="text-sm italic"
+								>{teams[user?.selection.selection - 1]?.shortName ?? '?'}</span
+							>
+						{:else}
+							<span class="text-sm">No selection</span>
+						{/if}
+					</div>
 				</div>
-				<span>{user.score ?? '?'} pts</span>
+				<div class="flex flex-col items-end">
+					<span>{user.score} pts</span>
+				</div>
 			</li>
 		{/each}
 	</ul>
