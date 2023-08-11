@@ -6,6 +6,12 @@
 
 <h1>Leaderboard</h1>
 <p class="text-center">Scores are updated after each gameweek.</p>
+<p class="text-center">
+	If you don’t see yourself on the leaderboard, make sure you have <a
+		class="underline"
+		href="/profile">set a username!</a
+	>
+</p>
 
 <main class="py-8">
 	<ul class="p-0">
