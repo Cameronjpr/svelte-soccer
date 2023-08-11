@@ -23,7 +23,7 @@
 				<div class="flex items-center gap-4">
 					<User />
 					<div class="flex flex-col items-start">
-						<span>{user.username}</span>
+						<span>{user.username ?? 'Anonymous player'}</span>
 						{#if user?.selection}
 							<span class="text-sm italic"
 								>{teams[user?.selection.selection - 1]?.shortName ?? '?'}</span
