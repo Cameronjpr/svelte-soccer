@@ -1,9 +1,9 @@
 <script lang="ts">
 	import User from '@lib/icons/User.svelte';
-	import type { PageData } from './$types';
+	import type { PageServerData } from './$types';
 	import { teams } from '@lib/teams';
 	import Star from '@lib/icons/Star.svelte';
-	export let data: PageData;
+	export let data: PageServerData;
 
 	const sorted = data.users.sort((a, b) => b.score - a.score);
 	const hiscore = sorted[0].score;
