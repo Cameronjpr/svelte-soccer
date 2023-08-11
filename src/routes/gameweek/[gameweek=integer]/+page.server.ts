@@ -23,6 +23,15 @@ export const actions: Actions = {
 			(selection) => selection?.gameweek === Number(gameweek)
 		);
 
+		// Get previous selections for this team
+		const previousSelectionCount = selections?.filter(s => s.selection == selection).length
+
+		if (previousSelectionCount >= 2) {
+			return fail(400, {
+				message: 'You have already selected this team twice'
+			});
+		}
+
 		if (existingGameweekSelection?.id) {
 			console.log('overwriting selection');
 			const { data, error } = await supabase

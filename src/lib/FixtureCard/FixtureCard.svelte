@@ -21,6 +21,10 @@
 		(selection) => selection.gameweek === fixture.event
 	)?.selection;
 
+	$: preselectedTeamSelections = selections.filter((selection) => {
+		return selection.selection == preselectedTeam;
+	})?.length;
+
 	const homeColor = teams[fixture.team_h.id - 1]?.primaryColor;
 	const awayColor = teams[fixture.team_a.id - 1]?.primaryColor;
 
@@ -73,7 +77,8 @@
 			<div>
 				<h3>Select {teams[preselectedTeam - 1]?.name}?</h3>
 				<p class="text-center mt-0">
-					You have <strong>two</strong> available selections for this team.
+					You have <strong>{2 - preselectedTeamSelections ?? '2'}</strong> available selections for this
+					team.
 				</p>
 			</div>
 			<form
@@ -96,7 +101,10 @@
 					class={`w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-emerald-300 border-2 border-emerald-400 shadow ${
 						selectionLoading ? 'animate-pulse' : ''
 					}`}
-					disabled={!isSelectable || !drawerOpen || selectionLoading}
+					disabled={!isSelectable ||
+						!drawerOpen ||
+						selectionLoading ||
+						preselectedTeamSelections >= 2}
 					formaction="?/select&selection={preselectedTeam}&fixture={fixture.code}&gameweek={fixture.event}"
 					>Select</button
 				>

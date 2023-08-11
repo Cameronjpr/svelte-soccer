@@ -9,7 +9,7 @@
 
 	<p>
 		<mark class="p-1 font-semibold mr-1">2. Get points if they win:</mark>If your team wins, you
-		gain 1 point. If they draw, you gain nothing – but if they lose, you lose a point!
+		gain 3 points. If they draw, you gain nothing – but if they lose, you lose 1 point!
 	</p>
 
 	<p>
