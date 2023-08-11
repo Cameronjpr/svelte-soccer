@@ -18,44 +18,44 @@ export const actions: Actions = {
 
     if (res.ok) {
       // Find selections for this user
-      const { data: users } = await supabase.from('Users').select('id');
-      const { data: selections } = await supabase.from('Selections').select();
+      const { data: users } = await supabase.from('Users').select('auth_user, score');
       const fixtures: Fixture[] = await res.json();
 
       users?.forEach(async (u) => {
-        console.log(u)
-        let tally = 0;
+        const { data: selections } = await supabase.from('Selections').select().eq('selector', u?.auth_user);
+        console.log(u.auth_user)
+        let tally = u.score;
         selections?.forEach((s) => {
-          console.log(s)
           const fixture = fixtures.find(f => f.code === s.fixture)
-          console.log(fixture)
-          const { team_a_score, team_h_score, team_a, team_h, finished_provisional } = fixture as Fixture;
+          const { team_a_score, team_h_score, team_a, team_h, started } = fixture as Fixture;
 
-          if (!finished_provisional || team_a_score === null || team_h_score === null) {
+          if (!started || team_a_score === null || team_h_score === null) {
             return;
           }
 
-          if (team_h_score === team_a_score) {
+          if (team_h_score == team_a_score) {
             return;
           }
 
 
           if (team_h_score > team_a_score) { // home win
+            console.log('home win')
             if (s.selection === team_h) {
-              tally++
+              tally += 3
             } else {
               tally--
             }
-          } else { // away win
+          } else if (team_h_score < team_a_score) { // away win
             if (s.selection === team_a) {
-              tally++
+              console.log('away win')
+              tally += 3
             } else {
               tally--
             }
           }
         });
 
-        const { error, status, data } = await supabase.from('Users').update({ score: tally }).eq('id', u.id);
+        const { error, status, data } = await supabase.from('Users').update({ score: tally }).eq('auth_user', u.auth_user).select();
 
         console.log({ error, status, data })
       });

@@ -25,7 +25,6 @@
 
 <Toaster />
 <h1>Week {data.gameweek.event}</h1>
-<p class="text-center pb-4">Select <strong>one</strong> team you think will win this week!</p>
 <SimplePaginator currentGameweek={data.gameweek.event} />
 {#if isFinished}
 	<section class={`alert bg-slate-600 text-white p-2 rounded-lg text-center font-semibold`}>
@@ -41,6 +40,7 @@
 	<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>
 		<p>Selection deadline: {dayjs().to(firstKickoff)}</p>
 	</section>
+	<p class="text-center pt-2">Select <strong>one</strong> team you think will win this week!</p>
 {/if}
 <main class="py-8">
 	{#each data.gameweek.fixtures as fixture, index}
