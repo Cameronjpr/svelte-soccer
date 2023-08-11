@@ -24,7 +24,7 @@ export const actions: Actions = {
       users?.forEach(async (u) => {
         const { data: selections } = await supabase.from('Selections').select().eq('selector', u?.auth_user);
         console.log(u.auth_user)
-        let tally = u.score;
+        let tally = 0;
         selections?.forEach((s) => {
           const fixture = fixtures.find(f => f.code === s.fixture)
           const { team_a_score, team_h_score, team_a, team_h, started } = fixture as Fixture;
@@ -55,7 +55,7 @@ export const actions: Actions = {
           }
         });
 
-        const { error, status, data } = await supabase.from('Users').update({ score: tally }).eq('auth_user', u.auth_user).select();
+        const { error, status, data } = await supabase.from('Users').update({ score: tally ?? u.score }).eq('auth_user', u.auth_user).select();
 
         console.log({ error, status, data })
       });

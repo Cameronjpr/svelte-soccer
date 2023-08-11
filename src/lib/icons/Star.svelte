@@ -1,5 +1,5 @@
 <svg
-	fill="none"
+	fill="currentColor"
 	stroke="currentColor"
 	stroke-width="1.5"
 	width="2rem"

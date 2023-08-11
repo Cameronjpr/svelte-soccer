@@ -28,7 +28,9 @@
 			>
 				<div class="flex items-center gap-4">
 					{#if user.score === hiscore}
-						<Star />
+						<span class="text-amber-500">
+							<Star />
+						</span>
 					{:else}
 						<span class="text-slate-500">#{index + 1}</span>
 					{/if}
