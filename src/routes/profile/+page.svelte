@@ -8,7 +8,19 @@
 </script>
 
 {#if data?.user?.username}
-	<h1>Signed in as {data?.user?.username}</h1>
+	<h1>Hello, {data?.user?.username}</h1>
+	<form
+		method="POST"
+		action="?/updateUsername"
+		use:enhance
+		class="flex flex-col gap-2 max-w-sm m-auto"
+	>
+		<label class="flex flex-col gap-1 font-semibold" for="username">
+			Update username
+			<input placeholder={data?.user?.username} class="px-3" type="text" name="username" />
+		</label>
+		<Button>Update</Button>
+	</form>
 {:else}
 	<section class="flex flex-col justify-stretch gap-4 max-w-sm m-auto">
 		<span>You don't have a <strong>username</strong> set.</span>
@@ -17,10 +29,7 @@
 				Username
 				<input class="px-3" type="text" name="username" />
 			</label>
-			<button
-				class="w-full h-auto bg-emerald-500 p-3 rounded-lg text-center text-black font-semibold text-lg shadow-md"
-				>Set username</button
-			>
+			<Button>Save</Button>
 		</form>
 		{#if form?.error}
 			<span class="error">{form?.error}</span>
