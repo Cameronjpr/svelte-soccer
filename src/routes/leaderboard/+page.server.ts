@@ -13,7 +13,8 @@ export const load = (async ({ locals: {
 		return {
 			username: user.username,
 			score: user.score,
-			selection: selectionsForGameweek.find(s => s.selector === user.auth_user)
+			selection: selectionsForGameweek.find(s => s.selector === user.auth_user),
+			uuid: user.auth_user
 		}
 	})
 

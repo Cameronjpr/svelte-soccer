@@ -23,7 +23,9 @@
 				<div class="flex items-center gap-4">
 					<User />
 					<div class="flex flex-col items-start">
-						<span>{user.username ?? 'Anonymous player'}</span>
+						<span class={user.uuid == data?.session?.user?.id ? 'text-green-700' : ''}
+							>{user.username ?? 'Anonymous player'}</span
+						>
 						{#if user?.selection}
 							<span class="text-sm italic"
 								>{teams[user?.selection.selection - 1]?.shortName ?? '?'}</span
