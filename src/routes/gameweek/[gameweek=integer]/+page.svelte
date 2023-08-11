@@ -18,10 +18,12 @@
 
 	$: hasStarted = data.gameweek.fixtures.some((f: Fixture) => f.started);
 	$: isFinished = data.gameweek.fixtures.every((f: Fixture) => f.finished_provisional);
-	$: isSelectable = !hasStarted && !isFinished;
 
 	$: kickoffs = data.gameweek.fixtures.map((f: Fixture) => f.kickoff_time);
 	$: firstKickoff = dayjs(kickoffs.sort()[0]);
+	$: deadline = firstKickoff.subtract(1, 'hour');
+
+	$: isSelectable = !hasStarted && !isFinished && dayjs().isBefore(deadline);
 </script>
 
 <Toaster />
@@ -29,18 +31,18 @@
 <p class="text-center pb-4">Select <strong>one</strong> team you think will win this week!</p>
 <SimplePaginator currentGameweek={data.gameweek.event} fixtures={data.gameweek.fixtures} />
 {#if isFinished}
-	<section class="alert">
+	<section class={`alert bg-slate-600 text-white p-2 rounded-lg text-center font-semibold`}>
 		<LockClosed />
 		<p>This gameweek has finished</p>
 	</section>
-{:else if hasStarted}
-	<section class="alert">
+{:else if hasStarted || (!isFinished && !dayjs().isBefore(deadline))}
+	<section class={`alert bg-red-700 text-white p-2 rounded-lg text-center font-semibold`}>
 		<LockClosed />
 		<p>This gameweek is LIVE!</p>
 	</section>
 {:else}
 	<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>
-		<p>Selection deadline: {dayjs().to(dayjs(firstKickoff))}</p>
+		<p>Selection deadline: {dayjs().to(deadline)}</p>
 	</section>
 {/if}
 <main class="py-8">
@@ -67,9 +69,6 @@
 		gap: 0.25rem;
 		padding-inline: 1rem;
 		padding-block: 0.5rem;
-		background: var(--color-accent);
-		border-radius: 0.5rem;
-		text-align: center;
 	}
 
 	p {
