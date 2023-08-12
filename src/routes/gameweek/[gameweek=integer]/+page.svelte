@@ -7,7 +7,6 @@
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import LockClosed from '@lib/icons/LockClosed.svelte';
-	import type { Fixture } from '@lib/types';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -33,7 +32,9 @@
 				<p>This gameweek has finished</p>
 			</section>
 		{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
-			<section class={`alert bg-red-700 text-white p-2 rounded-lg text-center font-semibold`}>
+			<section
+				class={`alert border-2 bg-red-700 text-red-100 p-2 rounded-lg text-center font-semibold`}
+			>
 				<LockClosed />
 				<p>This gameweek is LIVE!</p>
 			</section>

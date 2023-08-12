@@ -32,7 +32,7 @@
 	section {
 		display: grid;
 		margin: auto;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 1fr 2fr 1fr;
 		align-items: center;
 		justify-content: center;
 		gap: 0.5rem;

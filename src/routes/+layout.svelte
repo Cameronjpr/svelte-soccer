@@ -79,12 +79,11 @@
 	</script>
 </svelte:head>
 
-{#if browser && timeUntilStart > 0 && !authenticated}
+{#if browser && !authenticated}
 	<div transition:slide class="bg-slate-900 text-white p-2 text-center">
 		<span
-			>The new season kicks off in <strong
-				>{timeUntilStart} hour{timeUntilStart > 1 ? 's' : ''}</strong
-			>. <a class="text-white underline" href="/login">Join now!</a></span
+			>The new season has just started – <a class="text-white underline" href="/login">join now!</a
+			></span
 		>
 	</div>
 {:else if browser && authenticated && !username}
