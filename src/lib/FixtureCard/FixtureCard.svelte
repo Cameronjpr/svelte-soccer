@@ -55,8 +55,10 @@
 	>
 	{#if fixture.started}
 		{#if fixture.team_h_score != null && fixture.team_a_score != null}
-			<span id="score" class={fixture?.finished_provisional ? 'score-ft' : 'score-live'}
-				>{fixture.team_h_score} : {fixture.team_a_score}</span
+			<span
+				class={`${
+					fixture?.finished_provisional ? '' : 'bg-red-500 rounded-lg font-semibold text-white'
+				}`}>{fixture.team_h_score} : {fixture.team_a_score}</span
 			>
 		{:else}
 			<span id="score" class="text-sm">Delayed</span>
@@ -89,7 +91,7 @@
 			<form
 				method="POST"
 				action="?/select"
-				use:enhance={({ form, data, action, cancel }) => {
+				use:enhance={({ action }) => {
 					console.log(action);
 					selectionLoading = true;
 					return async ({ result, update }) => {
@@ -140,8 +142,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: none;
-		color: var(--color-text);
 	}
 
 	span.score-live {

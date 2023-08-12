@@ -13,6 +13,7 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from '../../routes/$types';
 	import { PUBLIC_ADMIN_EMAIL } from '$env/static/public';
+	import Message from '@lib/icons/Message.svelte';
 
 	let showMenu = false;
 
@@ -71,6 +72,11 @@
 						Toggle theme
 					</button>
 				</li>
+				<li>
+					<a href="mailto:gameweekgurus@gmail.com?subject=Help with Gameweek Gurus"
+						><Message />Support</a
+					>
+				</li>
 				{#if $page?.data?.session?.user?.email === PUBLIC_ADMIN_EMAIL}
 					<li>
 						<a href="/admin">Admin</a>
@@ -106,14 +112,9 @@
 
 	nav a,
 	nav button {
-		color: var(--color-text);
-		background: none;
-		/* height: 2rem; */
 		font-weight: bold;
 		font-size: large;
-
 		text-decoration: none;
-		padding: 0px;
 		display: flex;
 		align-items: center;
 	}
