@@ -19,6 +19,8 @@
 
 	export let menuOpen: boolean;
 	export let authenticated: boolean;
+	export let hasUsername: boolean;
+
 	const activeGameweek = $page?.data?.activeGameweek || 1;
 	export let toggleMenu: () => void;
 
@@ -94,7 +96,11 @@
 	<a href={authenticated ? '/gameweek/1' : '/'}>GameweekGurus</a>
 	<div class="icon-controls">
 		{#if $page?.data?.session}
-			<a href="/profile" aria-label="profile"><UserCircle /></a>
+			<a class="relative" href="/profile" aria-label="profile"
+				><UserCircle />{#if authenticated && !hasUsername}
+					<span class="w-2 h-2 bg-red-600 rounded-full absolute left-7 top-0 animate-pulse"></span>
+				{/if}</a
+			>
 		{:else}
 			<a href="/login" aria-label="log in"><UserCircle /></a>
 		{/if}

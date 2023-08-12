@@ -3,14 +3,15 @@
 	import BottomDrawer from '@lib/BottomDrawer/BottomDrawer.svelte';
 	import { teams } from '@lib/teams';
 	import type { Fixture, Selection } from '@lib/types';
-	import type { ActionData, PageData } from '../../routes/gameweek/[gameweek=integer]/$types';
 	import { page } from '$app/stores';
 	import Button from '@lib/Button/Button.svelte';
 	import toast from 'svelte-french-toast';
+	import Trash from '@lib/icons/Trash.svelte';
 
 	export let fixture: Fixture;
 	export let isSelectable: boolean;
 	export let selections: Array<Selection>;
+	export let activeGameweek: number;
 
 	if (!fixture) {
 		throw new Error('FixtureCard must be passed a fixture');
@@ -18,13 +19,17 @@
 
 	let preselectedTeam = 1;
 	let selectionLoading = false;
+	let deleteLoading = false;
+
 	$: gameweekSelection = selections.find(
 		(selection) => selection.gameweek === fixture.event
 	)?.selection;
 
-	$: preselectedTeamSelections = selections.filter((selection) => {
-		return selection.selection == preselectedTeam;
-	})?.length;
+	$: preselectedTeamSelections = selections
+		.filter((selection) => {
+			return selection.selection == preselectedTeam;
+		})
+		.sort((a, b) => a.gameweek - b.gameweek);
 
 	const homeColor = teams[fixture.team_h.id - 1]?.primaryColor;
 	const awayColor = teams[fixture.team_a.id - 1]?.primaryColor;
@@ -49,7 +54,8 @@
 		disabled={!isSelectable || gameweekSelection == fixture?.team_h.id}
 		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
 			gameweekSelection == fixture?.team_h.id ? 'bg-emerald-300' : 'bg-slate-200'
-		}`}
+		}
+		`}
 		on:click={() => handlePreselect(fixture.team_h.id)}
 		style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
 	>
@@ -84,9 +90,24 @@
 			<div>
 				<h3>Select {teams[preselectedTeam - 1]?.name}?</h3>
 				<p class="text-center mt-0">
-					You have <strong>{2 - preselectedTeamSelections ?? '2'}</strong> available selections for this
-					team.
+					You have <strong>{2 - preselectedTeamSelections?.length ?? '2'}</strong> available selections
+					for this team.
 				</p>
+				{#if preselectedTeamSelections?.length > 0}
+					<p class="text-center mt-0">
+						You have already selected {teams[preselectedTeam - 1]?.name} in:
+					</p>
+					<ul class="flex flex-col gap-2 mt-4">
+						{#each preselectedTeamSelections as selection}
+							<a
+								class="text-center border-2 border-slate-300 rounded-3xl items-center p-2 px-4 font-semibold flex justify-center align-middle"
+								href={`/gameweek/${selection.gameweek}`}
+							>
+								<li>Week {selection.gameweek}</li>
+							</a>
+						{/each}
+					</ul>
+				{/if}
 			</div>
 			<form
 				method="POST"
@@ -104,7 +125,7 @@
 					};
 				}}
 			>
-				{#if preselectedTeamSelections < 2}
+				{#if preselectedTeamSelections?.length < 2}
 					<button
 						style="width: 100%; {selectionLoading ? 'cursor: wait;' : ''}"
 						class={`w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-emerald-300 border-2 border-emerald-400 shadow ${
@@ -113,7 +134,7 @@
 						disabled={!isSelectable ||
 							!drawerOpen ||
 							selectionLoading ||
-							preselectedTeamSelections >= 2}
+							preselectedTeamSelections?.length >= 2}
 						formaction="?/select&selection={preselectedTeam}&fixture={fixture.code}&gameweek={fixture.event}"
 						>Select</button
 					>

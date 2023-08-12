@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { preloadCode, preloadData } from '$app/navigation';
 	import ChevLeft from '@lib/icons/ChevLeft.svelte';
 	import ChevRight from '@lib/icons/ChevRight.svelte';
-	import { onMount } from 'svelte';
 
 	export let currentGameweek = 1;
 

@@ -53,7 +53,12 @@
 						{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
 							<h2 class="pt-8">{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
 						{/if}
-						<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
+						<FixtureCard
+							{fixture}
+							{isSelectable}
+							selections={data?.selections}
+							activeGameweek={data?.activeGameweek}
+						/>
 					{/if}
 				{/each}
 			</main>
