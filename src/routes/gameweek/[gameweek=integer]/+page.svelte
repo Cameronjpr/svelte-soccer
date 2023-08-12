@@ -6,50 +6,57 @@
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
-	import type { Fixture } from '@lib/types';
 	import LockClosed from '@lib/icons/LockClosed.svelte';
+	import type { Fixture } from '@lib/types';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
 	export let data: PageData;
 
-	$: hasStarted = data.gameweek.fixtures.some((f: Fixture) => f.started);
-	$: isFinished = data.gameweek.fixtures.every((f: Fixture) => f.finished_provisional);
-
-	$: kickoffs = data.gameweek.fixtures.map((f: Fixture) => f.kickoff_time);
-	$: firstKickoff = dayjs(kickoffs.sort()[0]);
-	$: FPLdeadline = firstKickoff.subtract(1, 'hour');
-
-	$: isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff);
+	$: currentGameweek = Number(data?.currentGameweek);
 </script>
 
 <Toaster />
-<h1>Week {data.gameweek.event}</h1>
-<SimplePaginator currentGameweek={data.gameweek.event} />
-{#if isFinished}
-	<section class={`alert bg-slate-600 text-white p-2 rounded-lg text-center font-semibold`}>
-		<LockClosed />
-		<p>This gameweek has finished</p>
-	</section>
-{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
-	<section class={`alert bg-red-700 text-white p-2 rounded-lg text-center font-semibold`}>
-		<LockClosed />
-		<p>This gameweek is LIVE!</p>
-	</section>
-{:else}
-	<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>
-		<p>Selection deadline: {dayjs().to(firstKickoff)}</p>
-	</section>
-	<p class="text-center pt-2">Select <strong>one</strong> team you think will win this week!</p>
-{/if}
-<main class="py-8">
-	{#each data.gameweek.fixtures as fixture, index}
-		{#if index === 0 || dayjs(data.gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
-			<h2>{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
+
+{#await data?.streamed?.fixtures then res}
+	{@const gameweek = { fixtures: res?.fixtures?.filter((f) => f.event === currentGameweek) }}
+	{@const hasStarted = gameweek?.fixtures.some((f) => f.started)}
+	{@const isFinished = gameweek?.fixtures.every((f) => f.finished_provisional)}
+	{@const kickoffs = gameweek?.fixtures.map((f) => f.kickoff_time)}
+	{@const firstKickoff = dayjs(kickoffs.sort()[0])}
+	{@const isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff)}
+	<div class="flex flex-col align-middle">
+		<SimplePaginator {currentGameweek} />
+		{#if isFinished}
+			<section class={`alert bg-slate-600 text-white p-2 rounded-lg text-center font-semibold`}>
+				<LockClosed />
+				<p>This gameweek has finished</p>
+			</section>
+		{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
+			<section class={`alert bg-red-700 text-white p-2 rounded-lg text-center font-semibold`}>
+				<LockClosed />
+				<p>This gameweek is LIVE!</p>
+			</section>
+		{:else}
+			<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>
+				<p>Selection deadline: {dayjs().to(firstKickoff)}</p>
+			</section>
+			<p class="text-center pt-2">
+				Select <strong>one</strong> team you think will win this week!
+			</p>
 		{/if}
-		<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
-	{/each}
-</main>
+		<main class="py-8">
+			{#each gameweek.fixtures as fixture, index}
+				{#if fixture.event == data?.currentGameweek}
+					{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
+						<h2 class="pt-8">{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
+					{/if}
+					<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
+				{/if}
+			{/each}
+		</main>
+	</div>
+{/await}
 
 <style>
 	main {

@@ -69,17 +69,3 @@ export const actions: Actions = {
 	}
 };
 
-export const load = (async ({ parent, locals: { supabase } }) => {
-	const { activeGameweek, session } = await parent();
-
-	const { data: selections, error } = await supabase
-		.from('Selections')
-		.select()
-		.eq('selector', session?.user?.id);
-
-
-	return {
-		activeGameweek,
-		selections,
-	};
-}) satisfies PageServerLoad;

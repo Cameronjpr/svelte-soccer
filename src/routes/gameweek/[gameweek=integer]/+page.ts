@@ -3,7 +3,7 @@ import type { PageLoad } from './$types';
 import type { Selection } from '@lib/types';
 
 export const load = (async ({ fetch, parent, params, depends }) => {
-	const { activeGameweek, session, supabase } = await parent();
+	const { activeGameweek, session, supabase, streamed: { fixtures } } = await parent();
 
 	let selections = [];
 	if (session) {
@@ -17,17 +17,10 @@ export const load = (async ({ fetch, parent, params, depends }) => {
 		}
 	}
 
-	const res = await fetch(`/api/gameweek/${params.gameweek}`);
-
-	if (!res.ok) {
-		throw redirect(307, '/maintenance');
-	}
-
-	const plData = await res.json();
-
 	return {
 		activeGameweek,
-		gameweek: plData,
+		streamed: { fixtures },
+		currentGameweek: params.gameweek,
 		selections: selections ?? []
 	};
 }) satisfies PageLoad;

@@ -18,7 +18,7 @@
 	inject({ mode: dev ? 'development' : 'production' });
 
 	export let data: LayoutData;
-	$: ({ supabase, session } = data);
+	$: ({ supabase, session, streamed } = data);
 
 	let username;
 
@@ -100,29 +100,31 @@
 <Header {authenticated} {menuOpen} {toggleMenu} />
 <Toaster />
 
-<main class="p-2">
-	<slot />
-	{#if debugMode}
-		<footer>
-			<span>Debugging info</span>
-			<ul>
-				<li>Session: {$page?.data?.session}</li>
-				<li>Active gameweek: {data?.activeGameweek}</li>
-				{#if $page?.data?.selections}
-					<li>
-						Selections:
-						<ul>
-							{#each $page?.data?.selections as selection}
-								<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
-							{/each}
-						</ul>
-					</li>
-				{/if}
-			</ul>
-		</footer>
-	{/if}
-</main>
-<Footer />
+{#await streamed then resolved}
+	<main class="p-2">
+		<slot />
+		{#if debugMode}
+			<footer>
+				<span>Debugging info</span>
+				<ul>
+					<li>Session: {$page?.data?.session}</li>
+					<li>Active gameweek: {data?.activeGameweek}</li>
+					{#if $page?.data?.selections}
+						<li>
+							Selections:
+							<ul>
+								{#each $page?.data?.selections as selection}
+									<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
+								{/each}
+							</ul>
+						</li>
+					{/if}
+				</ul>
+			</footer>
+		{/if}
+	</main>
+	<Footer />
+{/await}
 
 <style>
 	main {
