@@ -20,7 +20,15 @@
 	export let data: LayoutData;
 	$: ({ supabase, session, streamed } = data);
 
-	let username;
+	let hasUsername: boolean;
+
+	$: supabase
+		.from('Users')
+		.select()
+		.eq('auth_user', session?.user?.id)
+		.then(({ data }) => {
+			hasUsername = !!data?.[0]?.username;
+		});
 
 	onMount(async () => {
 		const {
@@ -31,9 +39,6 @@
 			}
 		});
 
-		const { data } = await supabase.from('Users').select().eq('auth_user', session?.user?.id);
-
-		username = data?.[0]?.username;
 		return () => subscription.unsubscribe();
 	});
 
@@ -86,17 +91,9 @@
 			></span
 		>
 	</div>
-{:else if browser && authenticated && !username}
-	<div transition:slide class="bg-green-700 text-white p-2 text-center">
-		<span
-			>Thanks for joining! Complete your account by <a class="text-white underline" href="/profile"
-				>setting a username
-			</a></span
-		>
-	</div>
 {/if}
 
-<Header {authenticated} {menuOpen} {toggleMenu} />
+<Header {hasUsername} {authenticated} {menuOpen} {toggleMenu} />
 <Toaster />
 
 {#await streamed then resolved}
