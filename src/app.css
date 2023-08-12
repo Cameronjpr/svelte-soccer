@@ -4,7 +4,6 @@
 
 h1 {
   @apply text-4xl;
-  @apply text-center;
   @apply font-bold;
   @apply text-gray-800;
   @apply dark:text-slate-100;
@@ -13,7 +12,6 @@ h1 {
 
 h2 {
   @apply text-3xl;
-  @apply text-center;
   @apply font-bold;
   @apply text-gray-800;
   @apply dark:text-slate-100;
@@ -22,7 +20,6 @@ h2 {
 
 h3 {
   @apply text-2xl;
-  @apply text-center;
   @apply font-bold;
   @apply text-gray-800;
   @apply dark:text-slate-100;

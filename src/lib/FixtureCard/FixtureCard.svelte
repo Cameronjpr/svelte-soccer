@@ -124,17 +124,14 @@
 				}}
 			>
 				{#if preselectedTeamSelections?.length < 2}
-					<button
-						style="width: 100%; {selectionLoading ? 'cursor: wait;' : ''}"
-						class={`w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-emerald-300 border-2 border-emerald-400 shadow ${
-							selectionLoading ? 'animate-pulse' : ''
-						}`}
+					<Button
+						isLoading={selectionLoading}
 						disabled={!isSelectable ||
 							!drawerOpen ||
 							selectionLoading ||
 							preselectedTeamSelections?.length >= 2}
 						formaction="?/select&selection={preselectedTeam}&fixture={fixture.code}&gameweek={fixture.event}"
-						>Select</button
+						>Select</Button
 					>
 				{/if}
 			</form>

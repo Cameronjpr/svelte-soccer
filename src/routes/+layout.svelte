@@ -97,40 +97,28 @@
 <Toaster />
 
 {#await streamed then resolved}
-	<main class="p-2">
+	<main class="px-4">
 		<slot />
-		{#if debugMode}
-			<footer>
-				<span>Debugging info</span>
-				<ul>
-					<li>Session: {$page?.data?.session}</li>
-					<li>Active gameweek: {data?.activeGameweek}</li>
-					{#if $page?.data?.selections}
-						<li>
-							Selections:
-							<ul>
-								{#each $page?.data?.selections as selection}
-									<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
-								{/each}
-							</ul>
-						</li>
-					{/if}
-				</ul>
-			</footer>
-		{/if}
 	</main>
+	{#if debugMode}
+		<footer>
+			<span>Debugging info</span>
+			<ul>
+				<li>Session: {$page?.data?.session}</li>
+				<li>Active gameweek: {data?.activeGameweek}</li>
+				{#if $page?.data?.selections}
+					<li>
+						Selections:
+						<ul>
+							{#each $page?.data?.selections as selection}
+								<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
+							{/each}
+						</ul>
+					</li>
+				{/if}
+			</ul>
+		</footer>
+	{/if}
+
 	<Footer />
 {/await}
-
-<style>
-	main {
-		margin: auto;
-		padding: 0.5rem;
-		max-width: 768px;
-		min-height: 75vh;
-	}
-
-	footer {
-		margin-top: 5rem;
-	}
-</style>
