@@ -34,7 +34,7 @@ export const actions: Actions = {
           }
 
           if (team_h_score == team_a_score) {
-            return;
+            tally++
           }
 
 

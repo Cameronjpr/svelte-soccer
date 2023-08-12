@@ -13,10 +13,10 @@ export const GET = async ({ url, fetch, params, setHeaders }) => {
   );
 
   if (!res.ok) {
-    return {
+    return json({
       ok: false,
       status: res.status
-    };
+    });
   }
 
   const fixtures = await res.json();

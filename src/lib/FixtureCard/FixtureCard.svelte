@@ -6,7 +6,6 @@
 	import { page } from '$app/stores';
 	import Button from '@lib/Button/Button.svelte';
 	import toast from 'svelte-french-toast';
-	import Trash from '@lib/icons/Trash.svelte';
 
 	export let fixture: Fixture;
 	export let isSelectable: boolean;
@@ -19,7 +18,6 @@
 
 	let preselectedTeam = 1;
 	let selectionLoading = false;
-	let deleteLoading = false;
 
 	$: gameweekSelection = selections.find(
 		(selection) => selection.gameweek === fixture.event
