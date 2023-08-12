@@ -54,9 +54,13 @@
 		style="border-left: 0.25rem solid {homeColor}">{fixture.team_h.shortName}</button
 	>
 	{#if fixture.started}
-		<span id="score" class={fixture?.finished_provisional ? 'score-ft' : 'score-live'}
-			>{fixture.team_h_score} : {fixture.team_a_score}</span
-		>
+		{#if fixture.team_h_score != null && fixture.team_a_score != null}
+			<span id="score" class={fixture?.finished_provisional ? 'score-ft' : 'score-live'}
+				>{fixture.team_h_score} : {fixture.team_a_score}</span
+			>
+		{:else}
+			<span id="score" class="text-sm">Delayed</span>
+		{/if}
 	{:else}
 		<span id="kickoff-time"
 			>{new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(
