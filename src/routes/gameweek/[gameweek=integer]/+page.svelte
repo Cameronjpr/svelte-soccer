@@ -45,16 +45,18 @@
 				Select <strong>one</strong> team you think will win this week!
 			</p>
 		{/if}
-		<main class="py-8">
-			{#each gameweek.fixtures as fixture, index}
-				{#if fixture.event == data?.currentGameweek}
-					{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
-						<h2 class="pt-8">{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
+		{#key gameweek}
+			<main class="py-8">
+				{#each gameweek.fixtures as fixture, index}
+					{#if fixture.event == data?.currentGameweek}
+						{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
+							<h2 class="pt-8">{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
+						{/if}
+						<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
 					{/if}
-					<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
-				{/if}
-			{/each}
-		</main>
+				{/each}
+			</main>
+		{/key}
 	</div>
 {/await}
 
