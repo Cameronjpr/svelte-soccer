@@ -47,7 +47,7 @@
 	const session = $page.data.session;
 </script>
 
-<article>
+<article class="grid grid-cols-[3fr_1fr_3fr] items-center text-center">
 	<button
 		disabled={!isSelectable || gameweekSelection == fixture?.team_h.id}
 		class={`font-semibold dark:text-slate-900 ${selectionLoading ? 'animate-pulse' : ''} ${
@@ -147,21 +147,6 @@
 </article>
 
 <style>
-	article {
-		display: grid;
-		grid-template-columns: 3fr 1fr 3fr;
-		gap: 0.5rem;
-		padding: 0px;
-		max-height: 3rem;
-	}
-
-	span {
-		max-height: 3rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
 	span.score-live {
 		background: var(--color-secondary);
 	}
@@ -169,7 +154,7 @@
 	article > button {
 		border: 1px solid var(--color-accent);
 		height: 3rem;
-		border-radius: 0rem;
+		border-radius: 0.25rem;
 		box-shadow: none;
 		padding-inline: 0px;
 		outline: none;

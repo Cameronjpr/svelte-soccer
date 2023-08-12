@@ -109,7 +109,7 @@ export const teams: Team[] = [
   {
     id: 16,
     name: 'Nottingham Forest',
-    shortName: 'Nottm Forest',
+    shortName: 'Notts Forest',
     primaryColor: '#DC0202',
     secondaryColor: null,
   },

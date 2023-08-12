@@ -24,7 +24,7 @@
 	{@const kickoffs = gameweek?.fixtures.map((f) => f.kickoff_time)}
 	{@const firstKickoff = dayjs(kickoffs.sort()[0])}
 	{@const isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff)}
-	<div class="flex flex-col align-middle">
+	<div class="flex flex-col gap-2 align-middle">
 		<SimplePaginator {currentGameweek} />
 		{#if isFinished}
 			<section class={`alert bg-slate-600 text-white p-2 rounded-lg text-center font-semibold`}>
@@ -39,19 +39,23 @@
 				<p>This gameweek is LIVE!</p>
 			</section>
 		{:else}
-			<section class={`bg-black text-white p-2 rounded-lg text-center font-semibold`}>
-				<p>Selection deadline: {dayjs().to(firstKickoff)}</p>
+			<section class={` text-center `}>
+				<p class="bg-black text-white p-2 rounded-lg font-semibold">
+					Selection deadline: {dayjs().to(firstKickoff)}
+				</p>
+				<p class="text-center pt-2">
+					Select <strong>one</strong> team you think will win this week!
+				</p>
 			</section>
-			<p class="text-center pt-2">
-				Select <strong>one</strong> team you think will win this week!
-			</p>
 		{/if}
 		{#key gameweek}
 			<main class="py-8">
 				{#each gameweek.fixtures as fixture, index}
 					{#if fixture.event == data?.currentGameweek}
 						{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
-							<h2 class="pt-8">{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}</h2>
+							<h2 class="pt-8 pb-2 mb-0">
+								{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
+							</h2>
 						{/if}
 						<FixtureCard
 							{fixture}
@@ -69,7 +73,7 @@
 <style>
 	main {
 		display: flex;
-		gap: 0.5rem;
+		gap: 0.75rem;
 		flex-direction: column;
 	}
 

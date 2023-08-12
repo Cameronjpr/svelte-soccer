@@ -32,6 +32,21 @@ export const actions: Actions = {
 		await supabase.auth.signOut();
 		throw redirect(303, '/');
 	},
+	optOut: async ({ request, locals: { supabase, getSession } }) => {
+		const session = await getSession();
+		const data = await request.formData();
+
+		const val = data.get('emailConsent');
+
+		const { error } = await supabase.from('Users').update({ receives_emails: !!val }).eq('auth_user', session?.user.id);
+
+		if (error) {
+			console.log(error);
+			return {
+				error: 'Something went wrong deleting your account.'
+			};
+		}
+	},
 	deleteAccount: async ({ locals: { supabase, getSession } }) => {
 		const session = await getSession();
 

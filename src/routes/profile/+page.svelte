@@ -6,6 +6,8 @@
 
 	export let data: PageServerData;
 	export let form: ActionData;
+
+	let emailConsent = data?.user?.receives_emails;
 </script>
 
 <div
@@ -43,7 +45,6 @@
 		use:enhance={({ action }) => {
 			return async ({ result, update }) => {
 				if (result?.type === 'success') {
-					update();
 					toast.success('Contact preferences updated');
 				} else {
 					toast.error('Something went wrong updating your contact preferences');
@@ -55,11 +56,12 @@
 			We may periodically send game updates and announcements to your email address. If you do not
 			wish to receive these emails, please uncheck the checkbox below.
 		</p>
-		<label for="email-consent" class="flex flex-row gap-2 align-middle items-center font-semibold">
+		<label for="emailConsent" class="flex flex-row gap-2 align-middle items-center font-semibold">
 			<input
-				checked={data?.user?.receivesEmails}
+				bind:checked={emailConsent}
 				class="inline w-6 h-6"
-				name="email-consent"
+				id="emailConsent"
+				name="emailConsent"
 				type="checkbox"
 			/>
 			Yes, I would like to receive emails
