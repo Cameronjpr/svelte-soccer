@@ -84,20 +84,11 @@
 	</script>
 </svelte:head>
 
-{#if browser && !authenticated}
-	<div transition:slide class="bg-slate-900 text-white p-2 text-center">
-		<span
-			>The new season has just started – <a class="text-white underline" href="/login">join now!</a
-			></span
-		>
-	</div>
-{/if}
-
 <Header {hasUsername} {authenticated} {menuOpen} {toggleMenu} />
 <Toaster />
 
 {#await streamed then resolved}
-	<main class="px-4">
+	<main class="px-4 max-w-2xl m-auto">
 		<slot />
 	</main>
 	{#if debugMode}

@@ -15,8 +15,6 @@
 	import { PUBLIC_ADMIN_EMAIL } from '$env/static/public';
 	import Message from '@lib/icons/Message.svelte';
 
-	let showMenu = false;
-
 	export let menuOpen: boolean;
 	export let authenticated: boolean;
 	export let hasUsername: boolean;
