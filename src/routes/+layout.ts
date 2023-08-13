@@ -17,14 +17,12 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
     activeGameweek = await res.json();
   }
 
-
   const supabase = createSupabaseLoadClient<Database>({
     supabaseUrl: PUBLIC_SUPABASE_URL,
     supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
     event: { fetch },
     serverSession: data.session,
   })
-
 
   const {
     data: { session },
@@ -33,23 +31,7 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
   return {
     supabase,
     session,
-    streamed: {
-      fixtures: await getFixtures(fetch)
-    },
     activeGameweek: activeGameweek || 1
   }
 }
 
-
-
-async function getFixtures(
-  fetch: (input: URL | RequestInfo, init?: RequestInit | undefined) => Promise<Response>,
-) {
-  const res = await fetch(`/api/fixtures`);
-
-  if (!res.ok) {
-    return null
-  }
-
-  return await res.json();
-}

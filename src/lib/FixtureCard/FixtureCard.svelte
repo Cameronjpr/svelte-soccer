@@ -45,7 +45,7 @@
 	const session = $page.data.session;
 </script>
 
-<article class="grid grid-cols-[3fr_1fr_3fr] items-center text-center gap-1">
+<article class="grid grid-cols-[3fr_1fr_3fr] items-center text-center">
 	<SelectButton
 		team={fixture.team_h}
 		{isSelectable}

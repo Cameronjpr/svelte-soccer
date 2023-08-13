@@ -6,6 +6,7 @@
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
+	import Spinner from '@lib/icons/Spinner.svelte';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -16,7 +17,11 @@
 
 <Toaster />
 
-{#await data?.streamed?.fixtures then res}
+{#await data?.streamed?.fixtures}
+	<section class="text-green-600 flex justify-center p-4 h-screen align-middle items-center">
+		<Spinner />
+	</section>
+{:then res}
 	{@const gameweek = { fixtures: res?.fixtures?.filter((f) => f.event === currentGameweek) }}
 	{@const hasStarted = gameweek?.fixtures.some((f) => f.started)}
 	{@const isFinished = gameweek?.fixtures.every((f) => f.finished_provisional)}
