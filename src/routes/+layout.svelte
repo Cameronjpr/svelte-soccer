@@ -1,10 +1,10 @@
 <script lang="ts">
 	import '../app.css';
+
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
-	import { page, navigating } from '$app/stores';
-	import { teams } from '@lib/teams';
+	import { page } from '$app/stores';
 	import Header from '@lib/Header/Header.svelte';
 	import Footer from '@lib/Footer/Footer.svelte';
 
@@ -13,7 +13,6 @@
 	import dayjs from 'dayjs';
 	import toast, { Toaster } from 'svelte-french-toast';
 	import { webVitals } from '@lib/vitals';
-	import { fade, slide } from 'svelte/transition';
 
 	inject({ mode: dev ? 'development' : 'production' });
 
@@ -43,20 +42,10 @@
 	});
 
 	let menuOpen = false;
-	let debugMode = false;
 
 	const authenticated = !!data.session;
 
-	function toggleMenu(): void {
-		menuOpen = !menuOpen;
-	}
-
-	$: if ($navigating) {
-		menuOpen = false;
-	}
-
 	const startTime = dayjs('2023-08-11 21:00:00');
-	const timeUntilStart = startTime.diff(dayjs(), 'hour');
 
 	$: {
 		if (authenticated) {
@@ -77,39 +66,19 @@
 
 <svelte:head>
 	<meta />
-	<title>GameweekGurus</title>
+	<title>Gameweek Gurus</title>
 	<script>
 		const theme = localStorage.getItem('theme') ?? 'light';
 		document.documentElement.setAttribute('data-theme', theme ?? 'light');
 	</script>
 </svelte:head>
 
-<Header {hasUsername} {authenticated} {menuOpen} {toggleMenu} />
+<Header {hasUsername} {authenticated} activeGameweek={streamed?.activeGameweek} />
 <Toaster />
 
-{#await streamed then resolved}
-	<main class="py-2 px-4 max-w-2xl m-auto">
+<main class="py-2 px-4 max-w-2xl m-auto">
+	{#await streamed then resolved}
 		<slot />
-	</main>
-	{#if debugMode}
-		<footer>
-			<span>Debugging info</span>
-			<ul>
-				<li>Session: {$page?.data?.session}</li>
-				<li>Active gameweek: {data?.activeGameweek}</li>
-				{#if $page?.data?.selections}
-					<li>
-						Selections:
-						<ul>
-							{#each $page?.data?.selections as selection}
-								<li>GW {selection?.gameweek}, {teams[selection?.selection].shortName}</li>
-							{/each}
-						</ul>
-					</li>
-				{/if}
-			</ul>
-		</footer>
-	{/if}
-
-	<Footer />
-{/await}
+	{/await}
+</main>
+<Footer />

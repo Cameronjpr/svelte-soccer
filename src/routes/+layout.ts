@@ -31,7 +31,7 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
   return {
     supabase,
     session,
-    activeGameweek: activeGameweek || 1
+    streamed: { activeGameweek: activeGameweek || 1 }
   }
 }
 

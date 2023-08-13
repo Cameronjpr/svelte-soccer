@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { navigating, page } from '$app/stores';
 	import { slide, fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import UserCircle from '@lib/icons/UserCircle.svelte';
@@ -15,12 +15,19 @@
 	import { PUBLIC_ADMIN_EMAIL } from '$env/static/public';
 	import Message from '@lib/icons/Message.svelte';
 
-	export let menuOpen: boolean;
 	export let authenticated: boolean;
 	export let hasUsername: boolean;
+	export let activeGameweek = $page?.data?.activeGameweek || 1;
 
-	const activeGameweek = $page?.data?.activeGameweek || 1;
-	export let toggleMenu: () => void;
+	let menuOpen = false;
+
+	function toggleMenu(): void {
+		menuOpen = !menuOpen;
+	}
+
+	$: if ($navigating) {
+		menuOpen = false;
+	}
 
 	$: theme = '';
 

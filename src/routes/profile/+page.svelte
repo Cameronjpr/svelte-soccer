@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="max-w-sm m-auto flex flex-col gap-8 justify-between align-middle items-stretch content-stretch place-content-stretch place-items-stretch"
+	class="flex flex-col gap-8 justify-between align-middle items-stretch content-stretch place-content-stretch place-items-stretch"
 >
 	{#if data?.user?.username}
 		<h1>Hello, {data?.user?.username}</h1>
@@ -23,7 +23,7 @@
 			<Button>Update</Button>
 		</form>
 	{:else}
-		<section class="flex flex-col justify-stretch gap-4 max-w-sm m-auto">
+		<section class="flex flex-col justify-stretch gap-4">
 			<span>You don't have a <strong>username</strong> set.</span>
 			<form method="POST" action="?/updateUsername" use:enhance class="flex flex-col gap-2">
 				<label class="flex flex-col gap-1 font-semibold" for="username">
@@ -39,11 +39,11 @@
 	{/if}
 
 	<form
-		class="flex flex-col gap-2 p-2 rounded-xl"
+		class="flex flex-col gap-2 rounded-xl"
 		method="POST"
 		action="?/optOut"
 		use:enhance={({ action }) => {
-			return async ({ result, update }) => {
+			return async ({ result }) => {
 				if (result?.type === 'success') {
 					toast.success('Contact preferences updated');
 				} else {
@@ -70,12 +70,13 @@
 	</form>
 
 	<section class="flex flex-col gap-4">
-		<form method="POST" action="?/signout" class="max-w-sm m-auto w-full">
+		<form method="POST" action="?/signout">
 			<Button>Sign out</Button>
 		</form>
-
-		<h2><a href="https://www.youtube.com/watch?v=siwpn14IE7E">The Danger Zone</a></h2>
-		<form method="POST" action="?/deleteAccount" class="max-w-sm m-auto w-full">
+		<h2>
+			<a href="https://www.youtube.com/watch?v=siwpn14IE7E">The Danger Zone</a>
+		</h2>
+		<form method="POST" action="?/deleteAccount">
 			<Button appearance="danger">Delete account</Button>
 		</form>
 	</section>

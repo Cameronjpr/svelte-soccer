@@ -2,8 +2,8 @@ import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import type { Selection } from '@lib/types';
 
-export const load = (async ({ fetch, parent, params, depends }) => {
-	const { activeGameweek, session, supabase } = await parent();
+export const load = (async ({ fetch, parent, params }) => {
+	const { streamed: { activeGameweek }, session, supabase } = await parent();
 
 	let selections: Array<Selection> = [];
 
@@ -20,11 +20,11 @@ export const load = (async ({ fetch, parent, params, depends }) => {
 
 	return {
 		activeGameweek,
+		currentGameweek: params.gameweek,
 		streamed: {
 			fixtures: getFixtures(fetch),
 			selections: selections ?? []
 		},
-		currentGameweek: params.gameweek,
 	};
 }) satisfies PageLoad;
 
