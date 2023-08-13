@@ -7,6 +7,7 @@ import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import { redirect, error, type Handle } from '@sveltejs/kit';
 
 Sentry.init({
+	environment: process.env.NODE_ENV,
 	dsn: "https://39d6598b1f4633ea39cb73c4a753c585@o4505675782946816.ingest.sentry.io/4505675785175040",
 	tracesSampleRate: 1
 })
