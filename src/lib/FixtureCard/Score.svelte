@@ -6,7 +6,7 @@
 	const { team_h_score, team_a_score, started, kickoff_time, finished_provisional } = fixture;
 </script>
 
-<section class="p-2 text-sm">
+<section class="p-1 text-sm">
 	{#if started}
 		{#if team_h_score != null && team_a_score != null}
 			<span class={fixture?.finished_provisional ? '' : 'font-bold text-base text-red-500'}
