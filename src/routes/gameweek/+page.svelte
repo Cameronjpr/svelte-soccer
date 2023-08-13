@@ -9,6 +9,7 @@
 	import Spinner from '@lib/icons/Spinner.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { goto } from '$app/navigation';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -19,6 +20,7 @@
 
 	function setGameweek(gameweek: number) {
 		currentGameweek = gameweek;
+		goto(`/gameweek?gameweek=${gameweek}`);
 	}
 </script>
 
