@@ -52,7 +52,7 @@
 			};
 		}}
 	>
-		<p class="text-sm text-gray-600 italic">
+		<p class="text-sm text-gray-600 dark:text-gray-500 italic">
 			We may periodically send game updates and announcements to your email address. If you do not
 			wish to receive these emails, please uncheck the checkbox below.
 		</p>
