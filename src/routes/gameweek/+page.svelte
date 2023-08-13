@@ -7,6 +7,8 @@
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import Spinner from '@lib/icons/Spinner.svelte';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -23,8 +25,12 @@
 <Toaster />
 
 {#await data?.streamed?.fixtures}
-	<section class="text-green-600 flex justify-center p-4 h-screen align-middle items-center">
+	<section
+		class="text-green-600 text-lg flex flex-col gap-4 justify-center p-4 h-[90vh] align-middle items-center"
+	>
 		<Spinner />
+
+		<p in:fade>Loading...</p>
 	</section>
 {:then res}
 	{@const gameweek = { fixtures: res?.fixtures?.filter((f) => f.event === currentGameweek) }}
@@ -69,7 +75,7 @@
 		{/key}
 	</div>
 {:catch}
-	<section class="h-screen flex flex-col justify-center">
+	<section class="h-[90vh] flex flex-col justify-center">
 		<h2 class="text-lg text-center text-red-500">Unable to fetch gameweek fixtures.</h2>
 		<p class="text-center text-gray-600">Please try again in a few minutes</p>
 	</section>
