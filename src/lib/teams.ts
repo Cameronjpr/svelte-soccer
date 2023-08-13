@@ -53,7 +53,7 @@ export const teams: Team[] = [
   {
     id: 8,
     name: 'Crystal Palace',
-    shortName: 'Crystal Palace',
+    shortName: 'C. Palace',
     primaryColor: '#003399',
     secondaryColor: null,
   },

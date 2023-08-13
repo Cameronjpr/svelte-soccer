@@ -42,7 +42,7 @@
 	}
 </script>
 
-<nav>
+<nav class="flex justify-between">
 	<div id="hamburger-wrapper">
 		<button on:click={toggleMenu} aria-label="Toggle menu">
 			{#if menuOpen}
@@ -107,11 +107,7 @@
 
 <style>
 	nav {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
 		padding: 0.5rem 0.75rem 0.5rem 0.75rem;
-		background: var(--color-base);
 	}
 
 	nav a,

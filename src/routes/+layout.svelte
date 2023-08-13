@@ -88,7 +88,7 @@
 <Toaster />
 
 {#await streamed then resolved}
-	<main class="px-4 max-w-2xl m-auto">
+	<main class="py-2 px-4 max-w-2xl m-auto">
 		<slot />
 	</main>
 	{#if debugMode}

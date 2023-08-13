@@ -6,7 +6,6 @@
 	import advancedFormat from 'dayjs/plugin/advancedFormat';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
-	import LockClosed from '@lib/icons/LockClosed.svelte';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -24,19 +23,14 @@
 	{@const kickoffs = gameweek?.fixtures.map((f) => f.kickoff_time)}
 	{@const firstKickoff = dayjs(kickoffs.sort()[0])}
 	{@const isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff)}
-	<div class="flex flex-col gap-2 align-middle">
+	<div class="flex flex-col gap-4 align-middle">
 		<SimplePaginator {currentGameweek} />
 		{#if isFinished}
-			<section class={`alert bg-gray-300 text-gray-800  p-2 rounded-lg text-center font-semibold`}>
-				<LockClosed />
-				<p>This gameweek has finished</p>
-			</section>
+			<p class="text-sm text-center text-gray-700">This week has finished.</p>
 		{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
-			<section
-				class={`alert bg-gray-300 text-gray-800 border-2 border-amber-500 p-2 rounded-lg text-center font-semibold px-4`}
-			>
-				<p class="text-sm">Gameweek {currentGameweek} has started. Selections are locked.</p>
-			</section>
+			<p class="text-sm text-center text-amber-700">
+				Selections are locked because week {currentGameweek} has already started.
+			</p>
 		{:else}
 			<section class={` text-center `}>
 				<p class="bg-black text-white p-2 rounded-lg font-semibold">
@@ -48,35 +42,18 @@
 			</section>
 		{/if}
 		{#key gameweek}
-			<main class="py-8">
+			<section class="flex flex-col gap-4">
 				{#each gameweek.fixtures as fixture, index}
 					{#if fixture.event == currentGameweek}
 						{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
-							<h2 class="pt-8 pb-2 mb-0">
+							<h2 class="pt-8 mb-0 text-xl">
 								{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
 							</h2>
 						{/if}
-						<FixtureCard
-							{fixture}
-							{isSelectable}
-							selections={data?.selections}
-							activeGameweek={data?.activeGameweek}
-						/>
+						<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
 					{/if}
 				{/each}
-			</main>
+			</section>
 		{/key}
 	</div>
 {/await}
-
-<style>
-	main {
-		display: flex;
-		gap: 0.75rem;
-		flex-direction: column;
-	}
-
-	p {
-		margin: 0;
-	}
-</style>
