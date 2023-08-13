@@ -44,6 +44,10 @@ export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, re
 		}
 	}
 
+	if (event.url.pathname === '/gameweek/1') {
+		throw redirect(303, '/gameweek');
+	}
+
 	// protect POST requests to all routes that start with /protected-posts
 	if (event.url.pathname.startsWith('/gameweek') && event.request.method === 'POST') {
 		const session = await event.locals.getSession()
