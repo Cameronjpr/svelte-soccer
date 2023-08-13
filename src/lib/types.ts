@@ -43,3 +43,10 @@ export type Selection = {
 	gameweek: number;
 	fixture: number;
 };
+
+export type User = {
+	auth_user: string;
+	score: number;
+	username: string;
+	selection?: number;
+};

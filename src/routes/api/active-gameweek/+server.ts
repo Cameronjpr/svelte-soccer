@@ -22,5 +22,4 @@ export const GET = (async ({ fetch }) => {
 		return new Response(String(1));
 	}
 
-	// return new Response(String(random));
 }) satisfies RequestHandler;

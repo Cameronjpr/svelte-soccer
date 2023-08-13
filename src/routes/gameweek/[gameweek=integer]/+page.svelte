@@ -10,6 +10,7 @@
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
+
 	export let data: PageData;
 
 	$: currentGameweek = Number(data?.currentGameweek);
@@ -63,4 +64,9 @@
 			</section>
 		{/key}
 	</div>
+{:catch}
+	<section class="h-screen flex flex-col justify-center">
+		<h2 class="text-lg text-center text-red-500">Unable to fetch gameweek fixtures.</h2>
+		<p class="text-center text-gray-600">Please try again in a few minutes</p>
+	</section>
 {/await}
