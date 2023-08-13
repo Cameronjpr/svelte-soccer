@@ -1,5 +1,4 @@
 <script lang="ts">
-	import User from '@lib/icons/User.svelte';
 	import type { PageServerData } from './$types';
 	import { teams } from '@lib/teams';
 	import Star from '@lib/icons/Star.svelte';
@@ -7,17 +6,20 @@
 
 	const sorted = data.users.sort((a, b) => b.score - a.score);
 	const hiscore = sorted[0].score;
+
+	const currentUser = data?.users?.filter((user) => user.auth_user == data?.session?.user?.id)[0];
 </script>
 
 <h1>Leaderboard</h1>
 <p>Scores are updated after each gameweek.</p>
-<p>
-	If you don’t see yourself on the leaderboard, make sure you have <a
-		class="underline"
-		href="/profile">set a username!</a
-	>
-</p>
-
+{#if !currentUser?.username}
+	<p>
+		If you don’t see yourself on the leaderboard, make sure you have <a
+			class="underline"
+			href="/profile">set a username!</a
+		>
+	</p>
+{/if}
 <section class="py-8">
 	<ul class="p-0">
 		{#each sorted as user, index}

@@ -40,7 +40,7 @@ export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, re
 
 
 		if (!!session) {
-			throw redirect(303, '/gameweek/1');
+			throw redirect(303, '/gameweek');
 		}
 	}
 

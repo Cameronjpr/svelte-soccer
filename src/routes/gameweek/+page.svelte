@@ -14,6 +14,10 @@
 	export let data: PageData;
 
 	$: currentGameweek = Number(data?.currentGameweek);
+
+	function setGameweek(gameweek: number) {
+		currentGameweek = gameweek;
+	}
 </script>
 
 <Toaster />
@@ -30,7 +34,7 @@
 	{@const firstKickoff = dayjs(kickoffs.sort()[0])}
 	{@const isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff)}
 	<div class="flex flex-col gap-4 align-middle">
-		<SimplePaginator {currentGameweek} />
+		<SimplePaginator {currentGameweek} {setGameweek} />
 		{#if isFinished}
 			<p class="text-sm text-center text-gray-700">This week has finished.</p>
 		{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}

@@ -11,7 +11,6 @@
 	import Moon from '@lib/icons/Moon.svelte';
 	import Sun from '@lib/icons/Sun.svelte';
 	import { onMount } from 'svelte';
-	import type { PageData } from '../../routes/$types';
 	import { PUBLIC_ADMIN_EMAIL } from '$env/static/public';
 	import Message from '@lib/icons/Message.svelte';
 
@@ -30,6 +29,12 @@
 	}
 
 	$: theme = '';
+
+	let notification = false;
+
+	$: {
+		notification = !!authenticated && !hasUsername;
+	}
 
 	onMount(() => {
 		theme = localStorage.getItem('theme') ?? 'light';
@@ -61,7 +66,7 @@
 		{#if menuOpen}
 			<ul class="mobile-menu-list" transition:slide={{ delay: 0, duration: 100, easing: quintOut }}>
 				<li>
-					<a href="/gameweek/{activeGameweek}"><Calendar />Fixtures</a>
+					<a href="/gameweek"><Calendar />Fixtures</a>
 				</li>
 				<li>
 					<a href="/leaderboard"><Trophy />Leaderboard</a>
@@ -98,11 +103,11 @@
 			/>
 		{/if}
 	</div>
-	<a href={authenticated ? '/gameweek/1' : '/'}>GameweekGurus</a>
+	<a href={authenticated ? '/gameweek' : '/'}>GameweekGurus</a>
 	<div class="icon-controls">
 		{#if $page?.data?.session}
 			<a class="relative" href="/profile" aria-label="profile"
-				><UserCircle />{#if authenticated && !hasUsername}
+				><UserCircle />{#if notification}
 					<span class="w-2 h-2 bg-red-600 rounded-full absolute left-7 top-0 animate-pulse"></span>
 				{/if}</a
 			>

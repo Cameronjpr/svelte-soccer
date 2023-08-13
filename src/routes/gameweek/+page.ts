@@ -1,7 +1,7 @@
 import type { PageLoad } from './$types';
 import type { Selection } from '@lib/types';
 
-export const load = (async ({ fetch, parent, params }) => {
+export const load = (async ({ fetch, parent, params, url }) => {
 	const { streamed: { activeGameweek }, session, supabase } = await parent();
 
 	let selections: Array<Selection> = [];
@@ -19,7 +19,7 @@ export const load = (async ({ fetch, parent, params }) => {
 
 	return {
 		activeGameweek,
-		currentGameweek: params.gameweek,
+		currentGameweek: url.searchParams.get('gameweek') ?? activeGameweek,
 		streamed: {
 			fixtures: getFixtures(fetch),
 			selections: selections ?? []

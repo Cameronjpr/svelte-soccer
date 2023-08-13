@@ -10,8 +10,7 @@
 
 	import { browser, dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
-	import dayjs from 'dayjs';
-	import toast, { Toaster } from 'svelte-french-toast';
+	import { Toaster } from 'svelte-french-toast';
 	import { webVitals } from '@lib/vitals';
 
 	inject({ mode: dev ? 'development' : 'production' });
@@ -41,17 +40,7 @@
 		return () => subscription.unsubscribe();
 	});
 
-	let menuOpen = false;
-
 	const authenticated = !!data.session;
-
-	const startTime = dayjs('2023-08-11 21:00:00');
-
-	$: {
-		if (authenticated) {
-			toast.success(`You’re signed in`);
-		}
-	}
 
 	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
 

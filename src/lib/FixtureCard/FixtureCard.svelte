@@ -79,7 +79,7 @@
 						{#each preselectedTeamSelections as selection}
 							<a
 								class="text-center border-2 border-slate-300 rounded-3xl items-center p-2 px-4 font-semibold flex justify-center align-middle"
-								href={`/gameweek/${selection.gameweek}`}
+								href={`/gameweek?gameweek=${selection.gameweek}`}
 							>
 								<li>Week {selection.gameweek}</li>
 							</a>
