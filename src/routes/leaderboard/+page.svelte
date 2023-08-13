@@ -24,9 +24,7 @@
 	<ul class="p-0">
 		{#each sorted as user, index}
 			<li
-				class={`border-b-2 border-slate-300 px-2 py-3 font-semibold text-lg flex justify-between items-center ${
-					user.auth_user == data?.session?.user?.id ? 'bg-amber-100' : ''
-				}`}
+				class={`border-b-2 border-slate-300 px-2 py-3 font-semibold text-lg flex justify-between items-center}`}
 			>
 				<div class="flex items-center gap-4">
 					{#if user.score === hiscore}
@@ -38,12 +36,14 @@
 					{/if}
 
 					<div class="flex flex-col items-start pr-2 text-base w-fit">
-						<span class={user.auth_user == data?.session?.user?.id ? 'text-green-700' : ''}
-							>{user.username ?? 'Anonymous player'}</span
+						<span
+							class={user.auth_user == data?.session?.user?.id
+								? 'text-green-700 dark:text-amber-500'
+								: ''}>{user.username ?? 'Anonymous player'}</span
 						>
 						{#if user?.selection}
 							<span class="text-sm italic"
-								>{teams[user?.selection.selection - 1]?.shortName ?? '?'}</span
+								>{teams[user?.selection?.selection - 1]?.shortName ?? '?'}</span
 							>
 						{:else}
 							<span class="text-sm">No selection</span>
@@ -53,7 +53,7 @@
 				<div
 					class={`flex flex-col items-center justify-center bg-slate-200 border-2 border-slate-300 rounded-full h-12 w-12 content-center`}
 				>
-					<span>{user.score}</span>
+					<span class="dark:text-black">{user.score}</span>
 				</div>
 			</li>
 		{/each}
