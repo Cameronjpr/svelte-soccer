@@ -7,7 +7,7 @@ html {
   --color-text-light: hsla(0, 0%, 100%, 0.9);
   --color-primary: hsl(0, 76%, 31%);
   --color-secondary: hsl(0, 73%, 63%);
-  --color-base: rgb(242, 242, 242);
+  --color-base: #f2f2f2;
   --color-accent: hsla(0, 0%, 50%, 0.15);
   --color-accent-bright: hsla(211, 45%, 81%, 0.5);
   -webkit-font-smoothing: antialiased;

@@ -1,17 +1,9 @@
-<footer>
+<footer class="flex flex-col mt-auto content-end justify-end align-bottom pt-16">
 	<strong>GameweekGurus</strong>
-	<span>Created by Cameron Robson</span>
-	<a href="/privacy-policy">Privacy Policy</a>
+	<span class="text-sm"
+		>Created by <a class="underline decoration-gray-500" href="https://www.cameronjpr.com"
+			>Cameron Robson</a
+		></span
+	>
+	<a class="text-sm" href="/privacy-policy">Privacy Policy</a>
 </footer>
-
-<style>
-	footer {
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		justify-content: end;
-		background: var(--color-base);
-		margin-top: 5rem;
-		height: 12vh;
-	}
-</style>

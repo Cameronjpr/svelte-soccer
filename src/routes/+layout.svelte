@@ -68,6 +68,6 @@
 <main class="py-2 px-4 max-w-2xl m-auto">
 	{#await streamed then resolved}
 		<slot />
+		<Footer />
 	{/await}
 </main>
-<Footer />
