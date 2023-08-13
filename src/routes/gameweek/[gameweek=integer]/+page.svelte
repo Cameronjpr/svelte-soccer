@@ -55,7 +55,9 @@
 								{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
 							</h2>
 						{/if}
-						<FixtureCard {fixture} {isSelectable} selections={data?.selections} />
+						{#await data?.streamed?.selections then selections}
+							<FixtureCard {fixture} {isSelectable} {selections} />
+						{/await}
 					{/if}
 				{/each}
 			</section>

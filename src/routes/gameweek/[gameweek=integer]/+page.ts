@@ -20,9 +20,11 @@ export const load = (async ({ fetch, parent, params, depends }) => {
 
 	return {
 		activeGameweek,
-		streamed: { fixtures: getFixtures(fetch) },
+		streamed: {
+			fixtures: getFixtures(fetch),
+			selections: selections ?? []
+		},
 		currentGameweek: params.gameweek,
-		selections: selections ?? []
 	};
 }) satisfies PageLoad;
 
