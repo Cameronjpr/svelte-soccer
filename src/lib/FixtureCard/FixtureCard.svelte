@@ -91,7 +91,6 @@
 				method="POST"
 				action="?/select"
 				use:enhance={({ action }) => {
-					console.log(action);
 					selectionLoading = true;
 					return async ({ result, update }) => {
 						if (result?.type === 'success') {
