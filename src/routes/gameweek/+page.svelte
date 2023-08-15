@@ -7,19 +7,15 @@
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import Spinner from '@lib/icons/Spinner.svelte';
-	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
+	import { getActiveGameweek } from '@lib/util/gameweek';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
 
 	export let data: PageData;
 
-	$: currentGameweek = Number(data?.currentGameweek);
-
 	function setGameweek(gameweek: number) {
-		currentGameweek = gameweek;
 		goto(`/gameweek?gameweek=${gameweek}`);
 	}
 </script>
@@ -31,14 +27,16 @@
 		class="text-green-600 text-lg flex flex-col gap-4 justify-center p-4 h-[90vh] align-middle items-center"
 	>
 		<Spinner />
-
-		<p in:fade>Loading...</p>
 	</section>
 {:then res}
-	{@const gameweek = { fixtures: res?.fixtures?.filter((f) => f.event === currentGameweek) }}
-	{@const hasStarted = gameweek?.fixtures.some((f) => f.started)}
-	{@const isFinished = gameweek?.fixtures.every((f) => f.finished_provisional)}
-	{@const kickoffs = gameweek?.fixtures.map((f) => f.kickoff_time)}
+	{@const activeGameweek = getActiveGameweek(res?.fixtures)}
+	{@const currentGameweek = Number(data?.currentGameweek) || activeGameweek}
+	{@const gameweek = {
+		fixtures: res?.fixtures?.filter((f) => f.event === currentGameweek)
+	}}
+	{@const hasStarted = gameweek?.fixtures?.some((f) => f.started)}
+	{@const isFinished = gameweek?.fixtures?.every((f) => f.finished_provisional)}
+	{@const kickoffs = gameweek?.fixtures?.map((f) => f.kickoff_time)}
 	{@const firstKickoff = dayjs(kickoffs.sort()[0])}
 	{@const isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff)}
 	<div class="flex flex-col gap-4 align-middle">

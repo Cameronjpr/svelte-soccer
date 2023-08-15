@@ -2,7 +2,7 @@ import { error, fail } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { getActiveGameweek } from '$lib/util/gameweek';
 
-export const GET = (async ({ fetch }) => {
+export const GET = (async ({ fetch, }) => {
 	try {
 		const res = await fetch(`https://fantasy.premierleague.com/api/fixtures`, {
 			headers: {
@@ -16,6 +16,8 @@ export const GET = (async ({ fetch }) => {
 
 		const fixtures = await res.json();
 		const activeGameweek = getActiveGameweek(fixtures);
+
+
 
 		return new Response(String(activeGameweek));
 	} catch (error) {

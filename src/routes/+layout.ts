@@ -6,16 +6,10 @@ import { inject } from '@vercel/analytics';
 import type { Database } from '../database.types'
 
 export const load: LayoutLoad = async ({ fetch, data, depends }) => {
+  console.time('layout load')
   depends('supabase:auth')
 
   inject({ mode: dev ? 'development' : 'production' });
-
-  const res = await fetch('/api/active-gameweek');
-  let activeGameweek = 1;
-
-  if (res.ok) {
-    activeGameweek = await res.json();
-  }
 
   const supabase = createSupabaseLoadClient<Database>({
     supabaseUrl: PUBLIC_SUPABASE_URL,
@@ -28,10 +22,10 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
     data: { session },
   } = await supabase.auth.getSession()
 
+  console.timeEnd('layout load')
   return {
     supabase,
     session,
-    streamed: { activeGameweek: activeGameweek || 1 }
   }
 }
 

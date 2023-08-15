@@ -1,5 +1,5 @@
 import type { Selection } from '@lib/types';
-import type { Actions, PageServerLoad } from './[gameweek=integer]/$types';
+import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const actions: Actions = {

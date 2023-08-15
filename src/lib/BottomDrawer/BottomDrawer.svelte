@@ -44,7 +44,7 @@
 		border-radius: 0.5rem 0.5rem 0 0;
 		padding: 1rem;
 		gap: 1rem;
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
