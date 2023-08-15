@@ -1,5 +1,6 @@
 import type { User } from "@lib/types";
 import type { PageServerLoad } from "../$types";
+import { getUpcomingGameweek } from "@lib/util/gameweek";
 
 
 export const load = (async ({ parent, locals: {

@@ -11,3 +11,14 @@ export const getActiveGameweek = (fixtures: Array<Fixture>): number => {
 
 	return activeGameweek ? activeGameweek.event : 1;
 };
+
+export const getUpcomingGameweek = (fixtures: Array<Fixture>): number => {
+	const now = dayjs();
+
+	const upcomingGameweek = fixtures.find((fixture) => {
+		const kickoffTime = dayjs(fixture.kickoff_time);
+		return kickoffTime.isAfter(now);
+	});
+
+	return upcomingGameweek ? upcomingGameweek.event : 1;
+};

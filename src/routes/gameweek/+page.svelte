@@ -8,7 +8,7 @@
 	import SimplePaginator from '@lib/Paginator/SimplePaginator.svelte';
 	import Spinner from '@lib/icons/Spinner.svelte';
 	import { goto } from '$app/navigation';
-	import { getActiveGameweek } from '@lib/util/gameweek';
+	import { getActiveGameweek, getUpcomingGameweek } from '@lib/util/gameweek';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -30,7 +30,8 @@
 	</section>
 {:then res}
 	{@const activeGameweek = getActiveGameweek(res?.fixtures)}
-	{@const currentGameweek = Number(data?.currentGameweek) || activeGameweek}
+	{@const upcomingGameweek = getUpcomingGameweek(res?.fixtures)}
+	{@const currentGameweek = Number(data?.currentGameweek) || upcomingGameweek || activeGameweek}
 	{@const gameweek = {
 		fixtures: res?.fixtures?.filter((f) => f.event === currentGameweek)
 	}}
