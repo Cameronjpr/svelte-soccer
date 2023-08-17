@@ -41,6 +41,8 @@
 		"@supabase/supabase-js": "^2.32.0",
 		"@vercel/analytics": "^1.0.2",
 		"dayjs": "^1.11.9",
+		"nodemailer": "^6.9.4",
+		"svelte-email": "^0.0.4",
 		"svelte-french-toast": "^1.2.0"
 	}
 }
