@@ -4,7 +4,7 @@
 	import Star from '@lib/icons/Star.svelte';
 	export let data: PageServerData;
 
-	const sorted = data.users.sort((a, b) => b.score - a.score);
+	const sorted = data.users.sort?.((a, b) => b.score - a.score);
 	const hiscore = sorted[0].score;
 
 	const currentUser = data?.users?.filter((user) => user.auth_user == data?.session?.user?.id)[0];

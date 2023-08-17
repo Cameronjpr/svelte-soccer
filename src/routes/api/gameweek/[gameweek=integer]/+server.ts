@@ -21,7 +21,7 @@ export const GET = async ({ url, fetch, params, setHeaders }) => {
 	const fixtures = await res.json();
 	const formattedFixtures = formatFixtures(fixtures);
 
-	const gameweekFixtures = formattedFixtures.filter(
+	const gameweekFixtures = formattedFixtures?.filter(
 		(fixture: Fixture) => fixture.event === Number(params.gameweek)
 	);
 

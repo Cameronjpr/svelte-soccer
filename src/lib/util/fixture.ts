@@ -2,7 +2,7 @@ import { teams } from '@lib/teams';
 import type { Fixture, FormattedFixture } from '@lib/types';
 
 export const formatFixtures = (fixtures: Array<any>): Array<FormattedFixture> => {
-	return fixtures.map((fixture) => {
+	return fixtures?.map((fixture) => {
 		return {
 			...fixture,
 			team_h: {

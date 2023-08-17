@@ -26,7 +26,7 @@ export const actions: Actions = {
         console.log(u.auth_user)
         let tally = 0;
         selections?.forEach((s) => {
-          const fixture = fixtures.find(f => f.code === s.fixture)
+          const fixture = fixtures?.find(f => f.code === s.fixture)
           const { team_a_score, team_h_score, team_a, team_h, started } = fixture as Fixture;
 
           if (!started || team_a_score === null || team_h_score === null) {

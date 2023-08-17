@@ -38,7 +38,7 @@
 	{@const hasStarted = gameweek?.fixtures?.some((f) => f.started)}
 	{@const isFinished = gameweek?.fixtures?.every((f) => f.finished_provisional)}
 	{@const kickoffs = gameweek?.fixtures?.map((f) => f.kickoff_time)}
-	{@const firstKickoff = dayjs(kickoffs.sort()[0])}
+	{@const firstKickoff = dayjs(kickoffs?.sort()?.[0])}
 	{@const isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff)}
 	<div class="flex flex-col gap-4 align-middle">
 		<SimplePaginator {currentGameweek} {setGameweek} />
