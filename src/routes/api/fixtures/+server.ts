@@ -13,10 +13,7 @@ export const GET = async ({ url, fetch, params, setHeaders }) => {
   );
 
   if (!res.ok) {
-    return json({
-      ok: false,
-      status: res.status
-    });
+    throw error(res.status, 'Could not fetch fixtures')
   }
 
   const fixtures = await res.json();
