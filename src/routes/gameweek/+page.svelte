@@ -60,6 +60,7 @@
 		{/if}
 		{#key gameweek}
 			<section class="flex flex-col gap-4">
+				{#if gameweek?.fixtures?.length}
 				{#each gameweek.fixtures as fixture, index}
 					{#if fixture.event == currentGameweek}
 						{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
@@ -72,6 +73,9 @@
 						{/await}
 					{/if}
 				{/each}
+				{:else}
+					<p class="text-center text-gray-600">No fixtures found for this gameweek.</p>
+				{/if}
 			</section>
 		{/key}
 	</div>
