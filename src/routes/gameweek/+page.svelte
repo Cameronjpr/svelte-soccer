@@ -42,37 +42,39 @@
 	{@const isSelectable = !hasStarted && !isFinished && dayjs().isBefore(firstKickoff)}
 	<div class="flex flex-col gap-4 align-middle">
 		<SimplePaginator {currentGameweek} {setGameweek} />
-		{#if isFinished}
-			<p class="text-sm text-center text-gray-700">This week has finished.</p>
-		{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
-			<p class="text-sm text-center text-amber-700">
-				Selections are locked because week {currentGameweek} has already started.
-			</p>
-		{:else}
-			<section class={` text-center `}>
-				<p class="bg-black text-white p-2 rounded-lg font-semibold">
-					Selection deadline: {dayjs().to(firstKickoff)}
+		{#if gameweek?.fixtures}
+			{#if isFinished}
+				<p class="text-sm text-center text-gray-700">This week has finished.</p>
+			{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
+				<p class="text-sm text-center text-amber-700">
+					Selections are locked because week {currentGameweek} has already started.
 				</p>
-				<p class="text-center pt-2">
-					Select <strong>one</strong> team you think will win this week!
-				</p>
-			</section>
+			{:else}
+				<section class={` text-center `}>
+					<p class="bg-black text-white p-2 rounded-lg font-semibold">
+						Selection deadline: {dayjs().to(firstKickoff)}
+					</p>
+					<p class="text-center pt-2">
+						Select <strong>one</strong> team you think will win this week!
+					</p>
+				</section>
+			{/if}
 		{/if}
 		{#key gameweek}
 			<section class="flex flex-col gap-4">
 				{#if gameweek?.fixtures?.length}
-				{#each gameweek.fixtures as fixture, index}
-					{#if fixture.event == currentGameweek}
-						{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
-							<h2 class="pt-8 mb-0 text-xl">
-								{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
-							</h2>
+					{#each gameweek.fixtures as fixture, index}
+						{#if fixture.event == currentGameweek}
+							{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
+								<h2 class="pt-8 mb-0 text-xl">
+									{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
+								</h2>
+							{/if}
+							{#await data?.streamed?.selections then selections}
+								<FixtureCard {fixture} {isSelectable} {selections} />
+							{/await}
 						{/if}
-						{#await data?.streamed?.selections then selections}
-							<FixtureCard {fixture} {isSelectable} {selections} />
-						{/await}
-					{/if}
-				{/each}
+					{/each}
 				{:else}
 					<p class="text-center text-gray-600">No fixtures found for this gameweek.</p>
 				{/if}
