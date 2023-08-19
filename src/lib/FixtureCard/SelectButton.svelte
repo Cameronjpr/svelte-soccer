@@ -15,7 +15,7 @@
 	class="
     font-semibold border-0 rounded p-2 text-center h-12 dark:text-gray-900
     {selectionLoading ? 'animate-pulse' : ''}
-		{gameweekSelection == team.id ? 'bg-green-300' : 'bg-gray-200'}"
+		{gameweekSelection == team.id ? 'bg-green-300' : 'bg-gray-200 dark:bg-gray-300'}"
 	on:click={() => handlePreselect(team.id)}
 	style="border-color: {team.primaryColor}; border-{isHome ? 'left' : 'right'}-width: 4px;"
 >

@@ -16,7 +16,6 @@
 
 	export let authenticated: boolean;
 	export let hasUsername: boolean;
-	export let activeGameweek = $page?.data?.activeGameweek || 1;
 
 	let menuOpen = false;
 

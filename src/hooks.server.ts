@@ -4,7 +4,7 @@ import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/publi
 
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 
-import { redirect, error, type Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 
 Sentry.init({
 	environment: process.env.NODE_ENV,
@@ -40,7 +40,7 @@ export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, re
 		const session = await event.locals.getSession()
 
 
-		if (!!session) {
+		if (session) {
 			throw redirect(303, '/gameweek');
 		}
 	}

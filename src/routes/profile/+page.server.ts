@@ -1,5 +1,6 @@
 import { redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import type { Selection } from '@lib/types';
 
 export const load = (async ({ locals: { supabase, getSession } }) => {
 	const session = await getSession();
@@ -7,7 +8,7 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
 	const { data: selections } = await supabase
 		.from('Selections')
 		.select()
-		.eq('selector', session?.user.id);
+		.eq('selector', session?.user.id) as { data: Array<Selection> };
 
 	const { data: users } = await supabase
 		.from('Users')
@@ -77,12 +78,7 @@ export const actions: Actions = {
 		if (users?.length) {
 			console.log('user exists. updating username...');
 
-			const { data } = await supabase
-				.from('Users')
-				.select()
-				.eq('auth_user', session?.user?.id);
-
-			const { error } = await supabase
+			const { data, error } = await supabase
 				.from('Users')
 				.update({ username: username as string })
 				.eq('auth_user', session?.user?.id);

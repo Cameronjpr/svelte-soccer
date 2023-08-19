@@ -25,8 +25,8 @@
 	)?.selection;
 
 	$: preselectedTeamSelections = selections
-		.filter((selection) => {
-			return selection.selection == preselectedTeam;
+		.filter(({ selection }) => {
+			return selection == preselectedTeam;
 		})
 		.sort((a, b) => a.gameweek - b.gameweek);
 
