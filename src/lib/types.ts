@@ -7,7 +7,7 @@ export type Fixture = {
 	kickoff_time: string;
 	pulse_id: number;
 	started: boolean;
-	stats: any;
+	stats: never;
 	team_a: Team;
 	team_a_difficulty: number;
 	team_a_score: number | null;
@@ -25,7 +25,7 @@ export type FormattedFixture = Fixture & {
 	kickoff_time: string;
 	pulse_id: number;
 	started: boolean;
-	stats: any;
+	stats: never;
 };
 
 export type Team = {
@@ -37,11 +37,12 @@ export type Team = {
 };
 
 export type Selection = {
+	created_at: string | null;
+	fixture: number | null;
+	gameweek: number | null;
 	id: number;
-	selection: number;
-	selector: string;
-	gameweek: number;
-	fixture: number;
+	selection: number | null;
+	selector: string | null;
 };
 
 export type User = {

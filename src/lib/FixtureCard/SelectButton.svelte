@@ -6,7 +6,7 @@
 	export let isSelectable: boolean;
 	export let isHome = false;
 	export let selectionLoading: boolean;
-	export let gameweekSelection: number | undefined;
+	export let gameweekSelection: number | null | undefined;
 	export let handlePreselect: (teamId: number) => void;
 </script>
 

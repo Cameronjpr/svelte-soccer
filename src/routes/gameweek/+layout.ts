@@ -1,6 +1,7 @@
+import type { FormattedFixture, Selection } from "@lib/types";
 import type { LayoutLoad } from "./$types";
 
-export const load = (async ({ fetch, parent, params, url }) => {
+export const load = (async ({ fetch, parent, url }) => {
   const { session, supabase } = await parent();
   let selections: Array<Selection> = [];
 
@@ -18,7 +19,9 @@ export const load = (async ({ fetch, parent, params, url }) => {
   return {
     currentGameweek: url?.searchParams?.get('gameweek'),
     streamed: {
-      fixtures: getFixtures(fetch),
+      fixtures: getFixtures(fetch) as Promise<{
+        fixtures: Array<FormattedFixture>
+      }>,
       selections: selections ?? []
     },
   };

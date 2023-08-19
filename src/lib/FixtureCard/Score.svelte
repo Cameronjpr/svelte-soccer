@@ -3,7 +3,7 @@
 
 	export let fixture: Fixture;
 
-	const { team_h_score, team_a_score, started, kickoff_time, finished_provisional } = fixture;
+	const { team_h_score, team_a_score, started, kickoff_time } = fixture;
 </script>
 
 <section class="p-1 text-sm">
