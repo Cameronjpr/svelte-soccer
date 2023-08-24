@@ -12,8 +12,6 @@ export const GET = async ({ fetch, setHeaders }) => {
     }
   );
 
-  console.log(res.json())
-
   if (!res.ok) {
   console.log(res?.statusText)
     throw error(res.status, 'Could not fetch fixtures')
