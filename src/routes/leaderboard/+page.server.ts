@@ -10,7 +10,7 @@ export const load = (async ({ parent, locals: {
 	const { data: users } = await supabase.from('Users').select('username,score,auth_user');
 	const { data: selections } = await supabase.from('Selections').select()
 
-	const selectionsForUpcomingGameweek = selections.filter(s => s.gameweek === 2)
+	const selectionsForUpcomingGameweek = selections.filter(s => s.gameweek === 3)
 
 
 	const safeUsers = users.map((user: User) => {
