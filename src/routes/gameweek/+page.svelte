@@ -76,7 +76,9 @@
 						{/if}
 					{/each}
 				{:else}
-					<p class="text-center text-gray-600">No fixtures found for this gameweek.</p>
+					<p class="text-center text-gray-600">
+						Something went wrong fetching the fixtures. <br />Please try again later.
+					</p>
 				{/if}
 			</section>
 		{/key}
