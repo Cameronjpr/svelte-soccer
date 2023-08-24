@@ -2,6 +2,7 @@
 	import type { PageServerData } from './$types';
 	import { teams } from '@lib/teams';
 	import Star from '@lib/icons/Star.svelte';
+	import { isGameweekUnderway } from '@lib/util/gameweek';
 	export let data: PageServerData;
 
 	const sorted = data.users.sort?.((a, b) => b.score - a.score);
@@ -20,6 +21,8 @@
 		>
 	</p>
 {/if}
+<br />
+<p>Selections will be revealed once the gameweek starts!</p>
 <section class="py-8">
 	<ul class="p-0">
 		{#each sorted as user, index}
@@ -41,12 +44,16 @@
 								? 'text-green-700 dark:text-amber-500'
 								: ''}>{user.username ?? 'Anonymous player'}</span
 						>
-						{#if user?.selection}
-							<span class="text-sm italic"
-								>{teams[user?.selection?.selection - 1]?.shortName ?? '?'}</span
-							>
+						{#if data?.isGameweekUnderway}
+							{#if user?.selection?.selection}
+								<span class="text-sm italic"
+									>{teams[user?.selection?.selection - 1]?.shortName ?? '?'}</span
+								>
+							{:else}
+								<span class="text-sm">...</span>
+							{/if}
 						{:else}
-							<span class="text-sm">No selection</span>
+							<span class="text-sm italic">?</span>
 						{/if}
 					</div>
 				</div>

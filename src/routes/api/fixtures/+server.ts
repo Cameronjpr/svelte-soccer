@@ -21,7 +21,6 @@ export const GET = async ({ fetch, setHeaders }) => {
   const formattedFixtures = formatFixtures(fixtures);
 
   setHeaders({
-    age: res?.headers?.get('age'),
     'cache-control': 'max-age=60'
   });
 

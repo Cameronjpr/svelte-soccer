@@ -56,7 +56,7 @@ export const actions: Actions = {
 
 		if (existingGameweekSelection?.id) {
 			console.log('overwriting selection');
-			const { data, error } = await supabase
+			const { error } = await supabase
 				.from('Selections')
 				.update({
 					selection: selection,

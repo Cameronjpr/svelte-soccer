@@ -49,5 +49,5 @@ export type User = {
 	auth_user: string;
 	score: number;
 	username: string;
-	selection?: number;
+	selection?: Selection;
 };
