@@ -1,8 +1,8 @@
 import type { Fixture } from '@lib/types';
 import { formatFixtures } from '@lib/util/fixture';
-import { json, redirect } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 
-export const GET = async ({ url, fetch, params, setHeaders }) => {
+export const GET = async ({ fetch, setHeaders }) => {
   const res = await fetch(
     `https://fantasy.premierleague.com/api/fixtures`,
     {
