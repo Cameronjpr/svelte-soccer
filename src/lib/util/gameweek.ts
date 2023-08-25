@@ -26,7 +26,7 @@ export const getUpcomingGameweek = (fixtures: Array<Fixture>): number => {
 export const isGameweekUnderway = (fixtures: Array<Fixture>): boolean => {
 	const now = dayjs();
 
-	const mostRecentGame = fixtures?.find((fixture) => {
+	const mostRecentGame = fixtures?.reverse()?.find((fixture) => {
 		const kickoffTime = dayjs(fixture.kickoff_time);
 		return kickoffTime.isBefore(now);
 	});
