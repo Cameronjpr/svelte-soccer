@@ -3,6 +3,66 @@ import type { Fixture } from '@lib/types';
 import { redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
+  syncFixtures: async ({ fetch, locals: { supabase, getSession } }) => {
+    const session = await getSession();
+    if (!session || session.user.email !== PUBLIC_ADMIN_EMAIL) {
+      throw redirect(303, '/');
+    }
+
+    // Get premier league fixrures
+    const res = await fetch(`https://fantasy.premierleague.com/api/fixtures`, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+
+    if (res.ok) {
+      const fixtures: Fixture[] = await res.json();
+
+      // Get existing fixtures
+      const { data: existingFixtures } = await supabase.from('Fixtures').select();
+
+      console.log(existingFixtures.length)
+
+     existingFixtures.forEach(async (f) => {
+        const fixture = fixtures.find(fix => fix.code === f.code);
+
+        if (!!fixture) {
+        
+
+          const { data: updatedFixtures, error: updateError } = await supabase.from('Fixtures').update({
+            ...f,
+            team_a_score: fixture.team_a_score,
+            team_h_score: fixture.team_h_score,
+          }
+           
+          ).eq('code', f.code);
+
+          if (updateError) {
+            console.log(updateError);
+          }
+        }
+      })
+
+      // Add missing fixtures
+      const missingFixtures = fixtures.filter(f => !existingFixtures.find(ef => ef.code === f.code));
+      const { _, error } = await supabase.from('Fixtures').insert([
+        ...missingFixtures.map(f => ({
+          code: f.code,
+          event: f.event,
+          team_a: f.team_a,
+          team_a_score: f.team_a_score,
+          team_h: f.team_h,
+          team_h_score: f.team_h_score,
+          kickoff_time: f.kickoff_time,
+        }))
+      ]);
+
+      if (error) {
+        console.log(error);
+      }
+    }
+  },
   calculate: async ({ fetch, locals: { supabase, getSession } }) => {
     const session = await getSession();
     if (!session || session.user.email !== PUBLIC_ADMIN_EMAIL) {

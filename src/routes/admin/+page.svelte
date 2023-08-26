@@ -6,6 +6,9 @@
 
 <section class="flex flex-col gap-4">
 	<form method="POST">
-		<Button class="appearance-primary" formaction="?/calculate">Calculate scores</Button>
+		<Button appearance="primary" formaction="?/calculate">Calculate scores</Button>
+	</form>
+	<form method="POST">
+		<Button appearance="primary" formaction="?/syncFixtures">Sync fixtures</Button>
 	</form>
 </section>

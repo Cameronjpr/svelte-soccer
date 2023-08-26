@@ -1,9 +1,11 @@
 import type { FormattedFixture, Selection } from "@lib/types";
 import type { LayoutLoad } from "./$types";
+import { formatFixtures } from "@lib/util/fixture";
 
 export const load = (async ({ fetch, parent, url }) => {
   const { session, supabase } = await parent();
   let selections: Array<Selection> = [];
+  let fixtures: Array<FormattedFixture> = [];
 
   if (session) {
     const { data, error } = await supabase
@@ -14,27 +16,22 @@ export const load = (async ({ fetch, parent, url }) => {
     if (!error) {
       selections = data;
     }
+
+    const { data: fixturesData, error: fixturesError } = await supabase
+      .from('Fixtures')
+      .select()
+      .order('kickoff_time', { ascending: true });
+
+    if (!fixturesError) {
+      fixtures = formatFixtures(fixturesData);
+    }
   }
 
   return {
     currentGameweek: url?.searchParams?.get('gameweek'),
     streamed: {
-      fixtures: getFixtures(fetch) as Promise<{
-        fixtures: Array<FormattedFixture>
-      }>,
+      fixtures: fixtures ?? [],
       selections: selections ?? []
     },
   };
 }) satisfies LayoutLoad;
-
-async function getFixtures(
-  fetch: (input: URL | RequestInfo, init?: RequestInit | undefined) => Promise<Response>,
-) {
-  const res = await fetch(`/api/fixtures`);
-
-  if (!res.ok) {
-    return null
-  }
-
-  return await res.json();
-}

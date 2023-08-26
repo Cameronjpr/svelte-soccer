@@ -28,12 +28,12 @@
 	>
 		<Spinner />
 	</section>
-{:then res}
-	{@const activeGameweek = getActiveGameweek(res?.fixtures)}
-	{@const upcomingGameweek = getUpcomingGameweek(res?.fixtures)}
+{:then fixtures}
+	{@const activeGameweek = getActiveGameweek(fixtures)}
+	{@const upcomingGameweek = getUpcomingGameweek(fixtures)}
 	{@const currentGameweek = Number(data?.currentGameweek) || upcomingGameweek || activeGameweek}
 	{@const gameweek = {
-		fixtures: res?.fixtures?.filter((f) => f.event === currentGameweek)
+		fixtures: fixtures?.filter((f) => f.event === currentGameweek)
 	}}
 	{@const hasStarted = gameweek?.fixtures?.some((f) => f.started)}
 	{@const isFinished = gameweek?.fixtures?.every((f) => f.finished_provisional)}
