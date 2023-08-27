@@ -31,10 +31,18 @@ export const isGameweekUnderway = (fixtures: Array<Fixture>): boolean => {
 		return kickoffTime.isBefore(now);
 	});
 
-	const gameAfterNow = fixtures.some((fixture) => {
+	const gameAfterNow = fixtures.reverse().find((fixture) => {
 		const kickoffTime = dayjs(fixture.kickoff_time);
-		return fixture.event === mostRecentGame?.event && kickoffTime.isAfter(now);
+		return kickoffTime.isAfter(now);
 	});
+	
+	if (!mostRecentGame || !gameAfterNow) {
+		return false;
+	}
 
-	return !!mostRecentGame && !!gameAfterNow;
+	if (dayjs(mostRecentGame.kickoff_time).add(2, 'hour').isAfter(now)) {
+		return true;
+	}
+
+	return mostRecentGame.event === gameAfterNow.event;
 }

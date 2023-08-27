@@ -1,6 +1,7 @@
-import type { Selection, User } from "@lib/types";
+import type { FormattedFixture, Selection, User } from "@lib/types";
 import type { PageServerLoad } from "../$types";
 import { getUpcomingGameweek, isGameweekUnderway } from "@lib/util/gameweek";
+import { formatFixtures } from "@lib/util/fixture";
 
 
 export const load = (async ({ fetch, parent, locals: {
@@ -10,22 +11,28 @@ export const load = (async ({ fetch, parent, locals: {
 	const { data: users } = await supabase.from('Users').select('username,score,auth_user');
 	const { data: selections } = await supabase.from('Selections').select()
 
-	let fixtures = [];
-	const res = await fetch('/api/fixtures');
+let fixtures: Array<FormattedFixture> = [];
+const { data: fixturesData, error: fixturesError } = await supabase
+		.from('Fixtures')
+		.select()
+		.order('kickoff_time', { ascending: true });
 
-	 if (res.ok) {
-		 const { fixtures: data } = await res.json();
-		 fixtures = data;
-  }
+	if (!fixturesError) {
+		fixtures = formatFixtures(fixturesData);
+	}
 
 	const upcomingGameweek = getUpcomingGameweek(fixtures);
-	const selectionsForUpcomingGameweek = selections.filter((s: Selection) => s.gameweek === upcomingGameweek)
+	const gameweek = isGameweekUnderway(fixtures) ? upcomingGameweek - 1 : upcomingGameweek;
+	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === gameweek)
+
+	console.log(isGameweekUnderway(fixtures))
+	console.log(upcomingGameweek)
 
 	const safeUsers = users.map((user: User) => {
 		return {
 			username: user.username,
 			score: user.score,
-			selection: selectionsForUpcomingGameweek?.find((s: Selection) => s.selector === user.auth_user) ?? null,
+			selection: selectionsForGameweek?.find((s: Selection) => s.selector === user.auth_user) ?? null,
 			auth_user: user.auth_user
 		}
 	})
