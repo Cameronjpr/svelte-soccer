@@ -16,15 +16,15 @@ export const load = (async ({ fetch, parent, url }) => {
     if (!error) {
       selections = data;
     }
+  }
+  
+  const { data: fixturesData, error: fixturesError } = await supabase
+    .from('Fixtures')
+    .select()
+    .order('kickoff_time', { ascending: true });
 
-    const { data: fixturesData, error: fixturesError } = await supabase
-      .from('Fixtures')
-      .select()
-      .order('kickoff_time', { ascending: true });
-
-    if (!fixturesError) {
-      fixtures = formatFixtures(fixturesData);
-    }
+  if (!fixturesError) {
+    fixtures = formatFixtures(fixturesData);
   }
 
   return {
