@@ -27,7 +27,7 @@ export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, re
 	}
 
 	// protect requests to all routes that start with /protected-routes
-	if (event.url.pathname.startsWith('/profile')) {
+	if (event.url.pathname.startsWith('/profile') || event.url.pathname.startsWith('/gameweek') || event.url.pathname.startsWith('/leaderboard')) {
 		const session = await event.locals.getSession()
 
 
