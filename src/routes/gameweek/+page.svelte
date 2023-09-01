@@ -9,6 +9,7 @@
 	import Spinner from '@lib/icons/Spinner.svelte';
 	import { goto } from '$app/navigation';
 	import { getActiveGameweek, getUpcomingGameweek } from '@lib/util/gameweek';
+	import { onNavigate } from '$app/navigation';
 
 	dayjs.extend(advancedFormat);
 	dayjs.extend(relativeTime);
@@ -18,6 +19,17 @@
 	function setGameweek(gameweek: number) {
 		goto(`/gameweek?gameweek=${gameweek}`);
 	}
+
+	onNavigate((navigation) => {
+		if (!document?.startViewTransition) return;
+
+		return new Promise((resolve) => {
+			document?.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 </script>
 
 <Toaster />
@@ -61,7 +73,7 @@
 			{/if}
 		{/if}
 		{#key gameweek}
-			<section class="flex flex-col gap-4">
+			<section id="fixtureList" class="flex flex-col gap-4">
 				{#if gameweek?.fixtures?.length}
 					{#each gameweek.fixtures as fixture, index}
 						{#if fixture.event == currentGameweek}
@@ -89,3 +101,45 @@
 		<p class="text-center text-gray-600">Please try again in a few minutes</p>
 	</section>
 {/await}
+
+<style>
+	#fixtureList {
+		view-transition-name: active-page;
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+	}
+
+	@keyframes fade-out {
+		to {
+			opacity: 0;
+		}
+	}
+
+	@keyframes slide-from-right {
+		from {
+			transform: translateX(20px);
+		}
+	}
+
+	@keyframes slide-to-left {
+		to {
+			transform: translateX(-20px);
+		}
+	}
+
+	#fixtureList::view-transition-old(root) {
+		animation:
+			90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+	}
+
+	#fixtureList::view-transition-new(root) {
+		animation:
+			210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+			300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+	}
+</style>

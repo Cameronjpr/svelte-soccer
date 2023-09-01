@@ -71,3 +71,6 @@
 		<Footer />
 	{/await}
 </main>
+
+<style>
+</style>
