@@ -23,7 +23,7 @@ const { data: fixturesData, error: fixturesError } = await supabase
 
 	const upcomingGameweek = getUpcomingGameweek(fixtures);
 	const gameweek = isGameweekUnderway(fixtures) ? upcomingGameweek - 1 : upcomingGameweek;
-	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === 4)
+	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === 5)
 
 
 	const safeUsers = users.map((user: User) => {
