@@ -1,5 +1,7 @@
 import { PUBLIC_ADMIN_EMAIL, } from '$env/static/public';
 import type { Fixture } from '@lib/types';
+import { formatFixtures } from '@lib/util/fixture';
+import { getUpcomingGameweek, isGameweekUnderway } from '@lib/util/gameweek';
 import { redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
@@ -27,10 +29,9 @@ export const actions: Actions = {
      existingFixtures.forEach(async (f) => {
         const fixture = fixtures.find(fix => fix.code === f.code);
 
-        if (!!fixture) {
-        
-
-          const { data: updatedFixtures, error: updateError } = await supabase.from('Fixtures').update({
+        if (fixture) {
+      
+          const { error: updateError } = await supabase.from('Fixtures').update({
             ...f,
             team_a_score: fixture.team_a_score,
             team_h_score: fixture.team_h_score,
@@ -126,3 +127,24 @@ export const actions: Actions = {
     }
   }
 };
+
+export const load = async ({ parent, locals: { supabase, getSession } }) => {
+  let fixtures: Array<Fixture> = []
+  const { data: fixturesData, error: fixturesError } = await supabase
+		.from('Fixtures')
+		.select()
+		.order('kickoff_time', { ascending: true });
+    
+    if (!fixturesError) {
+		fixtures = formatFixtures(fixturesData);
+	}
+
+	const upcomingGameweek = getUpcomingGameweek(fixtures);
+	const gameweek = isGameweekUnderway(fixtures) ? upcomingGameweek - 1 : upcomingGameweek;
+
+    return {
+      fixtures,
+      gameweek,
+      upcomingGameweek
+    }
+}

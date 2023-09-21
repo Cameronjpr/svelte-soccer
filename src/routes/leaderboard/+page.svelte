@@ -44,7 +44,7 @@
 								? 'text-green-700 dark:text-amber-500'
 								: ''}>{user.username ?? 'Anonymous player'}</span
 						>
-						{#if data?.isGameweekUnderway}
+						{#if !data?.isGameweekUnderway}
 							{#if user?.selection?.selection}
 								<span class="text-sm italic"
 									>{teams[user?.selection?.selection - 1]?.shortName ?? '?'}</span
