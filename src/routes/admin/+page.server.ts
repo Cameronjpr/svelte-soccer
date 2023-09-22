@@ -128,7 +128,7 @@ export const actions: Actions = {
   }
 };
 
-export const load = async ({ parent, locals: { supabase, getSession } }) => {
+export const load = async ({ locals: { supabase } }) => {
   let fixtures: Array<Fixture> = []
   const { data: fixturesData, error: fixturesError } = await supabase
 		.from('Fixtures')
