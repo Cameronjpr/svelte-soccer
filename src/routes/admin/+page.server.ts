@@ -1,7 +1,7 @@
 import { PUBLIC_ADMIN_EMAIL, } from '$env/static/public';
 import type { Fixture } from '@lib/types';
 import { formatFixtures } from '@lib/util/fixture';
-import { getUpcomingGameweek, isGameweekUnderway } from '@lib/util/gameweek';
+import { getActiveGameweek, getUpcomingGameweek, isGameweekUnderway } from '@lib/util/gameweek';
 import { redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
@@ -35,9 +35,17 @@ export const actions: Actions = {
             ...f,
             team_a_score: fixture.team_a_score,
             team_h_score: fixture.team_h_score,
+            kickoff_time: fixture.kickoff_time,
           }
-           
           ).eq('code', f.code);
+
+          if (fixture.code !== f.code) {
+            console.log('code mismatch: ', fixture.code, f.code)
+
+            const { data: relevantSelections } = await supabase.from('Selections').select().eq('fixture', f.code);
+
+            console.log(relevantSelections)
+          }
 
           if (updateError) {
             console.log(updateError);
@@ -140,11 +148,13 @@ export const load = async ({ locals: { supabase } }) => {
 	}
 
 	const upcomingGameweek = getUpcomingGameweek(fixtures);
+  const activeGameweek = getActiveGameweek(fixtures);
 	const gameweek = isGameweekUnderway(fixtures) ? upcomingGameweek - 1 : upcomingGameweek;
 
     return {
       fixtures,
       gameweek,
-      upcomingGameweek
+      upcomingGameweek,
+      activeGameweek
     }
 }

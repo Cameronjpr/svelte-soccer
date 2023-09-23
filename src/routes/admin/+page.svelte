@@ -14,7 +14,8 @@
 	<form method="POST">
 		<Button appearance="primary" formaction="?/syncFixtures">Sync fixtures</Button>
 	</form>
-	<section>
+	<section class="flex flex-col">
 		<span>Upcoming gameweek: {data?.upcomingGameweek}</span>
+		<span>Active gameweek: {data?.activeGameweek}</span>
 	</section>
 </section>

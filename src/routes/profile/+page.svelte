@@ -6,8 +6,6 @@
 
 	export let data: PageServerData;
 	export let form: ActionData;
-
-	let emailConsent = data?.user?.receives_emails;
 </script>
 
 <div
@@ -54,30 +52,21 @@
 	>
 		<p class="text-sm text-gray-600 dark:text-gray-500 italic">
 			We may periodically send game updates and announcements to your email address. If you do not
-			wish to receive these emails, please uncheck the checkbox below.
+			wish to receive these emails, please click the button below.
 		</p>
-		<label for="emailConsent" class="flex flex-row gap-2 align-middle items-center font-semibold">
-			<input
-				bind:checked={emailConsent}
-				class="inline w-6 h-6"
-				id="emailConsent"
-				name="emailConsent"
-				type="checkbox"
-			/>
-			Yes, I would like to receive emails
-		</label>
-		<Button>Save preferences</Button>
+		<Button>Opt out of emails</Button>
 	</form>
 
 	<section class="flex flex-col gap-4">
 		<form method="POST" action="?/signout">
 			<Button>Sign out</Button>
 		</form>
-		<h2>
-			<a href="https://www.youtube.com/watch?v=siwpn14IE7E">The Danger Zone</a>
-		</h2>
-		<form method="POST" action="?/deleteAccount">
-			<Button appearance="danger">Delete account</Button>
-		</form>
+		<details class="flex flex-col gap-4">
+			<summary> Danger Zone </summary>
+
+			<form method="POST" action="?/deleteAccount">
+				<Button appearance="danger">Delete account</Button>
+			</form>
+		</details>
 	</section>
 </div>

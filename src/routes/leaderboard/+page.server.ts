@@ -1,6 +1,6 @@
 import type { FormattedFixture, Selection, User } from "@lib/types";
 import type { PageServerLoad } from "../$types";
-import { getUpcomingGameweek, isGameweekUnderway } from "@lib/util/gameweek";
+import { isGameweekUnderway } from "@lib/util/gameweek";
 import { formatFixtures } from "@lib/util/fixture";
 
 
@@ -21,8 +21,6 @@ const { data: fixturesData, error: fixturesError } = await supabase
 		fixtures = formatFixtures(fixturesData);
 	}
 
-	const upcomingGameweek = getUpcomingGameweek(fixtures);
-	const gameweek = isGameweekUnderway(fixtures) ? upcomingGameweek - 1 : upcomingGameweek;
 	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === 6)
 
 
