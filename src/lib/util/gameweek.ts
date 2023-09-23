@@ -4,8 +4,7 @@ import dayjs from 'dayjs';
 export const getActiveGameweek = (fixtures: Array<Fixture>): number => {
 	const now = dayjs();
 	
-	const sorted = sortFixturesByGameweek(fixtures);
-	const activeGameweek = sorted?.reverse()?.find((fixture) => {
+	const activeGameweek = fixtures?.findLast((fixture) => {
 		const kickoffTime = dayjs(fixture.kickoff_time);
 		return kickoffTime.isBefore(now);
 	});
@@ -49,5 +48,6 @@ export const isGameweekUnderway = (fixtures: Array<Fixture>): boolean => {
 }
 
 export const sortFixturesByGameweek = (fixtures: Array<Fixture>): Array<Fixture> => {
-	return fixtures?.sort((a, b) => a.event - b.event);
+	const sorted = fixtures;
+	return sorted?.sort((a, b) => a.event - b.event);
 }
