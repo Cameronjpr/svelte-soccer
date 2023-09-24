@@ -41,9 +41,6 @@
 		<Spinner />
 	</section>
 {:then fixtures}
-	{data?.currentGameweek}
-	{getActiveGameweek(fixtures)}
-	{getUpcomingGameweek(fixtures)}
 	{@const activeGameweek = getActiveGameweek(fixtures)}
 	{@const upcomingGameweek = getUpcomingGameweek(fixtures)}
 	{@const currentGameweek = Number(data?.currentGameweek) || upcomingGameweek || activeGameweek}
