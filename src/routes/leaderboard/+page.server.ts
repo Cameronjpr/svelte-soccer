@@ -1,6 +1,6 @@
 import type { FormattedFixture, Selection, User } from "@lib/types";
 import type { PageServerLoad } from "../$types";
-import { isGameweekUnderway } from "@lib/util/gameweek";
+import { getActiveGameweek, isGameweekUnderway } from "@lib/util/gameweek";
 import { formatFixtures } from "@lib/util/fixture";
 
 
@@ -21,7 +21,7 @@ const { data: fixturesData, error: fixturesError } = await supabase
 		fixtures = formatFixtures(fixturesData);
 	}
 
-	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === 7)
+	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === getActiveGameweek(fixtures))
 
 
 	const safeUsers = users.map((user: User) => {
