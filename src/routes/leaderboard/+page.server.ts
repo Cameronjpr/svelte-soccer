@@ -21,7 +21,7 @@ const { data: fixturesData, error: fixturesError } = await supabase
 		fixtures = formatFixtures(fixturesData);
 	}
 
-	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === 6)
+	const selectionsForGameweek = selections.filter((s: Selection) => s.gameweek === 7)
 
 
 	const safeUsers = users.map((user: User) => {
