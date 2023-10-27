@@ -5,14 +5,17 @@
 	import { isGameweekUnderway } from '@lib/util/gameweek';
 	export let data: PageServerData;
 
+	let showInactivePlayers = false;
+
 	const sorted = data.users.sort?.((a, b) => b.score - a.score);
+	$: visible = showInactivePlayers ? sorted : sorted.filter((user) => user.selection?.selection);
 	const hiscore = sorted[0].score;
 
 	const currentUser = data?.users?.filter((user) => user.auth_user == data?.session?.user?.id)[0];
 </script>
 
 <h1>Leaderboard</h1>
-<p>Scores are updated after each gameweek.</p>
+<p>Scores are updated after each gameweek. Selections will be revealed once the gameweek starts!</p>
 {#if !currentUser?.username}
 	<p>
 		If you don’t see yourself on the leaderboard, make sure you have <a
@@ -21,11 +24,13 @@
 		>
 	</p>
 {/if}
-<br />
-<p>Selections will be revealed once the gameweek starts!</p>
 <section class="py-8">
+	<form class="flex items-center gap-2 pt-4 justify-end">
+		<input bind:checked={showInactivePlayers} name="inactive-players" type="checkbox" />
+		<label for="inactive-players">Show inactive players </label>
+	</form>
 	<ul class="p-0">
-		{#each sorted as user, index}
+		{#each visible as user, index}
 			<li
 				class={`border-b-2 border-slate-300 px-2 py-3 font-semibold text-lg flex justify-between items-center}`}
 			>

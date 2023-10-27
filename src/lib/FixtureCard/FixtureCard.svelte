@@ -24,6 +24,14 @@
 		(selection) => selection.gameweek === fixture.event
 	)?.selection;
 
+	const homeTeamSelections = selections?.filter(({ selection }) => {
+		return selection == fixture.team_h.id;
+	});
+
+	const awayTeamSelections = selections?.filter(({ selection }) => {
+		return selection == fixture.team_a.id;
+	});
+
 	$: preselectedTeamSelections = selections
 		.filter(({ selection }) => {
 			return selection == preselectedTeam;
@@ -51,6 +59,7 @@
 		{isSelectable}
 		{selectionLoading}
 		{gameweekSelection}
+		priorSelections={homeTeamSelections}
 		{handlePreselect}
 		isHome
 	/>
@@ -60,6 +69,7 @@
 		{isSelectable}
 		{selectionLoading}
 		{gameweekSelection}
+		priorSelections={awayTeamSelections}
 		{handlePreselect}
 	/>
 
