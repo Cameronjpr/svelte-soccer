@@ -62,7 +62,7 @@
 					Selections are locked because week {currentGameweek} has already started.
 				</p>
 			{:else}
-				<section class={` text-center `}>
+				<section class="text-center">
 					<p class="bg-black text-white p-2 rounded-lg font-semibold">
 						Selection deadline: {dayjs().to(firstKickoff)}
 					</p>
@@ -77,7 +77,10 @@
 				{#if gameweek?.fixtures?.length}
 					{#each gameweek.fixtures as fixture, index}
 						{#if fixture.event == currentGameweek}
-							{#if index === 0 || dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !== dayjs(fixture.kickoff_time).date()}
+							{@const isFirstOfDate =
+								dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !==
+								dayjs(fixture.kickoff_time).date()}
+							{#if index === 0 || isFirstOfDate}
 								<h2 class="pt-8 mb-0 text-xl">
 									{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
 								</h2>

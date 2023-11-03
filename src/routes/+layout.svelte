@@ -16,14 +16,14 @@
 	inject({ mode: dev ? 'development' : 'production' });
 
 	export let data: LayoutData;
-	$: ({ supabase, session, streamed } = data);
+	$: ({ supabase, session } = data);
 
 	let hasUsername: boolean;
 
 	$: supabase
 		.from('Users')
 		.select()
-		.eq('auth_user', session?.user?.id)
+		.eq('auth_user', session?.user.id ?? '')
 		.then(({ data }) => {
 			hasUsername = !!data?.[0]?.username;
 		});
@@ -37,7 +37,7 @@
 			}
 		});
 
-		return () => subscription.unsubscribe();
+		return subscription.unsubscribe();
 	});
 
 	const authenticated = !!data.session;
@@ -62,15 +62,10 @@
 	</script>
 </svelte:head>
 
-<Header {hasUsername} {authenticated} activeGameweek={streamed?.activeGameweek} />
+<Header {hasUsername} {authenticated} />
 <Toaster />
 
-<main class="py-2 px-4 max-w-2xl m-auto">
-	{#await streamed then resolved}
-		<slot />
-		<Footer />
-	{/await}
+<main class="py-2 px-4 max-w-2xl m-auto min-h-screen">
+	<slot />
+	<Footer />
 </main>
-
-<style>
-</style>

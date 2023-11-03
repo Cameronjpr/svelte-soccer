@@ -2,7 +2,7 @@ import type { FormattedFixture, Selection } from "@lib/types";
 import type { LayoutLoad } from "./$types";
 import { formatFixtures } from "@lib/util/fixture";
 
-export const load = (async ({ fetch, parent, url }) => {
+export const load = (async ({ parent, url }) => {
   const { session, supabase } = await parent();
   let selections: Array<Selection> = [];
   let fixtures: Array<FormattedFixture> = [];
