@@ -12,8 +12,10 @@
 	import { inject } from '@vercel/analytics';
 	import { Toaster } from 'svelte-french-toast';
 	import { webVitals } from '@lib/vitals';
+	import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit"
 
 	inject({ mode: dev ? 'development' : 'production' });
+	injectSpeedInsights();
 
 	export let data: LayoutData;
 	$: ({ supabase, session } = data);
