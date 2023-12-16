@@ -24,7 +24,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 
 		if (!session) {
-			throw redirect(303, '/login');
+			redirect(303, '/login');
 		}
 	}
 
@@ -33,12 +33,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 
 		if (session) {
-			throw redirect(303, '/gameweek');
+			redirect(303, '/gameweek');
 		}
 	}
 
 	if (event.url.pathname === '/gameweek/1') {
-		throw redirect(303, '/gameweek');
+		redirect(303, '/gameweek');
 	}
 
 	// protect POST requests to all routes that start with /protected-posts
@@ -46,7 +46,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const session = await event.locals.getSession()
 
 		if (!session) {
-			throw redirect(303, '/login?redirectTo=' + event.url.pathname);
+			redirect(303, '/login?redirectTo=' + event.url.pathname);
 		}
 	}
 

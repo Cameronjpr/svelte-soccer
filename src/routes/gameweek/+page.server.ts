@@ -12,7 +12,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session) {
-			throw redirect(303, '/login');
+			redirect(303, '/login');
 		}
 
 		const { error } = await supabase.from('Selections').delete().eq('selector', session?.user?.id).eq('gameweek', gameweek).eq('selection', selection);
@@ -32,7 +32,7 @@ export const actions: Actions = {
 
 		const session = await getSession();
 		if (!session) {
-			throw redirect(303, '/login');
+			redirect(303, '/login');
 		}
 
 		// Find selections for this user

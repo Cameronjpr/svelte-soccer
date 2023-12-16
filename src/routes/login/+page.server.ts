@@ -12,7 +12,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (session) {
-			throw redirect(303, '/profile');
+			redirect(303, '/profile');
 		}
 
 		const provider = url.searchParams.get('provider') as Provider;
@@ -36,7 +36,7 @@ export const actions: Actions = {
 				});
 			}
 
-			throw redirect(303, data.url);
+			redirect(303, data.url);
 		}
 	}
 };

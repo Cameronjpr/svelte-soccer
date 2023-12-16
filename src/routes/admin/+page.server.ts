@@ -8,7 +8,7 @@ export const actions: Actions = {
   syncFixtures: async ({ fetch, locals: { supabase, getSession } }) => {
     const session = await getSession();
     if (!session || session.user.email !== PUBLIC_ADMIN_EMAIL) {
-      throw redirect(303, '/');
+      redirect(303, '/');
     }
 
     // Get premier league fixrures
@@ -75,7 +75,7 @@ export const actions: Actions = {
   calculate: async ({ fetch, locals: { supabase, getSession } }) => {
     const session = await getSession();
     if (!session || session.user.email !== PUBLIC_ADMIN_EMAIL) {
-      throw redirect(303, '/');
+      redirect(303, '/');
     }
 
     // Get premier league fixrures
