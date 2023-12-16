@@ -1,4 +1,5 @@
 <script>
+	import Button from '@lib/Button/Button.svelte';
 	import { fade, fly } from 'svelte/transition';
 	export let isOpen = false;
 	export let toggleDrawer = () => {};
@@ -16,10 +17,7 @@
 			transition:fly={{ delay: 0, duration: 300, x: 0, y: 500, opacity: 0.5 }}
 		>
 			<slot />
-			<button
-				class="w-full dark:text-slate-950 flex justify-center items-center py-6 space-x-2 text-lg font-bold px-5 rounded-xl bg-slate-200 border-2 border-slate-300 shadow"
-				on:click={toggleDrawer}>Close</button
-			>
+			<Button appearance="secondary" on:click={toggleDrawer}>Close</Button>
 		</div>
 	</section>
 {/if}
@@ -40,7 +38,7 @@
 		flex-direction: column;
 		align-content: center;
 		margin: 0 auto;
-		max-width: 768px;
+		max-width: 560px;
 		border-radius: 0.5rem 0.5rem 0 0;
 		padding: 1rem;
 		gap: 1rem;

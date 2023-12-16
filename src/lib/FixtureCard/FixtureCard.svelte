@@ -84,17 +84,17 @@
 				{#if preselectedTeamSelections?.length > 0}
 					<p class="text-center mt-0">
 						You have already selected {teams[preselectedTeam - 1]?.name} in:
+						<span class="inline-flex gap-2">
+							{#each preselectedTeamSelections as selection}
+								<a
+									class="font-semibold inline underline"
+									href={`/gameweek?gameweek=${selection.gameweek}`}
+								>
+									Week {selection.gameweek}
+								</a>
+							{/each}
+						</span>
 					</p>
-					<ul class="flex flex-col gap-2 mt-4">
-						{#each preselectedTeamSelections as selection}
-							<a
-								class="text-center border-2 border-slate-300 rounded-3xl items-center p-2 px-4 font-semibold flex justify-center align-middle"
-								href={`/gameweek?gameweek=${selection.gameweek}`}
-							>
-								<li>Week {selection.gameweek}</li>
-							</a>
-						{/each}
-					</ul>
 				{/if}
 			</div>
 			<form

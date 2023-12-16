@@ -12,7 +12,7 @@
 	import { inject } from '@vercel/analytics';
 	import { Toaster } from 'svelte-french-toast';
 	import { webVitals } from '@lib/vitals';
-	import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit"
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
 	inject({ mode: dev ? 'development' : 'production' });
 	injectSpeedInsights();
@@ -67,7 +67,7 @@
 <Header {hasUsername} {authenticated} />
 <Toaster />
 
-<main class="py-2 px-4 max-w-2xl m-auto min-h-screen">
+<main class="py-2 px-4 max-w-2xl m-auto min-h-screen flex flex-col justify-between">
 	<slot />
 	<Footer />
 </main>

@@ -13,6 +13,7 @@
 	import { onMount } from 'svelte';
 	import { PUBLIC_ADMIN_EMAIL } from '$env/static/public';
 	import Message from '@lib/icons/Message.svelte';
+	import Button from '@lib/Button/Button.svelte';
 
 	export let authenticated: boolean;
 	export let hasUsername: boolean;
@@ -93,6 +94,13 @@
 						<a href="/admin">Admin</a>
 					</li>
 				{/if}
+				{#if authenticated}
+					<li>
+						<form method="POST" action="?/signout">
+							<Button appearance="link">Sign out</Button>
+						</form>
+					</li>
+				{/if}
 			</ul>
 			<div
 				id="menu-safe-area"
@@ -166,7 +174,7 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: start;
+		align-items: flex-start;
 		gap: 2rem;
 		border-bottom: 0.25rem solid var(--color-accent);
 	}
