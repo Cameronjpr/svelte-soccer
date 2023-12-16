@@ -55,6 +55,11 @@
 	<div class="flex flex-col gap-4 align-middle">
 		<SimplePaginator {currentGameweek} {setGameweek} />
 		{#if gameweek?.fixtures}
+			{#if upcomingGameweek === 19 || activeGameweek === 19}
+				<span class="p-2 bg-green-900 rounded-lg text-white text-center font-bold"
+					>🎄 Merry Christmas and thank you for playing Gameweek Gurus! 🎄</span
+				>
+			{/if}
 			{#if isFinished}
 				<p class="text-sm text-center text-gray-700">This week has finished.</p>
 			{:else if hasStarted || (!isFinished && !dayjs().isBefore(firstKickoff))}
