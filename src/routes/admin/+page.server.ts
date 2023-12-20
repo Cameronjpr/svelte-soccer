@@ -98,7 +98,7 @@ export const actions: Actions = {
           const fixture = fixtures?.find(f => f.code === s.fixture)
           const { team_a_score, team_h_score, team_a, team_h, started } = fixture as Fixture;
 
-          if (!started || team_a_score === null || team_h_score === null) {
+          if (!started || team_a_score === null || team_h_score === null || fixture?.ignore) {
             return;
           }
 

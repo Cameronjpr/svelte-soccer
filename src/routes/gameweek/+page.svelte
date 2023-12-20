@@ -86,9 +86,13 @@
 								dayjs(gameweek.fixtures[index - 1]?.kickoff_time).date() !==
 								dayjs(fixture.kickoff_time).date()}
 							{#if index === 0 || isFirstOfDate}
-								<h2 class="pt-8 mb-0 text-xl">
-									{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
-								</h2>
+								{#if fixture.kickoff_time === null}
+									<h2 class="pt-8 mb-0 text-xl">To be rescheduled</h2>
+								{:else}
+									<h2 class="pt-8 mb-0 text-xl">
+										{dayjs(fixture.kickoff_time).format('dddd Do MMMM')}
+									</h2>
+								{/if}
 							{/if}
 							{#await data?.streamed?.selections then selections}
 								<FixtureCard {fixture} {isSelectable} {selections} />

@@ -4,6 +4,7 @@ export type Fixture = {
 	finished: boolean;
 	finished_provisional: boolean;
 	id: number;
+	ignore: boolean;
 	kickoff_time: string;
 	pulse_id: number;
 	started: boolean;
