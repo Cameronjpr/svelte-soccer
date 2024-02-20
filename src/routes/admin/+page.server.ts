@@ -92,7 +92,6 @@ export const actions: Actions = {
 
       users?.forEach(async (u) => {
         const { data: selections } = await supabase.from('Selections').select().eq('selector', u?.auth_user);
-        console.log(u.auth_user)
         let tally = 0;
         selections?.forEach((s) => {
           const fixture = fixtures?.find(f => f.code === s.fixture)
@@ -126,7 +125,7 @@ export const actions: Actions = {
 
         const { error, status, data } = await supabase.from('Users').update({ score: tally ?? u.score }).eq('auth_user', u.auth_user).select();
 
-        console.log({ error, status, data })
+        console.log({ error, status })
       });
 
       return {
