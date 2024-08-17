@@ -9,25 +9,8 @@
 	onMount(() => (ready = true));
 </script>
 
-{#if ready}
-	<h1>Welcome to <mark in:fade={{ delay: 0, duration: 400 }}>GameweekGurus</mark> 👋</h1>
-
-	<h2>
-		the <mark in:fade={{ delay: 800, duration: 400 }}>live</mark> football predictor game
-	</h2>
-
-	<ol>
-		<li>Make your predictions for the upcoming gameweek</li>
-		<li>Score points for correct predictions</li>
-		<li>Climb the leaderboard and win!</li>
-	</ol>
-
-	<section class="w-full flex flex-col justify-center items-center mt-12">
-		<form method="POST" action="?/login&provider=google">
-			<Button>Join with Google</Button>
-		</form>
-	</section>
-{/if}
+<h1>Thanks for playing Gameweek Gurus!</h1>
+<p>I hope you enjoyed playing along for the 23/24 season! Gameweek Gurus is taking a break for a while, as I work on other projects (and look after a 🐣)</p>
 
 <style>
 	h2 mark {

@@ -28,17 +28,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	if (event.url.pathname === '/') {
-		const session = await event.locals.getSession()
-
-
-		if (session) {
-			redirect(303, '/gameweek');
-		}
-	}
-
 	if (event.url.pathname === '/gameweek/1') {
-		redirect(303, '/gameweek');
+		redirect(303, '/');
 	}
 
 	// protect POST requests to all routes that start with /protected-posts

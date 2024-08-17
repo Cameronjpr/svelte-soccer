@@ -11,7 +11,7 @@ export const actions: Actions = {
     const session = await getSession();
 
     if (session) {
-      redirect(303, '/profile');
+      redirect(303, '/');
     }
 
     const provider = url.searchParams.get('provider') as Provider;
@@ -20,7 +20,7 @@ export const actions: Actions = {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider,
         options: {
-          redirectTo: isProd ? 'https://svelte-soccer.vercel.app/gameweek' : 'http://localhost:5173/gameweek'
+          redirectTo: isProd ? 'https://svelte-soccer.vercel.app/' : 'http://localhost:5173/'
         }
       });
 
